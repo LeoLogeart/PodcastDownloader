@@ -25,7 +25,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -36,8 +35,8 @@ public class DownloadActivity extends Activity {
 
 	private ArrayList<String> titles;
 	private ArrayList<String> podcasts;
-	ProgressDialog progress;
-	ArrayList<HashMap<String, String>> listItem;
+	private ProgressDialog progress;
+	private ArrayList<HashMap<String, String>> listItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,39 +48,17 @@ public class DownloadActivity extends Activity {
 	@Override
 	public void onRestart() {
 		super.onResume();
-		// To dismiss the dialog
+		// To dismiss the loading dialog
 		progress.dismiss();
 		startDl();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.download, menu);
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Look at this dialog!")
-			       .setCancelable(false)
-			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                //do things
-			           }
-			       });
-			AlertDialog alert = builder.create();
-			alert.show();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	/**
 	 * Launches the progress dialog and the downloader.
@@ -147,7 +124,7 @@ public class DownloadActivity extends Activity {
 		} else if (title.contains("pépite")) {
 			res = String.valueOf(R.drawable.gold);
 		} else if (title.contains("of")) {
-			res = String.valueOf(R.drawable.gold);
+			res = String.valueOf(R.drawable.best_of);
 		} else if (title.contains("yst")) {
 			res = String.valueOf(R.drawable.anonymous);
 		}
@@ -183,9 +160,6 @@ public class DownloadActivity extends Activity {
 	/**
 	 * AsyncTask to get the podcast page, parse it and display the list on the
 	 * screen
-	 * 
-	 * @author leo
-	 * 
 	 */
 	class RequestTask extends AsyncTask<String, String, String> {
 
@@ -262,8 +236,7 @@ public class DownloadActivity extends Activity {
 												request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 											}
 											request.setDestinationInExternalPublicDir(
-													Environment.DIRECTORY_DOWNLOADS,// TODO
-																					// PODCASTS?
+													Environment.DIRECTORY_DOWNLOADS,
 													titles.get(position)
 															+ ".mp3");
 
