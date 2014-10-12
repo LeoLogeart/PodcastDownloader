@@ -24,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +42,6 @@ public class DownloadActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("Begin", "onCreate");
 		setContentView(R.layout.activity_download);
 		startDl();
 	}
@@ -51,19 +49,9 @@ public class DownloadActivity extends Activity {
 	@Override
 	public void onRestart() {
 		super.onResume();
-		Log.d("Begin", "onResume");
 		// To dismiss the dialog
 		progress.dismiss();
 		startDl();
-	}
-
-	private void startDl() {
-		progress = new ProgressDialog(this);
-		progress.setTitle("Récupération des podcasts");
-		progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
-		progress.show();
-		new RequestTask()
-				.execute("http://direct-radio.fr/rtl/podcast/laurent-ruquier/Les-Grosses-Tetes");
 	}
 
 	@Override
@@ -80,9 +68,31 @@ public class DownloadActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Look at this dialog!")
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Launches the progress dialog and the downloader.
+	 */
+	private void startDl() {
+		progress = new ProgressDialog(this);
+		progress.setTitle("Récupération des podcasts");
+		progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
+		progress.show();
+		new RequestTask()
+				.execute("http://direct-radio.fr/rtl/podcast/laurent-ruquier/Les-Grosses-Tetes");
 	}
 
 	/**
@@ -92,7 +102,6 @@ public class DownloadActivity extends Activity {
 	 * @return
 	 */
 	private ArrayList<String> parsePage(String responseString) {
-		Log.d("Begin", "Parse");
 		podcasts = new ArrayList<String>();
 		titles = new ArrayList<String>();
 		String[] lines = responseString.split("\n");
@@ -108,7 +117,6 @@ public class DownloadActivity extends Activity {
 				start = currentLine.indexOf("http");
 				end = currentLine.indexOf("\"", start);
 				podcasts.add(currentLine.substring(start, end));
-				// Log.d("url",currentLine.substring(start, end));
 			} else if (currentLine.contains("podcast_titre")) {
 				start = currentLine.indexOf("value=") + 7;
 				end = currentLine.indexOf("\"", start);
@@ -119,15 +127,19 @@ public class DownloadActivity extends Activity {
 				map.put("day", getDay(title));
 				map.put("description", title);
 				map.put("img", getImg(title));
-				// map.put("id", ""+skills.get(i).getId());
 				listItem.add(map);
-				// Log.d("title",currentLine.substring(start, end));
 			}
 			i++;
 		}
 		return podcasts;
 	}
 
+	/**
+	 * Gets the image resource depending on the podcast title
+	 * 
+	 * @param title
+	 * @return
+	 */
 	private String getImg(String title) {
 		String res = "?";
 		if (title.contains("intégrale")) {
@@ -139,10 +151,15 @@ public class DownloadActivity extends Activity {
 		} else if (title.contains("yst")) {
 			res = String.valueOf(R.drawable.anonymous);
 		}
-		Log.d(res, title);
 		return res;
 	}
 
+	/**
+	 * Gets the day depending on the podcast title
+	 * 
+	 * @param title
+	 * @return
+	 */
 	private String getDay(String title) {
 		String res = "?";
 		if (title.contains("lundi")) {
@@ -174,7 +191,6 @@ public class DownloadActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... uri) {
-			Log.d("begin", "doInBackground");
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpResponse response;
 			String responseString = null;
@@ -198,11 +214,9 @@ public class DownloadActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			Log.d("onPostExecute", "begin");
 			// To dismiss the dialog
 			progress.dismiss();
 			if (result == null) {
-				Log.d("onPostExecute", "null");
 				connectionProblem();
 				return;
 			}
@@ -234,13 +248,9 @@ public class DownloadActivity extends Activity {
 							.setCancelable(false)
 							.setPositiveButton("Oui",
 									new DialogInterface.OnClickListener() {
+										// start the download manager
 										public void onClick(
 												DialogInterface dialog, int id) {
-											Log.d("download",
-													titles.get(position)
-															+ " ------ "
-															+ podcasts
-																	.get(position));
 											String url = podcasts.get(position);
 											DownloadManager.Request request = new DownloadManager.Request(
 													Uri.parse(url));
@@ -260,8 +270,6 @@ public class DownloadActivity extends Activity {
 											// get download service and enqueue
 											// file
 											DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-											Log.d("download",
-													"Starting to download");
 											manager.enqueue(request);
 
 										}
@@ -288,7 +296,6 @@ public class DownloadActivity extends Activity {
 	 * Closes the connection.
 	 */
 	private void connectionProblem() {
-		Log.d("Begin", "connectionProblem");
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				DownloadActivity.this);
 		alertDialogBuilder.setTitle("Problème de connexion");
