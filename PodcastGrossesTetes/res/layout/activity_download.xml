@@ -8,7 +8,7 @@
     <ListView
         android:id="@+id/list_podcast"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:divider="#727272"
         android:dividerHeight="1dp"
         android:textColor="#FFFFFF" />

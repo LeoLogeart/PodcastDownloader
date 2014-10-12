@@ -3,6 +3,7 @@ package com.dl.podcastgrossestetes;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -29,42 +30,44 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 public class DownloadActivity extends Activity {
 
 	private ArrayList<String> titles;
 	private ArrayList<String> podcasts;
 	ProgressDialog progress;
+	ArrayList<HashMap<String, String>> listItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d("Begin", "onCreate");
 		setContentView(R.layout.activity_download);
-		progress = new ProgressDialog(this);
-		progress.setTitle("Récupération des podcasts");
-		progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
-		progress.show();
-
-		new RequestTask()
-				.execute("http://direct-radio.fr/rtl/podcast/laurent-ruquier/Les-Grosses-Tetes");
+		startDl();
 	}
 
 	@Override
 	public void onRestart() {
 		super.onResume();
 		Log.d("Begin", "onResume");
-		titles = new ArrayList<String>();
-		podcasts = new ArrayList<String>();
+		// To dismiss the dialog
+		progress.dismiss();
+		startDl();
+	}
+
+	private void startDl() {
+		progress = new ProgressDialog(this);
+		progress.setTitle("Récupération des podcasts");
+		progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
+		progress.show();
 		new RequestTask()
 				.execute("http://direct-radio.fr/rtl/podcast/laurent-ruquier/Les-Grosses-Tetes");
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.download, menu);
 		return true;
@@ -96,6 +99,9 @@ public class DownloadActivity extends Activity {
 		int i = 0;
 		int start, end;
 		String currentLine;
+		listItem = new ArrayList<HashMap<String, String>>();
+		HashMap<String, String> map = new HashMap<String, String>();
+		String title;
 		while (i < lines.length) {
 			currentLine = lines[i];
 			if (currentLine.contains("podcast_url")) {
@@ -106,12 +112,55 @@ public class DownloadActivity extends Activity {
 			} else if (currentLine.contains("podcast_titre")) {
 				start = currentLine.indexOf("value=") + 7;
 				end = currentLine.indexOf("\"", start);
-				titles.add(currentLine.substring(start, end));
+				title = currentLine.substring(start, end);
+				titles.add(title);
+
+				map = new HashMap<String, String>();
+				map.put("day", getDay(title));
+				map.put("description", title);
+				map.put("img", getImg(title));
+				// map.put("id", ""+skills.get(i).getId());
+				listItem.add(map);
 				// Log.d("title",currentLine.substring(start, end));
 			}
 			i++;
 		}
 		return podcasts;
+	}
+
+	private String getImg(String title) {
+		String res = "?";
+		if (title.contains("intégrale")) {
+			res = String.valueOf(R.drawable.gtlr);
+		} else if (title.contains("pépite")) {
+			res = String.valueOf(R.drawable.gold);
+		} else if (title.contains("of")) {
+			res = String.valueOf(R.drawable.gold);
+		} else if (title.contains("yst")) {
+			res = String.valueOf(R.drawable.anonymous);
+		}
+		Log.d(res, title);
+		return res;
+	}
+
+	private String getDay(String title) {
+		String res = "?";
+		if (title.contains("lundi")) {
+			res = "Lundi";
+		} else if (title.contains("mardi")) {
+			res = "Mardi";
+		} else if (title.contains("mercredi")) {
+			res = "Mercredi";
+		} else if (title.contains("jeudi")) {
+			res = "Jeudi";
+		} else if (title.contains("vendredi")) {
+			res = "Vendredi";
+		} else if (title.contains("samedi")) {
+			res = "Samedi";
+		} else if (title.contains("dimanche")) {
+			res = "Dimanche";
+		}
+		return res;
 	}
 
 	/**
@@ -137,13 +186,11 @@ public class DownloadActivity extends Activity {
 					response.getEntity().writeTo(out);
 					out.close();
 					responseString = out.toString();
-				} else {
-					// connectionProblem();
 				}
 			} catch (ClientProtocolException e) {
-				// connectionProblem();
+				// Do nothing
 			} catch (IOException e) {
-				// connectionProblem();
+				// Do nothing
 			}
 			return responseString;
 		}
@@ -161,15 +208,17 @@ public class DownloadActivity extends Activity {
 			}
 			parsePage(result);
 
-			ListView mContactList = (ListView) findViewById(R.id.list_podcast);
+			ListView podcastList = (ListView) findViewById(R.id.list_podcast);
 			// set the list of titles in listView
-			ArrayAdapter<String> adapt = new ArrayAdapter<String>(
-					getApplicationContext(), R.layout.list_item, titles);
-
-			mContactList.setAdapter(adapt);
+			SimpleAdapter adapt = new SimpleAdapter(
+					DownloadActivity.this.getBaseContext(), listItem,
+					R.layout.print_item, new String[] { "img", "day",
+							"description" }, new int[] { R.id.img, R.id.title,
+							R.id.description });
+			podcastList.setAdapter(adapt);
 			// for each title, set the download when clicked (with an alertbox
 			// to verify)
-			mContactList.setOnItemClickListener(new OnItemClickListener() {
+			podcastList.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> l, View v,
@@ -235,9 +284,11 @@ public class DownloadActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Closes the connection.
+	 */
 	private void connectionProblem() {
 		Log.d("Begin", "connectionProblem");
-		// Closes the connection.
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				DownloadActivity.this);
 		alertDialogBuilder.setTitle("Problème de connexion");
@@ -247,7 +298,7 @@ public class DownloadActivity extends Activity {
 				.setCancelable(false)
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						 DownloadActivity.this.finish();
+						DownloadActivity.this.finish();
 					}
 				});
 
