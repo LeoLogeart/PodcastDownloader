@@ -13,6 +13,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -28,6 +32,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -42,6 +47,21 @@ public class DownloadActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_download);
+		// Look up the AdView as a resource and load a request.
+		AdView adView = new AdView(this);
+		adView.setAdSize(AdSize.BANNER);
+		adView.setAdUnitId("ca-app-pub-9891261141906247/3743396414");
+		LinearLayout adContainer = (LinearLayout)this.findViewById(R.id.adsContainer);
+		//AdRequest.Builder.addTestDevice("2FE9D284111DF65B11204DB532C0697E");
+
+		AdRequest adRequest = new AdRequest.Builder().build();
+
+		adContainer.addView(adView);
+		adView.loadAd(adRequest);
+		
+		/*AdView adView = (AdView)this.findViewById(R.id.adView);
+		AdRequest adRequest = new AdRequest.Builder().build();
+		adView.loadAd(adRequest);*/
 		startDl();
 	}
 
@@ -118,7 +138,7 @@ public class DownloadActivity extends Activity {
 	 * @return
 	 */
 	private String getImg(String title) {
-		String res = "?";
+		String res = String.valueOf(R.drawable.gtlr);
 		if (title.contains("intégrale")) {
 			res = String.valueOf(R.drawable.gtlr);
 		} else if (title.contains("pépite")) {
@@ -223,6 +243,7 @@ public class DownloadActivity extends Activity {
 							.setPositiveButton("Oui",
 									new DialogInterface.OnClickListener() {
 										// start the download manager
+										@Override
 										public void onClick(
 												DialogInterface dialog, int id) {
 											String url = podcasts.get(position);
@@ -249,6 +270,7 @@ public class DownloadActivity extends Activity {
 									})
 							.setNegativeButton("Non",
 									new DialogInterface.OnClickListener() {
+										@Override
 										public void onClick(
 												DialogInterface dialog, int id) {
 											dialog.cancel();
@@ -277,6 +299,7 @@ public class DownloadActivity extends Activity {
 						"Vous n'êtes pas connecté à internet, veuillez réessayer plus tard.")
 				.setCancelable(false)
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						DownloadActivity.this.finish();
 					}
