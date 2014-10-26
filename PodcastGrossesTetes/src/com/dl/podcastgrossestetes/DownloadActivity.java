@@ -52,16 +52,11 @@ public class DownloadActivity extends Activity {
 		adView.setAdSize(AdSize.BANNER);
 		adView.setAdUnitId("ca-app-pub-9891261141906247/3743396414");
 		LinearLayout adContainer = (LinearLayout)this.findViewById(R.id.adsContainer);
-		//AdRequest.Builder.addTestDevice("2FE9D284111DF65B11204DB532C0697E");
 
 		AdRequest adRequest = new AdRequest.Builder().build();
 
 		adContainer.addView(adView);
 		adView.loadAd(adRequest);
-		
-		/*AdView adView = (AdView)this.findViewById(R.id.adView);
-		AdRequest adRequest = new AdRequest.Builder().build();
-		adView.loadAd(adRequest);*/
 		startDl();
 	}
 
