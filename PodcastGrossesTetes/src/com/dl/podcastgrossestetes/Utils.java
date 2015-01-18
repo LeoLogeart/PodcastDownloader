@@ -1,10 +1,58 @@
 package com.dl.podcastgrossestetes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Utils {
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 
+public class Utils {
+	
+	private static Activity act;
+	
+	
+	public Utils(Activity activity) {
+		act=activity;
+	}
+
+	public static Activity getActivity(){
+		return act;
+	}
+	
+	/**
+	 * Add a vlue to the list of downloaded podcasts
+	 * @param seenPodcast
+	 */
+	public void addSeen(String seenPodcast){
+		SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+		String downloaded = sharedPref.getString("Downloaded",null);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		if(downloaded==null){
+			editor.putString("Downloaded",seenPodcast);
+		} else {
+			editor.putString("Downloaded",downloaded+","+seenPodcast);
+		}
+		editor.commit();
+	}
+	
+	/**
+	 * Retrieve the list of downloaded podcasts
+	 * @return
+	 */
+	public static List<String> getDownloaded(){
+		SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+		String downloaded = sharedPref.getString("Downloaded", "");
+		ArrayList<String> seen = new ArrayList<String>(Arrays.asList(downloaded.split(",")));
+		if(seen.size()>30){
+			seen.remove(0);
+		}
+		return seen;
+	}
+
+	
 	/**
 	 * Parses the html page to get podcast titles and urls
 	 * 
@@ -25,13 +73,17 @@ public class Utils {
 				end = currentLine.indexOf("\"", start);
 				podcasts.add(currentLine.substring(start, end));
 			} else if (currentLine.contains("podcast_titre")) {
+				map = new HashMap<String, String>();
 				start = currentLine.indexOf("value=") + 7;
 				end = currentLine.indexOf("\"", start);
 				title = currentLine.substring(start, end);
 				titles.add(title);
+				if(Utils.getDownloaded().contains(title)){
+					map.put("day", getDay(title)+" ( Téléchargé )");
+				} else {
+					map.put("day", getDay(title));
+				}
 
-				map = new HashMap<String, String>();
-				map.put("day", getDay(title));
 				map.put("description", title);
 				map.put("img", getImg(title));
 				listItem.add(map);

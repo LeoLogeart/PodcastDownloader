@@ -13,10 +13,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -36,12 +32,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 public class DownloadActivity extends Activity {
 
 	private ArrayList<String> titles;
 	private ArrayList<String> podcasts;
 	private ProgressDialog progress;
 	private ArrayList<HashMap<String, String>> listItem;
+	private Utils utils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class DownloadActivity extends Activity {
 
 		adContainer.addView(adView);
 		adView.loadAd(adRequest);
+		utils = new Utils(this);
 		startDl();
 	}
 
@@ -178,7 +180,7 @@ public class DownloadActivity extends Activity {
 											// file
 											DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 											manager.enqueue(request);
-
+											utils.addSeen(titles.get(position));
 										}
 									})
 							.setNegativeButton("Non",
