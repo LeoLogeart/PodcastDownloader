@@ -20,7 +20,10 @@
         android:layout_weight="1"
         android:focusable="false"
         android:orientation="vertical"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="7dp"
+        android:paddingStart="0dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp">
 
         <TextView
             android:id="@+id/title"

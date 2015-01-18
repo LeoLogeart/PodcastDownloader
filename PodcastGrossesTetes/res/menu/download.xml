@@ -2,4 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.dl.podcastgrossestetes.DownloadActivity" >
+
+    <item
+        android:id="@+id/changelayout"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/change"/>
+
 </menu>

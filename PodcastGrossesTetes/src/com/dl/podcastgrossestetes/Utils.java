@@ -8,13 +8,14 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.SimpleAdapter;
 
 public class Utils {
 	
-	private static Activity act;
+	private static DownloadActivity act;
 	
 	
-	public Utils(Activity activity) {
+	public Utils(DownloadActivity activity) {
 		act=activity;
 	}
 
@@ -36,6 +37,14 @@ public class Utils {
 			editor.putString("Downloaded",downloaded+","+seenPodcast);
 		}
 		editor.commit();
+		
+		ArrayList<HashMap<String, String>> list = act.getListItem();
+		for(HashMap<String,String> item : list){
+			if(item.get("description").equals(seenPodcast)){
+				item.put("day", item.get("day")+" ( Téléchargé )");
+			}
+		}
+		updateLayout();
 	}
 	
 	/**
@@ -139,6 +148,31 @@ public class Utils {
 			res = "Dimanche";
 		}
 		return res;
+	}
+
+	public static void updateLayout() {
+		ArrayList<HashMap<String, String>> list = act.getListItem();
+		ArrayList<HashMap<String, String>> newList = new ArrayList<HashMap<String, String>>();
+		SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+		boolean integ = sharedPref.getBoolean("integral",true);
+		boolean best = sharedPref.getBoolean("best",true);
+		boolean mom = sharedPref.getBoolean("moments",true);
+		boolean guest = sharedPref.getBoolean("guest",true);
+		for(HashMap<String,String> item : list){
+			if((item.get("img").equals(String.valueOf(R.drawable.gold)) && mom) ||
+					(item.get("img").equals(String.valueOf(R.drawable.gtlr)) && integ) ||
+					(item.get("img").equals(String.valueOf(R.drawable.best_of)) && best) ||
+					(item.get("img").equals(String.valueOf(R.drawable.anonymous)) && guest)
+					){
+				newList.add(item);
+			}
+		}
+		SimpleAdapter adapt = new SimpleAdapter(
+				act.getBaseContext(), newList,
+				R.layout.print_item, new String[] { "img", "day",
+						"description" }, new int[] { R.id.img, R.id.title,
+						R.id.description });
+		act.getpodcastList().setAdapter(adapt);
 	}
 
 }
