@@ -97,6 +97,10 @@ public class DownloadActivity extends Activity {
 		return true;
 	}
 	
+	
+	/**
+	 * Create the dialog that will ask which display the user wants
+	 */
 	public void createDialog() {
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    // Set the dialog title
@@ -151,6 +155,7 @@ public class DownloadActivity extends Activity {
 	    alertDialog.show();
     return;
 }
+	
 	/**
 	 * Launches the progress dialog and the downloader.
 	 */
@@ -215,14 +220,17 @@ public class DownloadActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> l, View v,
 						final int position, long id) {//TODO positon is not well used when special lists are set
-
+					
+					@SuppressWarnings("unchecked")
+					HashMap<String, String> item=(HashMap<String, String>)l.getItemAtPosition(position);
+					final String title = item.get("description");
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 							DownloadActivity.this);
 					alertDialogBuilder.setTitle("Télécharger");
 					alertDialogBuilder
 							.setMessage(
 									"Voulez vous télécharger "
-											+ titles.get(position))
+											+ title)
 							.setCancelable(false)
 							.setPositiveButton("Oui",
 									new DialogInterface.OnClickListener() {
@@ -230,26 +238,24 @@ public class DownloadActivity extends Activity {
 										@Override
 										public void onClick(
 												DialogInterface dialog, int id) {
-											String url = podcasts.get(position);
+											String url = podcasts.get(titles.indexOf(title));
 											DownloadManager.Request request = new DownloadManager.Request(
 													Uri.parse(url));
 											request.setDescription("podcast");
-											request.setTitle(titles
-													.get(position) + ".mp3");
+											request.setTitle(title + ".mp3");
 											if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 												request.allowScanningByMediaScanner();
 												request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 											}
 											request.setDestinationInExternalPublicDir(
 													Environment.DIRECTORY_DOWNLOADS,
-													titles.get(position)
-															+ ".mp3");
+													title+ ".mp3");
 
 											// get download service and enqueue
 											// file
 											DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 											manager.enqueue(request);
-											utils.addSeen(titles.get(position));
+											utils.addSeen(title);
 										}
 									})
 							.setNegativeButton("Non",

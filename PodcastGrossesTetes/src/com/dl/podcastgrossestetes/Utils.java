@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,7 +41,7 @@ public class Utils {
 		
 		ArrayList<HashMap<String, String>> list = act.getListItem();
 		for(HashMap<String,String> item : list){
-			if(item.get("description").equals(seenPodcast)){
+			if(item.get("description").equals(seenPodcast) && !item.get("day").contains(" ( Téléchargé )")){
 				item.put("day", item.get("day")+" ( Téléchargé )");
 			}
 		}
@@ -132,9 +133,10 @@ public class Utils {
 	 */
 	private static String getDay(String title) {
 		String res = "?";
+		title=title.toLowerCase(Locale.FRENCH);
 		if (title.contains("lundi")) {
 			res = "Lundi";
-		} else if (title.contains("mardi")) {
+		} else if (title.contains("mardi") ) {
 			res = "Mardi";
 		} else if (title.contains("mercredi")) {
 			res = "Mercredi";
@@ -150,6 +152,10 @@ public class Utils {
 		return res;
 	}
 
+	
+	/**
+	 * Update the layout with values selected by the user
+	 */
 	public static void updateLayout() {
 		ArrayList<HashMap<String, String>> list = act.getListItem();
 		ArrayList<HashMap<String, String>> newList = new ArrayList<HashMap<String, String>>();
