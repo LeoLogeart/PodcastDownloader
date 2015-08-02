@@ -244,10 +244,30 @@ public class DownloadActivity extends Activity {
                                                 request.allowScanningByMediaScanner();
                                                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                             }
-                                            request.setDestinationInExternalPublicDir(
-                                                    Environment.DIRECTORY_DOWNLOADS,
-                                                    title + ".mp3");
+                                            try {
+                                                request.setDestinationInExternalPublicDir(
+                                                        Environment.DIRECTORY_DOWNLOADS,
+                                                        title + ".mp3");
+                                            } catch (IllegalStateException e) {
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                                        DownloadActivity.this);
+                                                alertDialogBuilder.setTitle("Problème de stockage");
+                                                alertDialogBuilder
+                                                        .setMessage(
+                                                                "Impossible d'écrire sur la mémoire externe.")
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                DownloadActivity.this.finish();
+                                                            }
+                                                        });
 
+                                                // create alert dialog
+                                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.show();
+                                                return;
+                                            }
                                             // get download service and enqueue
                                             // file
                                             DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
