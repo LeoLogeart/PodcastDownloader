@@ -229,6 +229,10 @@ public class Utils {
         } catch (Exception e){
             //do nothing
         }
+        if(tmp.contains("  ")){
+            int blank = tmp.indexOf("  ");
+            tmp=tmp.substring(0,blank)+tmp.substring(blank+1);
+        }
         return tmp;
     }
 
