@@ -118,7 +118,6 @@ public class Utils {
         } else if (url.contains("yst")) {
             sb.append("L'invité mystère du ");
         } else {
-            //sb.append((url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," "));
             sb.append("Les grosses têtes du ");
         }
         tmp=(url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," ");
