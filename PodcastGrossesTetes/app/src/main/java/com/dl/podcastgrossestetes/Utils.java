@@ -35,7 +35,7 @@ public class Utils {
         if(downloaded==null){
             editor.putString("Downloaded",seenPodcast);
         } else {
-            editor.putString("Downloaded",downloaded+","+seenPodcast);
+            editor.putString("Downloaded", downloaded + "," + seenPodcast);
         }
         editor.apply();
 
@@ -107,133 +107,150 @@ public class Utils {
      * @return formatted string
      */
     private static String getTitleFromUrl(String url) {
-        String tmp="";
-        if(url.contains("du")){
-            tmp=url.substring(url.indexOf("du"),url.length()-4);
-            tmp=tmp.replace("-"," ");
-        }
+        String tmp;
+        StringBuilder sb = new StringBuilder();
         if (url.contains("gral")) {
-            tmp="L'intégrale "+tmp;
+            sb.append("L'intégrale du ");
         } else if (url.contains("pite")) {
-            tmp="Les pépites "+tmp;
+            sb.append("Les pépites du ");
         } else if (url.contains("of")) {
-            tmp="Le Best of "+tmp;
+            sb.append("Le best of du ");
         } else if (url.contains("yst")) {
-            tmp="L'invité mystère "+tmp;
+            sb.append("L'invité mystère du ");
         } else {
-            tmp=(url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," ");
+            //sb.append((url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," "));
+            sb.append("Les grosses têtes du ");
         }
-
-        // if the date is like "150730"
+        tmp=(url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," ");
         try {
+            String date;
             String pattern = "\\d{6}";
             Pattern r = Pattern.compile(pattern);
             Matcher matcher = r.matcher(tmp);
             if (matcher.find()) {
-                String nums = matcher.group();
-                int year_int = Calendar.getInstance().get(Calendar.YEAR);
-                String year = "" + (year_int % 100);
-                String year_old = "" + ((year_int % 100) - 1);
-                String date = " du ";
-                String beginning = nums.substring(0, 2);
-                String middle = nums.substring(2, 4);
-                String end = nums.substring(4, 6);
-                int y, d;
-                int m = Integer.parseInt(middle);
-                if (beginning.equals(year) || beginning.equals(year_old)) {
-                    y = Integer.parseInt("20" + beginning);
-                    d = Integer.parseInt(end);
-
-                } else if (end.equals(year) || end.equals(year_old)) {
-                    y = Integer.parseInt("20" + end);
-                    d = Integer.parseInt(beginning);
-
-                } else {
-                    return tmp;
-                }
-                Calendar calendar = new GregorianCalendar(y, m - 1, d);
-                String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.FRANCE);
-                String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE);
-                date = date + dayOfWeek + " " + d + " " + month;
-                tmp = tmp.substring(matcher.end()+1,tmp.length())+date;
+                // if the date is like "150730" or "300715"
+                String num = matcher.group();
+                date=getDateFrom6Num(num);
             } else {
                 //if date is like "du 10 juillet"
-                String noyear = tmp.substring(0,tmp.indexOf("201"));
+                String noyear = tmp;
+                if(tmp.contains("201")) {
+                    noyear = tmp.substring(0, tmp.indexOf("201"));
+                }
                 pattern = "\\d{2}";
                 r = Pattern.compile(pattern);
                 matcher = r.matcher(noyear);
                 String day;
-                int start;
                 if (matcher.find()) {
-                    start = matcher.start();
                     day = matcher.group();
                 } else {
-
+                    // du 2 aout
                     pattern = "\\d";
                     r = Pattern.compile(pattern);
                     matcher = r.matcher(noyear);
                     if (matcher.find()) {
-                        start = matcher.start();
                         day = matcher.group();
                     } else {
                         return tmp;
                     }
                 }
-                int m;
-                if (tmp.contains("anvier ")) {
-                    m = 1;
-                } else if (tmp.contains("vrier ")) {
-                    m = 2;
-                } else if (tmp.contains("ars ")) {
-                    m = 3;
-                } else if (tmp.contains("vril ")) {
-                    m = 4;
-                } else if (tmp.contains("mai ")) {
-                    m = 5;
-                } else if (tmp.contains("uin ")) {
-                    m = 6;
-                } else if (tmp.contains("uillet ")) {
-                    m = 7;
-                } else if (tmp.contains("out ")) {
-                    m = 8;
-                } else if (tmp.contains("eptembre ")) {
-                    m = 9;
-                } else if (tmp.contains("ctobre ")) {
-                    m = 10;
-                } else if (tmp.contains("ovembre ")) {
-                    m = 11;
-                } else if (tmp.contains("cembre ")) {
-                    m = 12;
-                } else {
+                int m=getMonthFromStr(tmp);
+                if(m==-1){
                     return tmp;
                 }
 
-                if (!getDay(tmp).equals("?")) {
-                    return tmp;
-                }
-                pattern = "20\\d{2}";
+                int y = Calendar.getInstance().get(Calendar.YEAR);
+                pattern = ""+(y-1);
                 r = Pattern.compile(pattern);
                 matcher = r.matcher(tmp);
                 if (matcher.find()) {
-                    String year = matcher.group();
-                    int y = Integer.parseInt(year);
-                    int d = Integer.parseInt(day);
-                    Calendar calendar = new GregorianCalendar(y, m - 1, d);
-                    String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.FRANCE);
-                    String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE);
-                    String date = " " + dayOfWeek + " " + d + " " + month;
-                    tmp = tmp.substring(0, start) + date;
+                    y--;
                 }
+                int d = Integer.parseInt(day);
+                Calendar calendar = new GregorianCalendar(y, m - 1, d);
+                String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.FRANCE);
+                String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE);
+                date = dayOfWeek + " " + d + " " + month;
             }
-
+            if(date==null){
+                return tmp;
+            }
+            sb.append(date);
+            return sb.toString();
         } catch (Exception e){
             //do nothing
         }
-        if(tmp.contains("  ")){
-            int blank = tmp.indexOf("  ");
-            tmp=tmp.substring(0,blank)+tmp.substring(blank+1);
-        }
+
         return tmp;
+    }
+
+
+    /**
+     *
+     * @param tmp the podcast title
+     * @return the number of the month contained in the string
+     */
+    public static int getMonthFromStr(String tmp) {
+        int m;
+        if (tmp.contains("anvier")) {
+            m = 1;
+        } else if (tmp.contains("vrier")) {
+            m = 2;
+        } else if (tmp.contains("ars")) {
+            m = 3;
+        } else if (tmp.contains("vril")) {
+            m = 4;
+        } else if (tmp.toLowerCase().contains("mai")) {
+            m = 5;
+        } else if (tmp.contains("uin")) {
+            m = 6;
+        } else if (tmp.contains("uillet")) {
+            m = 7;
+        } else if (tmp.contains("out") || tmp.contains("oût")) {
+            m = 8;
+        } else if (tmp.contains("eptembre")) {
+            m = 9;
+        } else if (tmp.contains("ctobre")) {
+            m = 10;
+        } else if (tmp.contains("ovembre")) {
+            m = 11;
+        } else if (tmp.contains("cembre")) {
+            m = 12;
+        } else {
+            return -1;
+        }
+        return m;
+    }
+
+    /**
+     *
+     * @param nums the date in number format eg:060215
+     * @return the date in string format
+     */
+    public static String getDateFrom6Num(String nums){
+        int year_int = Calendar.getInstance().get(Calendar.YEAR);
+        String year = "" + (year_int % 100);
+        String year_old = "" + ((year_int % 100) - 1);
+        String beginning = nums.substring(0, 2);
+        String middle = nums.substring(2, 4);
+        String end = nums.substring(4, 6);
+        int y, d;
+        int m = Integer.parseInt(middle);
+        if (beginning.equals(year) || beginning.equals(year_old)) {
+            y = Integer.parseInt("20" + beginning);
+            d = Integer.parseInt(end);
+
+        } else if (end.equals(year) || end.equals(year_old)) {
+            y = Integer.parseInt("20" + end);
+            d = Integer.parseInt(beginning);
+
+        } else {
+            return null;
+        }
+        Calendar calendar = new GregorianCalendar(y, m - 1, d);
+        String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.FRANCE);
+        String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE);
+        return dayOfWeek + " " + d + " " + month;
     }
 
     /**
