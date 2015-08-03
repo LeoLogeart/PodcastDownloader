@@ -24,19 +24,14 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
-import org.apache.commons.io.IOUtils;
-
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdSize;
- //import com.google.android.gms.ads.AdView;
 
 public class DownloadActivity extends Activity {
 
@@ -179,9 +174,17 @@ public class DownloadActivity extends Activity {
                 URL url = new URL(uri[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                StringWriter writer = new StringWriter();
-                IOUtils.copy(in, writer, "UTF-8");
-                responseString = writer.toString();
+
+                // read it with BufferedReader
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                    sb.append("\n");
+                }
+                responseString=sb.toString();
+                br.close();
             } catch (Exception e) {
                 //do nothing
             }
