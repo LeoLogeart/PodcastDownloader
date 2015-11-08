@@ -157,7 +157,7 @@ public class DownloadActivity extends Activity {
         progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
         progress.show();
         new RequestTask()
-                .execute("http://direct-radio.fr/rtl/podcast/laurent-ruquier/Les-Grosses-Tetes");
+                .execute("http://www.rtl.fr/podcast/les-grosses-tetes.xml");
     }
 
     /**

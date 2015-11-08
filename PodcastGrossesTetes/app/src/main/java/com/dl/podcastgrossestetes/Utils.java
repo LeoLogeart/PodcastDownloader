@@ -78,7 +78,7 @@ public class Utils {
         String title,url;
         while (i < lines.length) {
             currentLine = lines[i];
-            if (currentLine.contains("podcast_url")) {
+            if (currentLine.contains("enclosure url")) {
                 start = currentLine.indexOf("http");
                 end = currentLine.indexOf("\"", start);
                 url=currentLine.substring(start, end);
