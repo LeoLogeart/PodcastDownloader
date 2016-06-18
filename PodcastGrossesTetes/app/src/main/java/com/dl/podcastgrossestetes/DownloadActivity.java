@@ -219,7 +219,7 @@ public class DownloadActivity extends Activity {
 
                 @Override
                 public void onItemClick(AdapterView<?> l, View v,
-                                        final int position, long id) {//TODO positon is not well used when special lists are set
+                                        final int position, long id) {
 
                     @SuppressWarnings("unchecked")
                     HashMap<String, String> item = (HashMap<String, String>) l.getItemAtPosition(position);

@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.BaseAdapter;
 import android.widget.SimpleAdapter;
 
 public class Utils {
@@ -45,7 +46,7 @@ public class Utils {
                 item.put("day", item.get("day")+" ( Téléchargé )");
             }
         }
-        updateLayout();
+        ((BaseAdapter) act.getpodcastList().getAdapter()).notifyDataSetChanged();
     }
 
     /**
@@ -109,7 +110,7 @@ public class Utils {
     private static String getTitleFromUrl(String url) {
         String tmp;
         StringBuilder sb = new StringBuilder();
-        if (url.contains("gral")) {
+        if (url.contains("gral") || url.contains("les-grosses")) {
             sb.append("L'intégrale du ");
         } else if (url.contains("pite")) {
             sb.append("Les pépites du ");
@@ -126,9 +127,16 @@ public class Utils {
             String pattern = "\\d{6}";
             Pattern r = Pattern.compile(pattern);
             Matcher matcher = r.matcher(tmp);
+            String pattern2 = "\\d{2}\\s\\d{2}\\s\\d{4}";
+            Pattern r2 = Pattern.compile(pattern2);
+            Matcher matcher2 = r2.matcher(tmp);
             if (matcher.find()) {
                 // if the date is like "150730" or "300715"
                 String num = matcher.group();
+                date=getDateFrom6Num(num);
+            } else if (matcher2.find()) {
+                String num = matcher2.group().replaceAll(" ","");
+                num = num.substring(0,4)+num.substring(6);
                 date=getDateFrom6Num(num);
             } else {
                 //if date is like "du 10 juillet"
