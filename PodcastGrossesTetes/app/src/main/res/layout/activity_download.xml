@@ -12,7 +12,7 @@
         android:layout_above="@+id/adsContainer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="#727272"
+        android:divider="@drawable/list_divider"
         android:dividerHeight="1dp"
         android:textColor="#FFFFFF" />
 

@@ -135,7 +135,7 @@ public class DownloadActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 editor.apply();
-                Utils.updateLayout();
+                utils.updateLayout();
             }
         });
         AlertDialog.Builder builder1 = builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -208,11 +208,11 @@ public class DownloadActivity extends Activity {
             listItem = new ArrayList<>();
             podcasts = new ArrayList<>();
             titles = new ArrayList<>();
-            Utils.parsePage(result, podcasts, titles, listItem);
+            utils.parsePage(result, podcasts, titles, listItem);
 
             podcastList = (ListView) findViewById(R.id.list_podcast);
             // set the list of titles in listView
-            Utils.updateLayout();
+            utils.updateLayout();
             // for each title, set the download when clicked (with an alertbox
             // to verify)
             podcastList.setOnItemClickListener(new OnItemClickListener() {

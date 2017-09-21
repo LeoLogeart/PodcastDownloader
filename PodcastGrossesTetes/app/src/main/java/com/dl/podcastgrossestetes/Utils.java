@@ -15,9 +15,15 @@ import android.content.SharedPreferences;
 import android.widget.BaseAdapter;
 import android.widget.SimpleAdapter;
 
+import static com.dl.podcastgrossestetes.R.drawable.anonymous;
+import static com.dl.podcastgrossestetes.R.drawable.best_of;
+import static com.dl.podcastgrossestetes.R.drawable.gold;
+import static com.dl.podcastgrossestetes.R.drawable.gtlr;
+
 public class Utils {
 
-    private static DownloadActivity act;
+    private DownloadActivity act;
+    private String formattedDate;
 
 
     public Utils(DownloadActivity activity) {
@@ -53,7 +59,7 @@ public class Utils {
      * Retrieve the list of downloaded podcasts
      * @return list of downloaded podcasts
      */
-    public static List<String> getDownloaded(){
+    public List<String> getDownloaded(){
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         String downloaded = sharedPref.getString("Downloaded", "");
         ArrayList<String> seen = new ArrayList<>(Arrays.asList(downloaded.split(",")));
@@ -70,7 +76,7 @@ public class Utils {
      * @param responseString the whole html page
      *
      */
-    public static void parsePage(String responseString, List<String> podcasts, List<String> titles, List<HashMap<String, String>> listItem) {
+    public void parsePage(String responseString, List<String> podcasts, List<String> titles, List<HashMap<String, String>> listItem) {
         String[] lines = responseString.split("\n");
         int i = 0;
         int start, end;
@@ -87,7 +93,7 @@ public class Utils {
                 map = new HashMap<>();
                 title=getTitleFromUrl(url);
                 titles.add(title);
-                if(Utils.getDownloaded().contains(title)){
+                if(getDownloaded().contains(title)){
                     map.put("day", getDay(title)+" ( Téléchargé )");
                 } else {
                     map.put("day", getDay(title));
@@ -107,46 +113,22 @@ public class Utils {
      * @param url the url
      * @return formatted string
      */
-    private static String getTitleFromUrl(String url) {
+    private String getTitleFromUrl(String url) {
         String tmp;
         StringBuilder sb = new StringBuilder();
-        if (url.contains("gral") || url.contains("les-grosses")) {
-            sb.append("L'intégrale du ");
-        } else if (url.contains("pite")) {
-            sb.append("Les pépites du ");
-        } else if (url.contains("of")) {
-            sb.append("Le best of du ");
-        } else if (url.contains("yst")) {
-            sb.append("L'invité mystère du ");
-        } else {
-            sb.append("Les grosses têtes du ");
-        }
+        appendPodcastType(url, sb);
         tmp=(url.substring(url.indexOf("_")+1,url.length()-4)).replace("-"," ");
         try {
-            String date;
-            String pattern = "\\d{6}";
-            Pattern r = Pattern.compile(pattern);
-            Matcher matcher = r.matcher(tmp);
-            String pattern2 = "\\d{2}\\s\\d{2}\\s\\d{4}";
-            Pattern r2 = Pattern.compile(pattern2);
-            Matcher matcher2 = r2.matcher(tmp);
-            if (matcher.find()) {
-                // if the date is like "150730" or "300715"
-                String num = matcher.group();
-                date=getDateFrom6Num(num);
-            } else if (matcher2.find()) {
-                String num = matcher2.group().replaceAll(" ","");
-                num = num.substring(0,4)+num.substring(6);
-                date=getDateFrom6Num(num);
-            } else {
+            if(!matchDate1(tmp) && !matchDate2(tmp) && !matchDate3(tmp))
+            {
                 //if date is like "du 10 juillet"
                 String noyear = tmp;
                 if(tmp.contains("201")) {
                     noyear = tmp.substring(0, tmp.indexOf("201"));
                 }
-                pattern = "\\d{2}";
-                r = Pattern.compile(pattern);
-                matcher = r.matcher(noyear);
+                String pattern = "\\d{2}";
+                Pattern r = Pattern.compile(pattern);
+                Matcher matcher = r.matcher(noyear);
                 String day;
                 if (matcher.find()) {
                     day = matcher.group();
@@ -177,12 +159,12 @@ public class Utils {
                 Calendar calendar = new GregorianCalendar(y, m - 1, d);
                 String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.FRANCE);
                 String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.FRANCE);
-                date = dayOfWeek + " " + d + " " + month;
+                formattedDate = dayOfWeek + " " + d + " " + month;
             }
-            if(date==null){
+            if(formattedDate==null){
                 return tmp;
             }
-            sb.append(date);
+            sb.append(formattedDate);
             return sb.toString();
         } catch (Exception e){
             //do nothing
@@ -191,13 +173,61 @@ public class Utils {
         return tmp;
     }
 
+    private void appendPodcastType(String url, StringBuilder sb) {
+        if (url.contains("gral") || url.contains("les-grosses")) {
+            sb.append("L'intégrale du ");
+        } else if (url.contains("pite")) {
+            sb.append("Les pépites du ");
+        } else if (url.contains("of")) {
+            sb.append("Le best of du ");
+        } else if (url.contains("yst")) {
+            sb.append("L'invité mystère du ");
+        } else {
+            sb.append("Les grosses têtes du ");
+        }
+    }
+
+    private boolean matchDate1(String tmpDate) {
+        String pattern = "\\d{6}";
+        Pattern r = Pattern.compile(pattern);
+        Matcher matcher = r.matcher(tmpDate);
+        if(matcher.find()) {
+            formattedDate = getDateFrom6Num(matcher.group());
+            return true;
+        }
+        return false;
+    }
+    private boolean matchDate2(String tmpDate) {
+        String pattern = "\\d{2}\\s\\d{2}\\s\\d{4}";
+        Pattern r = Pattern.compile(pattern);
+        Matcher matcher = r.matcher(tmpDate);
+        if(matcher.find()) {
+            String date = matcher.group().replaceAll(" ","");
+            date = date.substring(0,4)+date.substring(6);
+            formattedDate = getDateFrom6Num(date);
+            return true;
+        }
+        return false;
+    }
+    private boolean matchDate3(String tmpDate) {
+        String pattern = "\\d{2}\\s\\d{2}\\s\\d{2}";
+        Pattern r = Pattern.compile(pattern);
+        Matcher matcher = r.matcher(tmpDate);
+        if(matcher.find()) {
+            formattedDate = getDateFrom6Num(matcher.group().replaceAll(" ",""));
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      *
      * @param tmp the podcast title
      * @return the number of the month contained in the string
      */
-    public static int getMonthFromStr(String tmp) {
+    private int getMonthFromStr(String tmp) {
         int m;
         if (tmp.contains("anvier")) {
             m = 1;
@@ -234,7 +264,7 @@ public class Utils {
      * @param nums the date in number format eg:060215
      * @return the date in string format
      */
-    public static String getDateFrom6Num(String nums){
+    private String getDateFrom6Num(String nums){
         int year_int = Calendar.getInstance().get(Calendar.YEAR);
         String year = "" + (year_int % 100);
         String year_old = "" + ((year_int % 100) - 1);
@@ -266,16 +296,16 @@ public class Utils {
      * @param title the title of the podcast
      * @return the image to display
      */
-    private static String getImg(String title) {
-        String res = String.valueOf(R.drawable.gtlr);
+    private String getImg(String title) {
+        String res = String.valueOf(gtlr);
         if (title.contains("intégrale")) {
-            res = String.valueOf(R.drawable.gtlr);
+            res = String.valueOf(gtlr);
         } else if (title.contains("pépite")) {
-            res = String.valueOf(R.drawable.gold);
+            res = String.valueOf(gold);
         } else if (title.contains("of")) {
-            res = String.valueOf(R.drawable.best_of);
+            res = String.valueOf(best_of);
         } else if (title.contains("yst")) {
-            res = String.valueOf(R.drawable.anonymous);
+            res = String.valueOf(anonymous);
         }
         return res;
     }
@@ -286,8 +316,8 @@ public class Utils {
      * @param title the title of the podcast
      * @return the day of the week contained in the title
      */
-    private static String getDay(String title) {
-        String res = "?";
+    private String getDay(String title) {
+        String res = "";
         title=title.toLowerCase(Locale.FRENCH);
         if (title.contains("lundi")) {
             res = "Lundi";
@@ -311,7 +341,7 @@ public class Utils {
     /**
      * Update the layout with values selected by the user
      */
-    public static void updateLayout() {
+    public void updateLayout() {
         ArrayList<HashMap<String, String>> list = act.getListItem();
         ArrayList<HashMap<String, String>> newList = new ArrayList<>();
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
@@ -320,10 +350,10 @@ public class Utils {
         boolean mom = sharedPref.getBoolean("moments",true);
         boolean guest = sharedPref.getBoolean("guest",true);
         for(HashMap<String,String> item : list){
-            if((item.get("img").equals(String.valueOf(R.drawable.gold)) && mom) ||
-                    (item.get("img").equals(String.valueOf(R.drawable.gtlr)) && integ) ||
-                    (item.get("img").equals(String.valueOf(R.drawable.best_of)) && best) ||
-                    (item.get("img").equals(String.valueOf(R.drawable.anonymous)) && guest)
+            if((item.get("img").equals(String.valueOf(gold)) && mom) ||
+                    (item.get("img").equals(String.valueOf(gtlr)) && integ) ||
+                    (item.get("img").equals(String.valueOf(best_of)) && best) ||
+                    (item.get("img").equals(String.valueOf(anonymous)) && guest)
                     ){
                 newList.add(item);
             }
