@@ -10,12 +10,18 @@ android {
         targetSdkVersion 22
         versionCode 8
         versionName "3.4"
+
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -25,4 +31,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.0.0'
 }
 
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.google.gms.google-services'
