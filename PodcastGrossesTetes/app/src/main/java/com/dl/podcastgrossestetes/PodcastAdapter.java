@@ -1,64 +1,90 @@
 package com.dl.podcastgrossestetes;
 
 
-import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
-public class PodcastAdapter extends ArrayAdapter<Podcast> {
+public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
+    private final List<Podcast> podcasts;
+    DownloadActivity context;
 
-    int resource;
-    Context context;
-
-    public PodcastAdapter(Context context, int resource, List<Podcast> items) {
-        super(context, resource, items);
-        this.resource = resource;
-        this.context = context;
+    public PodcastAdapter(List<Podcast> items, DownloadActivity ctx) {
+        this.podcasts = items;
+        context = ctx;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout podcastView;
-        Podcast podcast = getItem(position);
-        if (convertView == null) {
-            podcastView = new LinearLayout(getContext());
-            String inflater = Context.LAYOUT_INFLATER_SERVICE;
-            LayoutInflater vi;
-            vi = (LayoutInflater) getContext().getSystemService(inflater);
-            vi.inflate(resource, podcastView, true);
-        } else {
-            podcastView = (LinearLayout) convertView;
-        }
-        ImageView image = (ImageView) podcastView.findViewById(R.id.img);
-        image.setImageDrawable(ContextCompat.getDrawable(context, podcast.getImage()));
-        TextView title = (TextView) podcastView.findViewById(R.id.title);
-        title.setText(podcast.getDay());
-        TextView description = (TextView) podcastView.findViewById(R.id.description);
-        description.setText(podcast.getDescription());
-        ProgressBar progressBar = (ProgressBar) podcastView.findViewById(R.id.progressBar);
+    public PodcastViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.print_item, viewGroup, false);
+        PodcastViewHolder pvh = new PodcastViewHolder(v);
+        return pvh;
+    }
 
-        if (podcast.getStatus().equals(Podcast.Status.DOWNLOADING)) {
-            progressBar.setVisibility(View.VISIBLE);
+    @Override
+    public void onBindViewHolder(PodcastViewHolder holder, int position) {
+        holder.image.setImageDrawable(ContextCompat.getDrawable(context, podcasts.get(position).getImage()));
+        holder.title.setText(podcasts.get(position).getDay());
+        holder.description.setText(podcasts.get(position).getDescription());
+
+        if (podcasts.get(position).getStatus().equals(Podcast.Status.DOWNLOADING)) {
+            holder.progressBar.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility(View.GONE);
+            holder.progressBar.setVisibility(View.GONE);
         }
 
-        ImageView playImg = (ImageView) podcastView.findViewById(R.id.img_play);
-        if (podcast.getStatus().equals(Podcast.Status.DOWNLOADED)) {
-            playImg.setVisibility(View.VISIBLE);
+        if (podcasts.get(position).getStatus().equals(Podcast.Status.DOWNLOADED)) {
+            holder.image_right.setVisibility(View.VISIBLE);
         } else {
-            playImg.setVisibility(View.GONE);
+            holder.image_right.setVisibility(View.GONE);
         }
 
-        return podcastView;
+        holder.cv.setOnClickListener(v -> {
+            // item clicked
+            if (podcasts.get(position).getStatus().equals(Podcast.Status.DOWNLOADED)) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                File file = new File(podcasts.get(position).getUri());
+                intent.setDataAndType(Uri.fromFile(file), "audio/*");
+                context.startActivity(intent);
+            } else {
+                (new LayoutUpdater(context)).createDownloadConfirmationDialog(podcasts.get(position));
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return podcasts.size();
+    }
+
+    public static class PodcastViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView title;
+        TextView description;
+        ImageView image;
+        ImageView image_right;
+        ProgressBar progressBar;
+
+        PodcastViewHolder(View podcastView) {
+            super(podcastView);
+            cv = (CardView) itemView.findViewById(R.id.cv);
+            image = (ImageView) podcastView.findViewById(R.id.img);
+            image_right = (ImageView) podcastView.findViewById(R.id.img_play);
+            title = (TextView) podcastView.findViewById(R.id.title);
+            description = (TextView) podcastView.findViewById(R.id.description);
+            progressBar = (ProgressBar) podcastView.findViewById(R.id.progressBar);
+        }
     }
 }

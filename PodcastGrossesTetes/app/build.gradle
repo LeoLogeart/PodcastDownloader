@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.dl.podcastgrossestetes"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 8
         versionName "3.4"
@@ -29,6 +29,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.google.android.gms:play-services-ads:9.0.0'
+    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:recyclerview-v7:21.0.+'
 }
 
 apply plugin: 'me.tatarka.retrolambda'

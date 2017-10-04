@@ -3,7 +3,6 @@ package com.dl.podcastgrossestetes;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class LayoutUpdater {
                 shownPodcastList.add(pod);
             }
         }
-        PodcastAdapter adapt = new PodcastAdapter(act.getBaseContext(), R.layout.print_item, shownPodcastList);
+        PodcastAdapter adapt = new PodcastAdapter(shownPodcastList, act);
         act.getpodcastList().setAdapter(adapt);
     }
 
@@ -54,7 +53,7 @@ public class LayoutUpdater {
      */
     public void addDownloadingIcon(Podcast downloadingPodcast) {
         downloadingPodcast.setDownloading();
-        ((BaseAdapter) act.getpodcastList().getAdapter()).notifyDataSetChanged();
+        act.getpodcastList().getAdapter().notifyDataSetChanged();
 
     }
 

@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/black"
+    android:background="#FAFAFA"
+    android:animateLayoutChanges="true"
     android:orientation="vertical" >
 
 
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/list_podcast"
         android:layout_above="@+id/adsContainer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@drawable/list_divider"
-        android:dividerHeight="1dp"
-        android:textColor="#FFFFFF" />
+        android:textColor="#000000" />
 
     <LinearLayout
         android:id="@+id/adsContainer"

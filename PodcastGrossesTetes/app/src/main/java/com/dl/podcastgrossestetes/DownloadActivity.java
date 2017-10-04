@@ -13,10 +13,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -24,7 +25,6 @@ import com.google.android.gms.ads.AdView;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -37,7 +37,7 @@ public class DownloadActivity extends Activity {
     private ArrayList<Podcast> podcastsList;
     private PodcastParser parser;
     private LayoutUpdater layoutUpdater;
-    private ListView podcastListView;
+    private RecyclerView podcastListView;
     BroadcastReceiver onDlComplete = new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
             Long dwnId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
@@ -58,7 +58,7 @@ public class DownloadActivity extends Activity {
         }
     }
 
-    public ListView getpodcastList() {
+    public RecyclerView getpodcastList() {
         return podcastListView;
     }
 
@@ -79,6 +79,10 @@ public class DownloadActivity extends Activity {
     private void initFields() {
         parser = new PodcastParser();
         layoutUpdater = new LayoutUpdater(this);
+
+        podcastListView = (RecyclerView) findViewById(R.id.list_podcast);
+        LinearLayoutManager llm = new LinearLayoutManager(DownloadActivity.this);
+        podcastListView.setLayoutManager(llm);
         registerReceiver(onDlComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
@@ -152,6 +156,7 @@ public class DownloadActivity extends Activity {
         layoutUpdater.addDownloadingIcon(podcast);
     }
 
+
     /**
      * AsyncTask to get the podcast page, parse it and display the list on the
      * screen
@@ -200,24 +205,13 @@ public class DownloadActivity extends Activity {
             podcastsList = new ArrayList<>();
 
             parser.parsePage(result, podcastsList);
-
-            podcastListView = (ListView) findViewById(R.id.list_podcast);
             // set the list of titles in listView
             layoutUpdater.updateLayout();
             // for each title, set the download when clicked (with an alertbox
             // to verify)
-            podcastListView.setOnItemClickListener((l, v, position, id) -> {
-                Podcast podcast = (Podcast) l.getItemAtPosition(position);
-                if (podcast.getStatus().equals(Podcast.Status.DOWNLOADED)) {
-                    Intent intent = new Intent();
-                    intent.setAction(android.content.Intent.ACTION_VIEW);
-                    File file = new File(podcast.getUri());
-                    intent.setDataAndType(Uri.fromFile(file), "audio/*");
-                    startActivity(intent);
-                } else {
-                    layoutUpdater.createDownloadConfirmationDialog(podcast);
-                }
-            });
+            /*llm.OnItemTouchListener((l, v, position, id) -> {
+               podca
+            });*/
         }
     }
 
