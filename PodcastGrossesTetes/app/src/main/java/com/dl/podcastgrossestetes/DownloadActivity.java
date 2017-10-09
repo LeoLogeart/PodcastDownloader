@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,6 +45,8 @@ public class DownloadActivity extends Activity {
             isDlSuccessful(dwnId);
         }
     };
+    private MediaPlayer mediaPlayer;
+    private Uri playingUri;
 
     private void isDlSuccessful(Long dwnId) {
         DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -154,6 +157,24 @@ public class DownloadActivity extends Activity {
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
         layoutUpdater.addDownloadingIcon(podcast);
+    }
+
+    public MediaPlayer getMediaPlayer(Uri uri) {
+        if(mediaPlayer!=null)
+        {
+            mediaPlayer.stop();
+        }
+        playingUri = uri;
+        mediaPlayer = MediaPlayer.create(this, uri);
+        return mediaPlayer;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public Uri getPlayingUri() {
+        return playingUri;
     }
 
 
