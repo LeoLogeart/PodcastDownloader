@@ -10,13 +10,13 @@ import java.util.HashSet;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 
-public class Utils {
+class Utils {
 
     private DownloadActivity act;
     private File[] downloadedFiles;
     private HashSet<String> filesDownloading;
 
-    public Utils(DownloadActivity activity) {
+    Utils(DownloadActivity activity) {
         act = activity;
     }
 

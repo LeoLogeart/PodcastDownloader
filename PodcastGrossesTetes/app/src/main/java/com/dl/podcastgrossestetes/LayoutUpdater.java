@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LayoutUpdater {
+class LayoutUpdater {
 
-    DownloadActivity act;
+    private DownloadActivity act;
 
-    public LayoutUpdater(DownloadActivity activity) {
+    LayoutUpdater(DownloadActivity activity) {
         act = activity;
     }
 
     /**
      * Update the layout with values selected by the user
      */
-    public void updateLayout() {
+    void updateLayout() {
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         boolean integ = sharedPref.getBoolean("integral", true);
         boolean best = sharedPref.getBoolean("best", true);
@@ -51,7 +51,7 @@ public class LayoutUpdater {
      *
      * @param downloadingPodcast string id of the podcast to add to the "seen" list
      */
-    public void addDownloadingIcon(Podcast downloadingPodcast) {
+    void addDownloadingIcon(Podcast downloadingPodcast) {
         downloadingPodcast.setDownloading();
         act.getpodcastList().getAdapter().notifyDataSetChanged();
 
@@ -108,7 +108,7 @@ public class LayoutUpdater {
     /**
      * Create the dialog that will ask which display the user wants
      */
-    public void createMenuDialog() {
+    void createMenuDialog() {
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         AlertDialog.Builder builder = new AlertDialog.Builder(act);
         // Set the dialog title

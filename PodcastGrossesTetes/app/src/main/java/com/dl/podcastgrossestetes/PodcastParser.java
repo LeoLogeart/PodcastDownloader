@@ -12,7 +12,7 @@ import static com.dl.podcastgrossestetes.R.drawable.best_of;
 import static com.dl.podcastgrossestetes.R.drawable.gold;
 import static com.dl.podcastgrossestetes.R.drawable.gtlr;
 
-public class PodcastParser {
+class PodcastParser {
 
     private String formattedDate;
 
@@ -22,7 +22,7 @@ public class PodcastParser {
      *
      * @param responseString the whole html page
      */
-    public void parsePage(String responseString, List<Podcast> listItem) {
+    void parsePage(String responseString, List<Podcast> listItem) {
         String[] lines = responseString.split("\n");
         int i = 0;
         int start, end;
@@ -231,7 +231,7 @@ public class PodcastParser {
      * @param type the type of the podcast
      * @return the image to display
      */
-    public int getImg(Podcast.Type type) {
+    int getImg(Podcast.Type type) {
         switch (type) {
             case BEST_OF:
                 return best_of;
@@ -245,7 +245,7 @@ public class PodcastParser {
         return gtlr;
     }
 
-    public Podcast.Type getType(String title) {
+    Podcast.Type getType(String title) {
         Podcast.Type res = Podcast.Type.INTEGRALE;
         if (title.contains("intégrale")) {
             res = Podcast.Type.INTEGRALE;
@@ -265,7 +265,7 @@ public class PodcastParser {
      * @param title the title of the podcast
      * @return the day of the week contained in the title
      */
-    public String getDay(String title) {
+    String getDay(String title) {
         String res = "";
         title = title.toLowerCase(Locale.FRENCH);
         if (title.contains("lundi")) {

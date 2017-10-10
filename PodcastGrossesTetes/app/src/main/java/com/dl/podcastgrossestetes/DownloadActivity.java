@@ -39,6 +39,8 @@ public class DownloadActivity extends Activity {
     private PodcastParser parser;
     private LayoutUpdater layoutUpdater;
     private RecyclerView podcastListView;
+    private PodcastViewHolder currentPlayerHolder;
+
     BroadcastReceiver onDlComplete = new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
             Long dwnId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
@@ -175,6 +177,14 @@ public class DownloadActivity extends Activity {
 
     public Uri getPlayingUri() {
         return playingUri;
+    }
+
+    public PodcastViewHolder getCurrentPlayerHolder() {
+        return currentPlayerHolder;
+    }
+
+    public void setCurrentPlayerHolder(PodcastViewHolder currentPlayerHolder) {
+        this.currentPlayerHolder = currentPlayerHolder;
     }
 
 
