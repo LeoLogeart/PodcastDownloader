@@ -2,7 +2,10 @@ package com.dl.podcastgrossestetes;
 
 
 import android.app.DownloadManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
 
 import java.io.File;
@@ -48,5 +51,11 @@ class Utils {
             c.close();
         }
         return filesDownloading.contains(title + ".mp3");
+    }
+
+    void saveTime(int currentPosition, Uri playingUri) {
+        SharedPreferences.Editor editor = act.getPreferences(Context.MODE_PRIVATE).edit();
+        editor.putInt(playingUri.toString(),currentPosition);
+        editor.apply();
     }
 }
