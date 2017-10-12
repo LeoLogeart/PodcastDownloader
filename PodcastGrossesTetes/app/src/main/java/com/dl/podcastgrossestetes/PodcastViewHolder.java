@@ -54,7 +54,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser) {
+            if (fromUser && context.getCurrentPlayerHolder()!=null) {
                 context.getMediaPlayer().seekTo(progress);
                 UpdatePlayerTime(progress, seekBar);
             }
@@ -313,7 +313,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
         context.setCurrentPlayerHolder(null);
     }
 
-    private void onPlayPauseClick() {
+    void onPlayPauseClick() {
         if (!playing) {
             context.getMediaPlayer().start();
             myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
@@ -322,6 +322,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
             context.getMediaPlayer().pause();
             myHandler.removeCallbacks(UpdateSongTime);
             setImagePlay();
+            (new Utils(context)).saveTime(context.getMediaPlayer().getCurrentPosition(),context.getPlayingUri());
         }
         playing = !playing;
     }
@@ -339,4 +340,5 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     private SeekBar getSeekBar() {
         return seekBar;
     }
+
 }

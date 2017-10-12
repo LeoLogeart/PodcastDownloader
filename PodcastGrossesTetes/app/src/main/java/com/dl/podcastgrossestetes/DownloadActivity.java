@@ -31,8 +31,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DownloadActivity extends Activity {
+public class DownloadActivity extends Activity implements Observer {
 
     private ProgressDialog progress;
     private ArrayList<Podcast> podcastsList;
@@ -75,6 +77,7 @@ public class DownloadActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
+        MediaPlayerObservableObject.getInstance().addObserver(this);
         // Look up the AdView as a resource and load a request.
         setupAd();
         initFields();
@@ -101,6 +104,15 @@ public class DownloadActivity extends Activity {
 
         adContainer.addView(adView);
         adView.loadAd(adRequest);
+    }
+
+    @Override
+    public void onDestroy() {
+        if(mediaPlayer!=null)
+        {
+            (new Utils(this)).saveTime(mediaPlayer.getCurrentPosition(),getPlayingUri());
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -165,6 +177,7 @@ public class DownloadActivity extends Activity {
         if(mediaPlayer!=null)
         {
             mediaPlayer.stop();
+            mediaPlayer.release();
         }
         playingUri = uri;
         mediaPlayer = MediaPlayer.create(this, uri);
@@ -185,6 +198,14 @@ public class DownloadActivity extends Activity {
 
     public void setCurrentPlayerHolder(PodcastViewHolder currentPlayerHolder) {
         this.currentPlayerHolder = currentPlayerHolder;
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        if(mediaPlayer.isPlaying())
+        {
+            currentPlayerHolder.onPlayPauseClick();
+        }
     }
 
 
