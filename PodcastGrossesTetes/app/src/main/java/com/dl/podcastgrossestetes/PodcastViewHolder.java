@@ -285,7 +285,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
             if (context.getCurrentPlayerHolder() != null) {
                 context.getCurrentPlayerHolder().setCollapsedCardView();
             }
-            seekBar.setMax(context.getMediaPlayer(Uri.parse(podcast.getUri())).getDuration());
+            seekBar.setMax(context.getMediaPlayer(podcast).getDuration());
             context.setCurrentPlayerHolder(this);
             int progress = context.getPreferences(Context.MODE_PRIVATE).getInt(context.getPlayingUri().toString(), 0);
             context.getMediaPlayer().seekTo(progress);
@@ -315,7 +315,8 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
 
     void onPlayPauseClick() {
         if (!playing) {
-            context.getMediaPlayer().start();
+            context.playAudio();
+            //context.getMediaPlayer().start();
             myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
             setImagePause();
         } else {

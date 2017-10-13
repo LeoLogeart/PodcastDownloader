@@ -1,12 +1,16 @@
 package com.dl.podcastgrossestetes;
 
+import android.*;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,11 +18,17 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.media.session.MediaControllerCompat;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -36,12 +46,17 @@ import java.util.Observer;
 
 public class DownloadActivity extends Activity implements Observer {
 
+    private static final int WRITE_EXTERNAL_STORAGE_CODE = 100;
+    private static final int READ_PHONE_STATE_CODE = 101;
     private ProgressDialog progress;
     private ArrayList<Podcast> podcastsList;
     private PodcastParser parser;
     private LayoutUpdater layoutUpdater;
     private RecyclerView podcastListView;
     private PodcastViewHolder currentPlayerHolder;
+
+    private MediaPlayerService player;
+    boolean serviceBound = false;
 
     BroadcastReceiver onDlComplete = new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
@@ -50,7 +65,7 @@ public class DownloadActivity extends Activity implements Observer {
         }
     };
     private MediaPlayer mediaPlayer;
-    private Uri playingUri;
+    private Podcast playingPodcast;
 
     private void isDlSuccessful(Long dwnId) {
         DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -62,6 +77,108 @@ public class DownloadActivity extends Activity implements Observer {
             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                 layoutUpdater.updateLayout();
             }
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+            return;
+        }
+        grantPermissions();
+
+    }
+
+    private void grantPermissions() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(DownloadActivity.this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DownloadActivity.this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(DownloadActivity.this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        WRITE_EXTERNAL_STORAGE_CODE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            grantReadPhoneStatePermission();
+        }
+        return;
+    }
+
+    private void grantReadPhoneStatePermission() {
+        if (ContextCompat.checkSelfPermission(DownloadActivity.this,
+                android.Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DownloadActivity.this,
+                    android.Manifest.permission.READ_PHONE_STATE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(DownloadActivity.this,
+                        new String[]{android.Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+            return;
+        }
+    }
+    //Binding this Client to the AudioPlayer Service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder) service;
+            player = binder.getService();
+            serviceBound = true;
+
+            Toast.makeText(DownloadActivity.this, "Service Bound", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            serviceBound = false;
+        }
+    };
+    public void playAudio() {
+        //Check is service is active
+        if (!serviceBound) {
+            Intent playerIntent = new Intent(this, MediaPlayerService.class);
+            playerIntent.putExtra("media", playingPodcast);
+            startService(playerIntent);
+            bindService(playerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        } else {
+            //Service is active
+            //Send media with BroadcastReceiver
+            Intent broadcastIntent = new Intent(Constants.CHANGE_AUDIO);
+            broadcastIntent.putExtra("media", playingPodcast);
+            sendBroadcast(broadcastIntent);
         }
     }
 
@@ -108,11 +225,27 @@ public class DownloadActivity extends Activity implements Observer {
 
     @Override
     public void onDestroy() {
+        if (serviceBound) {
+            unbindService(serviceConnection);
+            //service is active
+            player.stopSelf();
+        }
         if(mediaPlayer!=null)
         {
             (new Utils(this)).saveTime(mediaPlayer.getCurrentPosition(),getPlayingUri());
         }
         super.onDestroy();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean("ServiceState", serviceBound);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        serviceBound = savedInstanceState.getBoolean("ServiceState");
     }
 
     @Override
@@ -173,14 +306,14 @@ public class DownloadActivity extends Activity implements Observer {
         layoutUpdater.addDownloadingIcon(podcast);
     }
 
-    public MediaPlayer getMediaPlayer(Uri uri) {
+    public MediaPlayer getMediaPlayer(Podcast podcast) {
         if(mediaPlayer!=null)
         {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-        playingUri = uri;
-        mediaPlayer = MediaPlayer.create(this, uri);
+        playingPodcast = podcast;
+        mediaPlayer = MediaPlayer.create(this, Uri.parse(podcast.getUri()));
         return mediaPlayer;
     }
 
@@ -189,7 +322,7 @@ public class DownloadActivity extends Activity implements Observer {
     }
 
     public Uri getPlayingUri() {
-        return playingUri;
+        return Uri.parse(playingPodcast.getUri());
     }
 
     public PodcastViewHolder getCurrentPlayerHolder() {

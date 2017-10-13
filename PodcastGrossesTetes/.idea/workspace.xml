@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="warn" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
@@ -42,94 +43,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DownloadActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DownloadActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="204" column="24" selection-start-line="204" selection-start-column="24" selection-end-line="204" selection-end-column="24" />
+            <state relative-caret-position="-979">
+              <caret line="79" column="37" selection-start-line="79" selection-start-column="34" selection-end-line="79" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6232#6233#0" expanded="true" />
-                <element signature="e#6274#6275#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MediaPlayerObservableObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerObservableObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-              <folding>
-                <element signature="e#333#334#0" expanded="true" />
-                <element signature="e#364#365#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MediaPlayerReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="38" column="76" selection-start-line="38" selection-start-column="76" selection-end-line="38" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LayoutUpdater.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PodcastAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PodcastViewHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="325" column="9" selection-start-line="325" selection-start-column="9" selection-end-line="325" selection-end-column="9" />
-              <folding>
-                <element signature="e#9186#9187#0" expanded="true" />
-                <element signature="e#9239#9240#0" expanded="true" />
-                <element signature="e#9269#9270#0" expanded="true" />
-                <element signature="e#9300#9301#0" expanded="true" />
-                <element signature="e#13077#13078#0" expanded="true" />
-                <element signature="e#13115#13116#0" expanded="true" />
-                <element signature="e#13151#13152#0" expanded="true" />
-                <element signature="e#13181#13182#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,31 +58,92 @@
       <file leaf-file-name="PodcastParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
+            <state relative-caret-position="-9">
               <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java">
+      <file leaf-file-name="MediaPlayerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="55" column="15" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="15" />
+            <state relative-caret-position="139">
+              <caret line="408" column="61" selection-start-line="408" selection-start-column="61" selection-end-line="408" selection-end-column="61" />
               <folding>
-                <element signature="e#510#511#0" expanded="true" />
-                <element signature="e#540#541#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2486#2487#0" expanded="true" />
+                <element signature="e#2522#2523#0" expanded="true" />
+                <element signature="e#2971#2972#0" expanded="true" />
+                <element signature="e#3001#3002#0" expanded="true" />
+                <element signature="e#3276#3277#0" expanded="true" />
+                <element signature="e#3304#3305#0" expanded="true" />
+                <element signature="method#onAudioFocusChange#0;class#MediaPlayerService#0" expanded="false" />
+                <element signature="method#requestAudioFocus#0;class#MediaPlayerService#0" expanded="false" />
+                <element signature="method#removeAudioFocus#0;class#MediaPlayerService#0" expanded="false" />
+                <element signature="e#7776#8644#0" expanded="true" />
+                <element signature="e#8643#8644#0" expanded="true" />
+                <element signature="class#PlaybackStatus#0;class#MediaPlayerService#0" expanded="false" />
+                <element signature="e#17876#17877#0" expanded="true" />
+                <element signature="e#17930#17931#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Podcast.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-9">
+              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#977#978#0" expanded="true" />
+                <element signature="e#1023#1024#0" expanded="true" />
+                <element signature="e#1088#1089#0" expanded="true" />
+                <element signature="e#1136#1137#0" expanded="true" />
+                <element signature="e#1834#1835#0" expanded="true" />
+                <element signature="e#1858#1859#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaPlayerObservableObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerObservableObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PodcastViewHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="322" column="45" selection-start-line="322" selection-start-column="45" selection-end-line="323" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PodcastAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            <state relative-caret-position="128">
+              <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -268,11 +249,6 @@
                 <option name="name" value="prepareComGoogleFirebaseFirebaseIid900Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:cardview-v7:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportCardviewV72300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="processReleaseJavaRes" />
               </ExternalTaskPojo>
@@ -317,6 +293,11 @@
                 <option name="description" value="Initializes a new Gradle build. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:animated-vector-drawable:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportAnimatedVectorDrawable2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -383,6 +364,11 @@
                 <option name="description" value="Deletes the build cache directory." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="cleanBuildCache" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-compat:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportCompat2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -466,6 +452,16 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="incrementalDebugAndroidTestJavaCompilationSafeguard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:cardview-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportCardviewV72420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-fragment:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportFragment2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -576,11 +572,6 @@
                 <option name="name" value="javaPreCompileRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:appcompat-v7:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportAppcompatV72300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="description" value="Runs all device checks on currently connected devices." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="connectedCheck" />
@@ -658,6 +649,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="mergeReleaseShaders" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:appcompat-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportAppcompatV72420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the Android dependencies of the project." />
@@ -747,11 +743,6 @@
                 <option name="name" value="check" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:support-v4:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportSupportV42300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="javaPreCompileDebug" />
               </ExternalTaskPojo>
@@ -784,6 +775,11 @@
                 <option name="name" value="installDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-media-compat:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportMediaCompat2420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="preBuild" />
               </ExternalTaskPojo>
@@ -806,6 +802,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="compileDebugShaders" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-vector-drawable:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportVectorDrawable2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -874,13 +875,13 @@
                 <option name="name" value="generateReleaseBuildConfig" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-v4:24.2.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareDebugUnitTestDependencies" />
+                <option name="name" value="prepareComAndroidSupportSupportV42420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:recyclerview-v7:23.0.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportRecyclerviewV72300Library" />
+                <option name="name" value="prepareDebugUnitTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -914,6 +915,11 @@
                 <option name="name" value="mergeDebugAndroidTestShaders" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-core-ui:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportCoreUi2420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Deletes the build directory." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="clean" />
@@ -921,6 +927,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="preDebugBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:recyclerview-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportRecyclerviewV72420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -935,6 +946,11 @@
                 <option name="description" value="Assembles all Release builds." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="assembleRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-core-utils:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportCoreUtils2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1022,11 +1038,6 @@
                 <option name="name" value="prepareComGoogleFirebaseFirebaseIid900Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:cardview-v7:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportCardviewV72300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="processReleaseJavaRes" />
               </ExternalTaskPojo>
@@ -1066,6 +1077,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="compileDebugSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:animated-vector-drawable:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportAnimatedVectorDrawable2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1132,6 +1148,11 @@
                 <option name="description" value="Deletes the build cache directory." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="cleanBuildCache" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-compat:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportCompat2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1215,6 +1236,16 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="incrementalDebugAndroidTestJavaCompilationSafeguard" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:cardview-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportCardviewV72420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-fragment:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportFragment2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1325,11 +1356,6 @@
                 <option name="name" value="javaPreCompileRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:appcompat-v7:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportAppcompatV72300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="description" value="Runs all device checks on currently connected devices." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="connectedCheck" />
@@ -1402,6 +1428,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="mergeReleaseShaders" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:appcompat-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportAppcompatV72420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Displays the Android dependencies of the project." />
@@ -1491,11 +1522,6 @@
                 <option name="name" value="check" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:support-v4:23.0.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportSupportV42300Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="javaPreCompileDebug" />
               </ExternalTaskPojo>
@@ -1528,6 +1554,11 @@
                 <option name="name" value="installDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-media-compat:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportMediaCompat2420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="preBuild" />
               </ExternalTaskPojo>
@@ -1550,6 +1581,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="compileDebugShaders" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-vector-drawable:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportVectorDrawable2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1618,13 +1654,13 @@
                 <option name="name" value="generateReleaseBuildConfig" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-v4:24.2.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareDebugUnitTestDependencies" />
+                <option name="name" value="prepareComAndroidSupportSupportV42420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:recyclerview-v7:23.0.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportRecyclerviewV72300Library" />
+                <option name="name" value="prepareDebugUnitTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1658,6 +1694,11 @@
                 <option name="name" value="mergeDebugAndroidTestShaders" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-core-ui:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportCoreUi2420Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Deletes the build directory." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="clean" />
@@ -1665,6 +1706,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="preDebugBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:recyclerview-v7:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportRecyclerviewV72420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1679,6 +1725,11 @@
                 <option name="description" value="Assembles all Release builds." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="assembleRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-core-utils:24.2.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportCoreUtils2420Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1721,7 +1772,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4520784820583" />
+        <entry key="$PROJECT_DIR$" value="4521138517930" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2082,7 +2133,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/list_divider.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Ppdcast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Parser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_download.xml" />
@@ -2090,22 +2140,25 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/reset_img_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/play_img_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastMediaPlayer.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/pause_img_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/forward_img_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/print_item.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/mediaPlayerObservableObject.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerObservableObject.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerReceiver.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/NotificationService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java" />
       </list>
     </option>
   </component>
@@ -2140,7 +2193,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
@@ -2212,14 +2264,15 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="device.picker.selection" value="08a53457dd17578c" />
+    <property name="device.picker.selection" value="0a23b9d8" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
@@ -2639,15 +2692,15 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35085836" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34334764" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36266094" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2172471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18960752" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2607296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2662,7 +2715,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="165" y="180" width="1655" height="856" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="165" y="224" width="1655" height="856" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950923" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2680,40 +2733,25 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/list_divider.xml">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+        <state relative-caret-position="144">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_download.xml">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/best_of.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/anonymous.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/gold.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/pod.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
@@ -2722,8 +2760,6 @@
           <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6274#6275#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2750,36 +2786,6 @@
           <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6274#6275#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6274#6275#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2835,14 +2841,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_download.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
@@ -2861,51 +2866,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_download.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/download.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/download.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="47" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="e#575#576#0" expanded="false" />
-            <element signature="e#601#602#0" expanded="false" />
-            <element signature="e#630#631#0" expanded="false" />
-            <element signature="e#658#659#0" expanded="false" />
-            <element signature="e#696#697#0" expanded="false" />
-            <element signature="e#730#731#0" expanded="false" />
-            <element signature="e#760#761#0" expanded="false" />
-            <element signature="e#787#788#0" expanded="false" />
-            <element signature="e#817#818#0" expanded="false" />
-            <element signature="e#843#844#0" expanded="false" />
-            <element signature="e#879#880#0" expanded="false" />
-            <element signature="e#922#923#0" expanded="false" />
-            <element signature="e#1032#1033#0" expanded="false" />
-            <element signature="e#1061#1062#0" expanded="false" />
-            <element signature="e#1091#1092#0" expanded="false" />
-            <element signature="e#1117#1118#0" expanded="false" />
-            <element signature="e#1155#1156#0" expanded="false" />
-            <element signature="e#1185#1186#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2913,7 +2890,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2937,7 +2913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2945,7 +2920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2953,7 +2927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="52" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2961,7 +2934,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2969,25 +2941,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/print_item.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1836">
           <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+          <folding>
+            <element signature="e#300#301#0" expanded="false" />
+            <element signature="e#330#331#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="31" column="56" selection-start-line="31" selection-start-column="56" selection-end-line="31" selection-end-column="56" />
+        <state relative-caret-position="774">
+          <caret line="55" column="15" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -2996,54 +2978,303 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-          <folding>
-            <marker date="1507613058595" expanded="true" signature="12:253" ph="{...}" />
-            <marker date="1507613058595" expanded="true" signature="74:251" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
-          <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
+          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerReceiver.java" />
+    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-compat/24.2.0/support-compat-24.2.0-sources.jar!/android/support/v4/app/NotificationCompat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="55" column="15" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="15" />
+        <state relative-caret-position="180">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
           <folding>
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#540#541#0" expanded="true" />
+            <element signature="e#0#164814#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#21138#21139#0" expanded="false" />
+            <element signature="e#21173#21174#0" expanded="false" />
+            <element signature="e#21244#21245#0" expanded="false" />
+            <element signature="e#21276#21277#0" expanded="false" />
+            <element signature="e#21362#21363#0" expanded="false" />
+            <element signature="e#21397#21398#0" expanded="false" />
+            <element signature="e#21778#21779#0" expanded="false" />
+            <element signature="e#21813#21814#0" expanded="false" />
+            <element signature="e#21886#21887#0" expanded="false" />
+            <element signature="e#21922#21923#0" expanded="false" />
+            <element signature="e#21990#21991#0" expanded="false" />
+            <element signature="e#22025#22026#0" expanded="false" />
+            <element signature="e#22100#22101#0" expanded="false" />
+            <element signature="e#22136#22137#0" expanded="false" />
+            <element signature="e#22206#22207#0" expanded="false" />
+            <element signature="e#22241#22242#0" expanded="false" />
+            <element signature="e#25316#25317#0" expanded="false" />
+            <element signature="e#25387#25388#0" expanded="false" />
+            <element signature="e#26516#26517#0" expanded="false" />
+            <element signature="e#26586#26587#0" expanded="false" />
+            <element signature="e#27900#27901#0" expanded="false" />
+            <element signature="e#27968#27969#0" expanded="false" />
+            <element signature="e#28557#28558#0" expanded="false" />
+            <element signature="e#28624#28625#0" expanded="false" />
+            <element signature="e#28842#28843#0" expanded="false" />
+            <element signature="e#28911#28912#0" expanded="false" />
+            <element signature="e#30974#30975#0" expanded="false" />
+            <element signature="e#31040#31041#0" expanded="false" />
+            <element signature="e#31257#31258#0" expanded="false" />
+            <element signature="e#31325#31326#0" expanded="false" />
+            <element signature="e#68373#68374#0" expanded="false" />
+            <element signature="e#68411#68412#0" expanded="false" />
+            <element signature="e#68588#68589#0" expanded="false" />
+            <element signature="e#68650#68651#0" expanded="false" />
+            <element signature="e#68742#68743#0" expanded="false" />
+            <element signature="e#68794#68795#0" expanded="false" />
+            <element signature="e#71422#71423#0" expanded="false" />
+            <element signature="e#71465#71466#0" expanded="false" />
+            <element signature="e#73652#73653#0" expanded="false" />
+            <element signature="e#73695#73696#0" expanded="false" />
+            <element signature="e#76609#76610#0" expanded="false" />
+            <element signature="e#76667#76668#0" expanded="false" />
+            <element signature="e#76820#76821#0" expanded="false" />
+            <element signature="e#76867#76868#0" expanded="false" />
+            <element signature="e#77540#77541#0" expanded="false" />
+            <element signature="e#77589#77590#0" expanded="false" />
+            <element signature="e#79367#79368#0" expanded="false" />
+            <element signature="e#79407#79408#0" expanded="false" />
+            <element signature="e#85368#85369#0" expanded="false" />
+            <element signature="e#85412#85413#0" expanded="false" />
+            <element signature="e#85544#85545#0" expanded="false" />
+            <element signature="e#85593#85594#0" expanded="false" />
+            <element signature="e#85763#85764#0" expanded="false" />
+            <element signature="e#85809#85810#0" expanded="false" />
+            <element signature="e#85955#85956#0" expanded="false" />
+            <element signature="e#86007#86008#0" expanded="false" />
+            <element signature="e#86218#86219#0" expanded="false" />
+            <element signature="e#86265#86266#0" expanded="false" />
+            <element signature="e#90038#90039#0" expanded="false" />
+            <element signature="e#90081#90082#0" expanded="false" />
+            <element signature="e#92847#92848#0" expanded="false" />
+            <element signature="e#92882#92883#0" expanded="false" />
+            <element signature="e#92942#92943#0" expanded="false" />
+            <element signature="e#92978#92979#0" expanded="false" />
+            <element signature="e#93046#93047#0" expanded="false" />
+            <element signature="e#93089#93090#0" expanded="false" />
+            <element signature="e#93236#93237#0" expanded="false" />
+            <element signature="e#93274#93275#0" expanded="false" />
+            <element signature="e#93490#93491#0" expanded="false" />
+            <element signature="e#93543#93544#0" expanded="false" />
+            <element signature="e#93784#93785#0" expanded="false" />
+            <element signature="e#93828#93829#0" expanded="false" />
+            <element signature="e#96041#96042#0" expanded="false" />
+            <element signature="e#96087#96088#0" expanded="false" />
+            <element signature="e#104315#104316#0" expanded="false" />
+            <element signature="e#104392#104393#0" expanded="false" />
+            <element signature="e#105543#105544#0" expanded="false" />
+            <element signature="e#105598#105599#0" expanded="false" />
+            <element signature="e#106408#106409#0" expanded="false" />
+            <element signature="e#106460#106461#0" expanded="false" />
+            <element signature="e#107204#107205#0" expanded="false" />
+            <element signature="e#107255#107256#0" expanded="false" />
+            <element signature="e#110376#110377#0" expanded="false" />
+            <element signature="e#110433#110434#0" expanded="false" />
+            <element signature="e#125607#125608#0" expanded="false" />
+            <element signature="e#125646#125647#0" expanded="false" />
+            <element signature="e#127685#127686#0" expanded="false" />
+            <element signature="e#127730#127731#0" expanded="false" />
+            <element signature="e#129681#129682#0" expanded="false" />
+            <element signature="e#129718#129719#0" expanded="false" />
+            <element signature="e#130684#130685#0" expanded="false" />
+            <element signature="e#130726#130727#0" expanded="false" />
+            <element signature="e#131085#131086#0" expanded="false" />
+            <element signature="e#131128#131129#0" expanded="false" />
+            <element signature="e#131994#131995#0" expanded="false" />
+            <element signature="e#132044#132045#0" expanded="false" />
+            <element signature="e#133877#133878#0" expanded="false" />
+            <element signature="e#133927#133928#0" expanded="false" />
+            <element signature="e#134806#134807#0" expanded="false" />
+            <element signature="e#134845#134846#0" expanded="false" />
+            <element signature="e#136109#136110#0" expanded="false" />
+            <element signature="e#136157#136158#0" expanded="false" />
+            <element signature="e#137093#137094#0" expanded="false" />
+            <element signature="e#137144#137145#0" expanded="false" />
+            <element signature="e#137972#137973#0" expanded="false" />
+            <element signature="e#138043#138044#0" expanded="false" />
+            <element signature="e#139842#139843#0" expanded="false" />
+            <element signature="e#139908#139909#0" expanded="false" />
+            <element signature="e#143009#143010#0" expanded="false" />
+            <element signature="e#143058#143059#0" expanded="false" />
+            <element signature="e#146580#146581#0" expanded="false" />
+            <element signature="e#146623#146624#0" expanded="false" />
+            <element signature="e#151572#151573#0" expanded="false" />
+            <element signature="e#151609#151610#0" expanded="false" />
+            <element signature="e#152448#152449#0" expanded="false" />
+            <element signature="e#152489#152490#0" expanded="false" />
+            <element signature="e#153141#153142#0" expanded="false" />
+            <element signature="e#153191#153192#0" expanded="false" />
+            <element signature="e#154414#154415#0" expanded="false" />
+            <element signature="e#154462#154463#0" expanded="false" />
+            <element signature="e#154719#154720#0" expanded="false" />
+            <element signature="e#154770#154771#0" expanded="false" />
+            <element signature="e#155005#155006#0" expanded="false" />
+            <element signature="e#155063#155064#0" expanded="false" />
+            <element signature="e#155323#155324#0" expanded="false" />
+            <element signature="e#155380#155381#0" expanded="false" />
+            <element signature="e#155541#155542#0" expanded="false" />
+            <element signature="e#155593#155594#0" expanded="false" />
+            <element signature="e#156001#156002#0" expanded="false" />
+            <element signature="e#156056#156057#0" expanded="false" />
+            <element signature="e#157525#157526#0" expanded="false" />
+            <element signature="e#157584#157585#0" expanded="false" />
+            <element signature="e#162025#162026#0" expanded="false" />
+            <element signature="e#162069#162070#0" expanded="false" />
+            <element signature="e#162303#162304#0" expanded="false" />
+            <element signature="e#162352#162353#0" expanded="false" />
+            <element signature="e#162969#162970#0" expanded="false" />
+            <element signature="e#163015#163016#0" expanded="false" />
+            <element signature="e#163348#163349#0" expanded="false" />
+            <element signature="e#163395#163396#0" expanded="false" />
+            <element signature="e#163616#163617#0" expanded="false" />
+            <element signature="e#163659#163660#0" expanded="false" />
+            <element signature="e#164067#164068#0" expanded="false" />
+            <element signature="e#164116#164117#0" expanded="false" />
+            <element signature="e#164765#164766#0" expanded="false" />
+            <element signature="e#164810#164811#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-media-compat/24.2.0/support-media-compat-24.2.0-sources.jar!/android/support/v4/media/session/MediaSessionCompat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21402">
+          <caret line="1315" column="0" selection-start-line="1315" selection-start-column="0" selection-end-line="1315" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#91029#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#6831#6832#0" expanded="false" />
+            <element signature="e#6877#6878#0" expanded="false" />
+            <element signature="e#9696#9697#0" expanded="false" />
+            <element signature="e#9739#9740#0" expanded="false" />
+            <element signature="e#10604#10605#0" expanded="false" />
+            <element signature="e#10648#10649#0" expanded="false" />
+            <element signature="e#11286#11287#0" expanded="false" />
+            <element signature="e#11335#11336#0" expanded="false" />
+            <element signature="e#11504#11505#0" expanded="false" />
+            <element signature="e#11541#11542#0" expanded="false" />
+            <element signature="e#12079#12080#0" expanded="false" />
+            <element signature="e#12127#12128#0" expanded="false" />
+            <element signature="e#14097#14098#0" expanded="false" />
+            <element signature="e#14136#14137#0" expanded="false" />
+            <element signature="e#14972#14973#0" expanded="false" />
+            <element signature="e#15003#15004#0" expanded="false" />
+            <element signature="e#15658#15659#0" expanded="false" />
+            <element signature="e#15704#15705#0" expanded="false" />
+            <element signature="e#15960#15961#0" expanded="false" />
+            <element signature="e#15994#15995#0" expanded="false" />
+            <element signature="e#16172#16173#0" expanded="false" />
+            <element signature="e#16217#16218#0" expanded="false" />
+            <element signature="e#16680#16681#0" expanded="false" />
+            <element signature="e#16723#16724#0" expanded="false" />
+            <element signature="e#17260#17261#0" expanded="false" />
+            <element signature="e#17297#17298#0" expanded="false" />
+            <element signature="e#17595#17596#0" expanded="false" />
+            <element signature="e#17637#17638#0" expanded="false" />
+            <element signature="e#18252#18253#0" expanded="false" />
+            <element signature="e#18293#18294#0" expanded="false" />
+            <element signature="e#18702#18703#0" expanded="false" />
+            <element signature="e#18741#18742#0" expanded="false" />
+            <element signature="e#19083#19084#0" expanded="false" />
+            <element signature="e#19129#19130#0" expanded="false" />
+            <element signature="e#19536#19537#0" expanded="false" />
+            <element signature="e#19589#19590#0" expanded="false" />
+            <element signature="e#19960#19961#0" expanded="false" />
+            <element signature="e#20008#20009#0" expanded="false" />
+            <element signature="e#23996#23997#0" expanded="false" />
+            <element signature="e#24032#24033#0" expanded="false" />
+            <element signature="e#29850#29851#0" expanded="false" />
+            <element signature="e#29904#29905#0" expanded="false" />
+            <element signature="e#30332#30333#0" expanded="false" />
+            <element signature="e#30399#30400#0" expanded="false" />
+            <element signature="e#30458#30459#0" expanded="false" />
+            <element signature="e#30513#30514#0" expanded="false" />
+            <element signature="e#30577#30578#0" expanded="false" />
+            <element signature="e#30637#30638#0" expanded="false" />
+            <element signature="e#30705#30706#0" expanded="false" />
+            <element signature="e#30769#30770#0" expanded="false" />
+            <element signature="e#30834#30835#0" expanded="false" />
+            <element signature="e#30895#30896#0" expanded="false" />
+            <element signature="e#30955#30956#0" expanded="false" />
+            <element signature="e#31011#31012#0" expanded="false" />
+            <element signature="e#31069#31070#0" expanded="false" />
+            <element signature="e#31123#31124#0" expanded="false" />
+            <element signature="e#31191#31192#0" expanded="false" />
+            <element signature="e#31250#31251#0" expanded="false" />
+            <element signature="e#33343#33344#0" expanded="false" />
+            <element signature="e#33400#33401#0" expanded="false" />
+            <element signature="e#34277#34278#0" expanded="false" />
+            <element signature="e#34315#34316#0" expanded="false" />
+            <element signature="e#35059#35060#0" expanded="false" />
+            <element signature="e#35091#35092#0" expanded="false" />
+            <element signature="e#36441#36442#0" expanded="false" />
+            <element signature="e#36478#36479#0" expanded="false" />
+            <element signature="e#37035#37036#0" expanded="false" />
+            <element signature="e#37089#37090#0" expanded="false" />
+            <element signature="e#38792#38793#0" expanded="false" />
+            <element signature="e#38835#38836#0" expanded="false" />
+            <element signature="e#38938#38939#0" expanded="false" />
+            <element signature="e#38972#38973#0" expanded="false" />
+            <element signature="e#39206#39207#0" expanded="false" />
+            <element signature="e#39238#39239#0" expanded="false" />
+            <element signature="e#40515#40516#0" expanded="false" />
+            <element signature="e#40570#40571#0" expanded="false" />
+            <element signature="e#44258#44259#0" expanded="false" />
+            <element signature="e#44290#44291#0" expanded="false" />
+            <element signature="e#51804#51805#0" expanded="false" />
+            <element signature="e#51853#51854#0" expanded="false" />
+            <element signature="e#51913#51914#0" expanded="false" />
+            <element signature="e#51967#51968#0" expanded="false" />
+            <element signature="e#54194#54195#0" expanded="false" />
+            <element signature="e#54234#54235#0" expanded="false" />
+            <element signature="e#54321#54322#0" expanded="false" />
+            <element signature="e#54369#54370#0" expanded="false" />
+            <element signature="e#54610#54611#0" expanded="false" />
+            <element signature="e#54647#54648#0" expanded="false" />
+            <element signature="e#58188#58189#0" expanded="false" />
+            <element signature="e#58223#58224#0" expanded="false" />
+            <element signature="e#58291#58292#0" expanded="false" />
+            <element signature="e#58329#58330#0" expanded="false" />
+            <element signature="e#58392#58393#0" expanded="false" />
+            <element signature="e#58427#58428#0" expanded="false" />
+            <element signature="e#58512#58513#0" expanded="false" />
+            <element signature="e#58554#58555#0" expanded="false" />
+            <element signature="e#76311#76312#0" expanded="false" />
+            <element signature="e#76359#76360#0" expanded="false" />
+            <element signature="e#76442#76443#0" expanded="false" />
+            <element signature="e#76510#76511#0" expanded="false" />
+            <element signature="e#76760#76761#0" expanded="false" />
+            <element signature="e#76810#76811#0" expanded="false" />
+            <element signature="e#77076#77077#0" expanded="false" />
+            <element signature="e#77126#77127#0" expanded="false" />
+            <element signature="e#79238#79239#0" expanded="false" />
+            <element signature="e#79283#79284#0" expanded="false" />
+            <element signature="e#79549#79550#0" expanded="false" />
+            <element signature="e#79620#79621#0" expanded="false" />
+            <element signature="e#79662#79663#0" expanded="false" />
+            <element signature="e#79710#79711#0" expanded="false" />
+            <element signature="e#88213#88214#0" expanded="false" />
+            <element signature="e#88289#88290#0" expanded="false" />
+            <element signature="e#88519#88520#0" expanded="false" />
+            <element signature="e#88587#88588#0" expanded="false" />
+            <element signature="e#88647#88648#0" expanded="false" />
+            <element signature="e#88684#88685#0" expanded="false" />
+            <element signature="e#90601#90602#0" expanded="false" />
+            <element signature="e#90643#90644#0" expanded="false" />
+            <element signature="e#90711#90712#0" expanded="false" />
+            <element signature="e#90746#90747#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3053,59 +3284,208 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="38" column="76" selection-start-line="38" selection-start-column="76" selection-end-line="38" selection-end-column="76" />
+        <state relative-caret-position="0">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerReceiver.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-9">
+          <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerObservableObject.java">
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-24/android.jar!/android/app/PendingIntent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-24/android.jar!/android/os/Handler.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-media-compat/24.2.0/support-media-compat-24.2.0-sources.jar!/android/support/v4/media/session/MediaControllerCompat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="698" column="29" selection-start-line="698" selection-start-column="29" selection-end-line="698" selection-end-column="29" />
           <folding>
-            <element signature="e#333#334#0" expanded="true" />
-            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#0#55586#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4232#4233#0" expanded="false" />
+            <element signature="e#4283#4284#0" expanded="false" />
+            <element signature="e#5008#5009#0" expanded="false" />
+            <element signature="e#5055#5056#0" expanded="false" />
+            <element signature="e#5226#5227#0" expanded="false" />
+            <element signature="e#5268#5269#0" expanded="false" />
+            <element signature="e#5550#5551#0" expanded="false" />
+            <element signature="e#5589#5590#0" expanded="false" />
+            <element signature="e#5693#5694#0" expanded="false" />
+            <element signature="e#5737#5738#0" expanded="false" />
+            <element signature="e#5826#5827#0" expanded="false" />
+            <element signature="e#5866#5867#0" expanded="false" />
+            <element signature="e#6418#6419#0" expanded="false" />
+            <element signature="e#6462#6463#0" expanded="false" />
+            <element signature="e#6667#6668#0" expanded="false" />
+            <element signature="e#6706#6707#0" expanded="false" />
+            <element signature="e#6879#6880#0" expanded="false" />
+            <element signature="e#6925#6926#0" expanded="false" />
+            <element signature="e#7147#7148#0" expanded="false" />
+            <element signature="e#7196#7197#0" expanded="false" />
+            <element signature="e#7382#7383#0" expanded="false" />
+            <element signature="e#7411#7412#0" expanded="false" />
+            <element signature="e#7960#7961#0" expanded="false" />
+            <element signature="e#8007#8008#0" expanded="false" />
+            <element signature="e#8723#8724#0" expanded="false" />
+            <element signature="e#8775#8776#0" expanded="false" />
+            <element signature="e#9029#9030#0" expanded="false" />
+            <element signature="e#9077#9078#0" expanded="false" />
+            <element signature="e#11014#11015#0" expanded="false" />
+            <element signature="e#11059#11060#0" expanded="false" />
+            <element signature="e#11410#11411#0" expanded="false" />
+            <element signature="e#11459#11460#0" expanded="false" />
+            <element signature="e#14650#14651#0" expanded="false" />
+            <element signature="e#14694#14695#0" expanded="false" />
+            <element signature="e#15051#15052#0" expanded="false" />
+            <element signature="e#15117#15118#0" expanded="false" />
+            <element signature="e#16134#16135#0" expanded="false" />
+            <element signature="e#16203#16204#0" expanded="false" />
+            <element signature="e#19059#19060#0" expanded="false" />
+            <element signature="e#19104#19105#0" expanded="false" />
+            <element signature="e#29684#29685#0" expanded="false" />
+            <element signature="e#29728#29729#0" expanded="false" />
+            <element signature="e#30678#30679#0" expanded="false" />
+            <element signature="e#30723#30724#0" expanded="false" />
+            <element signature="e#30940#30941#0" expanded="false" />
+            <element signature="e#30981#30982#0" expanded="false" />
+            <element signature="e#31178#31179#0" expanded="false" />
+            <element signature="e#31223#31224#0" expanded="false" />
+            <element signature="e#38599#38600#0" expanded="false" />
+            <element signature="e#38634#38635#0" expanded="false" />
+            <element signature="e#38809#38810#0" expanded="false" />
+            <element signature="e#38849#38850#0" expanded="false" />
+            <element signature="e#46281#46282#0" expanded="false" />
+            <element signature="e#46364#46365#0" expanded="false" />
+            <element signature="e#46559#46560#0" expanded="false" />
+            <element signature="e#46641#46642#0" expanded="false" />
+            <element signature="e#48267#48268#0" expanded="false" />
+            <element signature="e#48312#48313#0" expanded="false" />
+            <element signature="e#48493#48494#0" expanded="false" />
+            <element signature="e#48543#48544#0" expanded="false" />
+            <element signature="e#48594#48595#0" expanded="false" />
+            <element signature="e#48675#48676#0" expanded="false" />
+            <element signature="e#49877#49878#0" expanded="false" />
+            <element signature="e#49964#49965#0" expanded="false" />
+            <element signature="e#50013#50014#0" expanded="false" />
+            <element signature="e#50101#50102#0" expanded="false" />
+            <element signature="e#50149#50150#0" expanded="false" />
+            <element signature="e#50236#50237#0" expanded="false" />
+            <element signature="e#50587#50588#0" expanded="false" />
+            <element signature="e#50676#50677#0" expanded="false" />
+            <element signature="e#53678#53679#0" expanded="false" />
+            <element signature="e#53720#53721#0" expanded="false" />
+            <element signature="e#54748#54749#0" expanded="false" />
+            <element signature="e#54790#54791#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="325" column="9" selection-start-line="325" selection-start-column="9" selection-end-line="325" selection-end-column="9" />
+        <state relative-caret-position="217">
+          <caret line="322" column="45" selection-start-line="322" selection-start-column="45" selection-end-line="323" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding>
-            <element signature="e#9186#9187#0" expanded="true" />
-            <element signature="e#9239#9240#0" expanded="true" />
-            <element signature="e#9269#9270#0" expanded="true" />
-            <element signature="e#9300#9301#0" expanded="true" />
-            <element signature="e#13077#13078#0" expanded="true" />
-            <element signature="e#13115#13116#0" expanded="true" />
-            <element signature="e#13151#13152#0" expanded="true" />
-            <element signature="e#13181#13182#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#977#978#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+            <element signature="e#1088#1089#0" expanded="true" />
+            <element signature="e#1136#1137#0" expanded="true" />
+            <element signature="e#1834#1835#0" expanded="true" />
+            <element signature="e#1858#1859#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerObservableObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="204" column="24" selection-start-line="204" selection-start-column="24" selection-end-line="204" selection-end-column="24" />
+        <state relative-caret-position="-979">
+          <caret line="79" column="37" selection-start-line="79" selection-start-column="34" selection-end-line="79" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6274#6275#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-24/android.jar!/android/media/MediaPlayer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="66" column="16" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="408" column="61" selection-start-line="408" selection-start-column="61" selection-end-line="408" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2486#2487#0" expanded="true" />
+            <element signature="e#2522#2523#0" expanded="true" />
+            <element signature="e#2971#2972#0" expanded="true" />
+            <element signature="e#3001#3002#0" expanded="true" />
+            <element signature="e#3276#3277#0" expanded="true" />
+            <element signature="e#3304#3305#0" expanded="true" />
+            <element signature="method#onAudioFocusChange#0;class#MediaPlayerService#0" expanded="false" />
+            <element signature="method#requestAudioFocus#0;class#MediaPlayerService#0" expanded="false" />
+            <element signature="method#removeAudioFocus#0;class#MediaPlayerService#0" expanded="false" />
+            <element signature="e#7776#8644#0" expanded="true" />
+            <element signature="e#8643#8644#0" expanded="true" />
+            <element signature="class#PlaybackStatus#0;class#MediaPlayerService#0" expanded="false" />
+            <element signature="e#17876#17877#0" expanded="true" />
+            <element signature="e#17930#17931#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

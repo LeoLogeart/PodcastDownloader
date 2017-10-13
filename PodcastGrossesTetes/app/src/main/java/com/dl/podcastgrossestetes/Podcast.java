@@ -1,7 +1,11 @@
 package com.dl.podcastgrossestetes;
 
 
-public class Podcast {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+
+public class Podcast implements Parcelable {
     private String url;
     private String day;
     private String uri;
@@ -19,6 +23,26 @@ public class Podcast {
         image = parser.getImg(type);
         status = Status.NONE;
     }
+
+    protected Podcast(Parcel in) {
+        url = in.readString();
+        day = in.readString();
+        uri = in.readString();
+        description = in.readString();
+        image = in.readInt();
+    }
+
+    public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
+        @Override
+        public Podcast createFromParcel(Parcel in) {
+            return new Podcast(in);
+        }
+
+        @Override
+        public Podcast[] newArray(int size) {
+            return new Podcast[size];
+        }
+    };
 
     public String getDay() {
         return day;
@@ -59,6 +83,20 @@ public class Podcast {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(url);
+        parcel.writeString(day);
+        parcel.writeString(uri);
+        parcel.writeString(description);
+        parcel.writeInt(image);
     }
 
     public enum Type {
