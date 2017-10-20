@@ -1,34 +1,26 @@
 package com.dl.podcastgrossestetes;
 
-import android.*;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.media.session.MediaControllerCompat;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -48,23 +40,21 @@ public class DownloadActivity extends Activity implements Observer {
 
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 100;
     private static final int READ_PHONE_STATE_CODE = 101;
+    boolean serviceBound = false;
     private ProgressDialog progress;
     private ArrayList<Podcast> podcastsList;
     private PodcastParser parser;
     private LayoutUpdater layoutUpdater;
     private RecyclerView podcastListView;
-    private PodcastViewHolder currentPlayerHolder;
-
-    private MediaPlayerService player;
-    boolean serviceBound = false;
-
     BroadcastReceiver onDlComplete = new BroadcastReceiver() {
         public void onReceive(Context ctxt, Intent intent) {
             Long dwnId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
             isDlSuccessful(dwnId);
         }
     };
-    private MediaPlayer mediaPlayer;
+    private PodcastViewHolder currentPlayerHolder;
+    private MediaPlayerService player;
+    private MediaBrowserManager mediaBrowsermanager;
     private Podcast playingPodcast;
 
     private void isDlSuccessful(Long dwnId) {
@@ -81,9 +71,9 @@ public class DownloadActivity extends Activity implements Observer {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
             return;
         }
         grantPermissions();
@@ -119,7 +109,6 @@ public class DownloadActivity extends Activity implements Observer {
         } else {
             grantReadPhoneStatePermission();
         }
-        return;
     }
 
     private void grantReadPhoneStatePermission() {
@@ -146,40 +135,13 @@ public class DownloadActivity extends Activity implements Observer {
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
-            return;
         }
     }
-    //Binding this Client to the AudioPlayer Service
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder) service;
-            player = binder.getService();
-            serviceBound = true;
 
-            Toast.makeText(DownloadActivity.this, "Service Bound", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            serviceBound = false;
-        }
-    };
-    public void playAudio() {
-        //Check is service is active
-        if (!serviceBound) {
-            Intent playerIntent = new Intent(this, MediaPlayerService.class);
-            playerIntent.putExtra("media", playingPodcast);
-            startService(playerIntent);
-            bindService(playerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-        } else {
-            //Service is active
-            //Send media with BroadcastReceiver
-            Intent broadcastIntent = new Intent(Constants.CHANGE_AUDIO);
-            broadcastIntent.putExtra("media", playingPodcast);
-            sendBroadcast(broadcastIntent);
-        }
+    public MediaBrowserManager connect() {
+        mediaBrowsermanager = new MediaBrowserManager(this, playingPodcast);
+        mediaBrowsermanager.connect();
+        return mediaBrowsermanager;
     }
 
     public RecyclerView getpodcastList() {
@@ -194,7 +156,6 @@ public class DownloadActivity extends Activity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        MediaPlayerObservableObject.getInstance().addObserver(this);
         // Look up the AdView as a resource and load a request.
         setupAd();
         initFields();
@@ -205,7 +166,7 @@ public class DownloadActivity extends Activity implements Observer {
         parser = new PodcastParser();
         layoutUpdater = new LayoutUpdater(this);
 
-        podcastListView = (RecyclerView) findViewById(R.id.list_podcast);
+        podcastListView = findViewById(R.id.list_podcast);
         LinearLayoutManager llm = new LinearLayoutManager(DownloadActivity.this);
         podcastListView.setLayoutManager(llm);
         registerReceiver(onDlComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -215,7 +176,7 @@ public class DownloadActivity extends Activity implements Observer {
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
         adView.setAdUnitId("ca-app-pub-9891261141906247/3743396414");
-        LinearLayout adContainer = (LinearLayout) this.findViewById(R.id.adsContainer);
+        LinearLayout adContainer = this.findViewById(R.id.adsContainer);
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
@@ -225,17 +186,11 @@ public class DownloadActivity extends Activity implements Observer {
 
     @Override
     public void onDestroy() {
-        if (serviceBound) {
-            unbindService(serviceConnection);
-            //service is active
-            player.stopSelf();
-        }
-        if(mediaPlayer!=null)
-        {
-            (new Utils(this)).saveTime(mediaPlayer.getCurrentPosition(),getPlayingUri());
-        }
+        if (mediaBrowsermanager != null)
+            mediaBrowsermanager.disconnect();
         super.onDestroy();
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putBoolean("ServiceState", serviceBound);
@@ -288,10 +243,9 @@ public class DownloadActivity extends Activity implements Observer {
                 Uri.parse(podcast.getUrl()));
         request.setDescription("podcast");
         request.setTitle(podcast.getDescription() + ".mp3");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        }
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
         try {
             request.setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
@@ -306,20 +260,6 @@ public class DownloadActivity extends Activity implements Observer {
         layoutUpdater.addDownloadingIcon(podcast);
     }
 
-    public MediaPlayer getMediaPlayer(Podcast podcast) {
-        if(mediaPlayer!=null)
-        {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-        playingPodcast = podcast;
-        mediaPlayer = MediaPlayer.create(this, Uri.parse(podcast.getUri()));
-        return mediaPlayer;
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
-    }
 
     public Uri getPlayingUri() {
         return Uri.parse(playingPodcast.getUri());
@@ -335,10 +275,16 @@ public class DownloadActivity extends Activity implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        if(mediaPlayer.isPlaying())
-        {
-            currentPlayerHolder.onPlayPauseClick();
-        }
+        //TODO remove
+    }
+
+    public void setPodcast(Podcast podcast) {
+        playingPodcast = podcast;
+    }
+
+    public void disconnect() {
+        if (mediaBrowsermanager != null)
+            mediaBrowsermanager.disconnect();
     }
 
 
