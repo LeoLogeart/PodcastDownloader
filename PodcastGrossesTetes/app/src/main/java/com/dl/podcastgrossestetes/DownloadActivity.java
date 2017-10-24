@@ -262,6 +262,9 @@ public class DownloadActivity extends Activity implements Observer {
 
 
     public Uri getPlayingUri() {
+        if(playingPodcast==null){
+            return Uri.parse("");
+        }
         return Uri.parse(playingPodcast.getUri());
     }
 

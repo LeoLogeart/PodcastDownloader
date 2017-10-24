@@ -109,35 +109,29 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     }
 
     void InitDownloadedHolder(Podcast podcast) {
-        if (mediaBrowserManager != null && context.getPlayingUri().equals(Uri.parse(podcast.getUri()))) {
-            //TODO setCurrentlyPlaying(mediaPlayer);
+        if (context.getPlayingUri().equals(Uri.parse(podcast.getUri()))) {
+            setCurrentlyPlaying();
         } else {
             initPlayingInfo();
         }
 
         image_play_pause.setOnClickListener(view -> onPlayPauseClick());
 
-        image_back.setOnClickListener(view -> {
-            mediaBrowserManager.skipToPrevious();
-            //TODO UpdatePlayerTime(context.getMediaPlayer().getCurrentPosition(), seekBar);
-        });
-        image_forward.setOnClickListener(view -> {
-            mediaBrowserManager.skipToNext();
-            //TODO UpdatePlayerTime(context.getMediaPlayer().getCurrentPosition(), seekBar);
-        });
+        image_back.setOnClickListener(view -> mediaBrowserManager.skipToPrevious());
+        image_forward.setOnClickListener(view -> mediaBrowserManager.skipToNext());
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
 
-    private void setCurrentlyPlaying(MediaPlayer mediaPlayer) {
-        setPlaying(mediaPlayer.isPlaying());
-        seekBar.setMax(mediaPlayer.getDuration());
+    private void setCurrentlyPlaying() {
+        //setPlaying(mediaPlayer.isPlaying());
+        //seekBar.setMax(mediaPlayer.getDuration());
         context.setCurrentPlayerHolder(this);
         setExpandedCardviewNoAnimation();
         if (playing) {
             setImagePause();
         }
-        UpdatePlayerTime(mediaPlayer.getCurrentPosition(), seekBar);
-        myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
+        //UpdatePlayerTime(mediaPlayer.getCurrentPosition(), seekBar);
+        //myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
     }
 
     private void fadeInPlayerButtons() {
@@ -288,12 +282,14 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     void OnDownloadedCardViewClick(Podcast podcast) {
         if (!expanded) {
             if (context.getCurrentPlayerHolder() != null) {
-                context.getCurrentPlayerHolder().stopAndSavePlayer();
+                context.getCurrentPlayerHolder().setCollapsedCardView();
             }
             context.setPodcast(podcast);
             context.setCurrentPlayerHolder(this);
             int progress = context.getPreferences(Context.MODE_PRIVATE).getInt(context.getPlayingUri().toString(), 0);
             UpdatePlayerTime(progress, seekBar);
+            playing = false;
+            setImagePlay();
             if(mediaBrowserManager==null)
             {
                 mediaBrowserManager = context.connect();
@@ -315,7 +311,11 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     void stopAndSavePlayer() {
         /*(new Utils(context)).saveTime(context.getMediaPlayer().getCurrentPosition(), context.getPlayingUri());
         context.getMediaPlayer().stop();*/
+        playing = false;
         mediaBrowserManager.stop();
+        mediaBrowserManager.disconnect();
+        Log.e("OK","stop2");
+        mediaBrowserManager = null;
         context.setCurrentPlayerHolder(null);
     }
 
@@ -338,7 +338,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
 
 
     private void UpdatePlayerTime(long progress, SeekBar seekBar) {
-        Log.e("YAY","UpdatePlayerTime "+progress);
+        //Log.e("YAY","UpdatePlayerTime "+progress);
         seekBar.setProgress((int) progress);
         context.getCurrentPlayerHolder().setPlayerTimeText(progress);
     }
@@ -367,6 +367,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
                         setImagePlay();
                         playing=false;
                         context.disconnect();
+                        Log.e("OK","stop1");
                         mediaBrowserManager = null;
                         blockButtons();
                         fadeOutPlayerButtons();

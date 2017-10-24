@@ -71,7 +71,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             if (rootHints != null) {
                 currentPodcast = rootHints.getParcelable("media");
                 initMediaPlayer();
-                buildNotification(PlaybackStatus.PLAYING);
+                buildNotification(PlaybackStatus.PAUSED);
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -113,11 +113,15 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mediaPlayer.setDataSource(currentPodcast.getUri());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             stopSelf();
         }
-        mediaPlayer.prepareAsync();
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void stopMedia() {
@@ -294,12 +298,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
         mediaSession = new MediaSessionCompat(getApplicationContext(), "PGT");
         transportControls = mediaSession.getController().getTransportControls();
-        // Enable callbacks from MediaButtons and TransportControls
         mediaSession.setFlags(
                 MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
                         MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
-        // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player
         stateBuilder = new PlaybackStateCompat.Builder()
                 .setActions(
                         PlaybackStateCompat.ACTION_PLAY |
@@ -421,8 +423,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             Bundle bundle = new Bundle();
             bundle.putInt("duration", mediaPlayer.getDuration());
             stateBuilder.setExtras(bundle);
+            mediaSession.setPlaybackState(stateBuilder.build());
         }
-        mediaSession.setPlaybackState(stateBuilder.build());
     }
 
     private void showNotification() {
