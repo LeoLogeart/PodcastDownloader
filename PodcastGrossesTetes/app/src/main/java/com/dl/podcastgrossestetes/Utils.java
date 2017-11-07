@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -15,12 +16,12 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 
 class Utils {
 
-    private DownloadActivity act;
+    private Context ctx;
     private File[] downloadedFiles;
     private HashSet<String> filesDownloading;
 
-    Utils(DownloadActivity activity) {
-        act = activity;
+    Utils(Context activity) {
+        ctx = activity;
     }
 
 
@@ -43,7 +44,7 @@ class Utils {
     boolean isCurrentlyDownloading(String title) {
         if (filesDownloading == null) {
             filesDownloading = new HashSet<>();
-            DownloadManager mgr = (DownloadManager) act.getSystemService(DOWNLOAD_SERVICE);
+            DownloadManager mgr = (DownloadManager) ctx.getSystemService(DOWNLOAD_SERVICE);
             Cursor c = mgr.query(new DownloadManager.Query().setFilterByStatus(DownloadManager.STATUS_RUNNING | DownloadManager.STATUS_PENDING | DownloadManager.STATUS_PAUSED));
             while (c.moveToNext()) {
                 filesDownloading.add(c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE)));
@@ -53,9 +54,21 @@ class Utils {
         return filesDownloading.contains(title + ".mp3");
     }
 
-    void saveTime(int currentPosition, Uri playingUri) {
-        SharedPreferences.Editor editor = act.getPreferences(Context.MODE_PRIVATE).edit();
-        editor.putInt(playingUri.toString(),currentPosition);
+    void saveTime(int currentPosition, String playingUri) {
+        SharedPreferences.Editor editor = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).edit();
+        editor.putInt(playingUri, currentPosition);
         editor.apply();
+    }
+
+    int getTime(String podcastUri) {
+        return ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).getInt(podcastUri, 0);
+    }
+
+    int getPodcastDuration(String podcastUri) {
+        Uri uri = Uri.parse(podcastUri);
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(ctx, uri);
+        String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        return Integer.parseInt(durationStr);
     }
 }

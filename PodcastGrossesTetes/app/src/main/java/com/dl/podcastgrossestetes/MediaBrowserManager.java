@@ -12,6 +12,7 @@ class MediaBrowserManager {
 
     private final MediaBrowserCompat mediaBrowser;
     private MediaControllerCompat mediaController;
+    private MediaControllerCompat.Callback holderCallback;
 
     MediaBrowserManager(DownloadActivity context, Podcast podcast) {
         Bundle bundle = new Bundle();
@@ -20,13 +21,10 @@ class MediaBrowserManager {
             @Override
             public void onConnected() {
                 try {
-                    // Get the token for the MediaSession
                     MediaSessionCompat.Token token = mediaBrowser.getSessionToken();
-                    // Create a MediaControllerCompat
                     mediaController = new MediaControllerCompat(context, token);
-                    //play();
-                    mediaController.registerCallback(context.getCurrentPlayerHolder().controllerCallback);
-                    //TODO buildTransportControls();
+                    holderCallback = context.getCurrentPlayerHolder().getControllerCallback();
+                    mediaController.registerCallback(holderCallback);
 
                 } catch (Exception ignored) {
 
@@ -35,13 +33,13 @@ class MediaBrowserManager {
 
             @Override
             public void onConnectionSuspended() {
-                Log.e("YAY", "onConnectionSuspended");
+                Log.d("PGT", "Connection Suspended");
                 // The Service has crashed. Disable transport controls until it automatically reconnects
             }
 
             @Override
             public void onConnectionFailed() {
-                Log.e("YAY", "onConnectionFailed");
+                Log.d("PGT", "Connection Failed");
                 // The Service has refused our connection
             }
         };
@@ -52,6 +50,7 @@ class MediaBrowserManager {
     }
 
     void disconnect() {
+        mediaController.unregisterCallback(holderCallback);
         mediaBrowser.disconnect();
     }
 

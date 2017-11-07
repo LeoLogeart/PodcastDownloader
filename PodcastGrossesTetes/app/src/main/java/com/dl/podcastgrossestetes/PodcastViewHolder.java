@@ -1,8 +1,8 @@
 package com.dl.podcastgrossestetes;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.content.Context;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -11,7 +11,6 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -45,22 +44,13 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     private boolean expanded = false;
     private Handler myHandler = new Handler();
     private long startTime;
-    private Runnable UpdateSongTime = new Runnable() {
-        public void run() {
-            try {
-                UpdatePlayerTime(progress+System.currentTimeMillis()-startTime, context.getCurrentPlayerHolder().getSeekBar());
-                if (playing)
-                    myHandler.postDelayed(this, Constants.UPDATE_DELAY_MILLIS);
-            } catch (Exception ignored) {
-            }
-        }
-    };
+    private MediaBrowserManager mediaBrowserManager;
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser && context.getCurrentPlayerHolder()!=null) {
+            if (fromUser && context.getCurrentPlayerHolder() != null) {
                 mediaBrowserManager.seekTo(progress);
-                UpdatePlayerTime(progress, seekBar);
+                UpdatePlayerTime(progress);
             }
         }
 
@@ -72,8 +62,52 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
-    private MediaBrowserManager mediaBrowserManager;
     private long progress;
+    private Runnable UpdateSongTime = new Runnable() {
+        public void run() {
+            try {
+                UpdatePlayerTime(progress + System.currentTimeMillis() - startTime);
+                if (playing)
+                    myHandler.postDelayed(this, Constants.UPDATE_DELAY_MILLIS);
+            } catch (Exception ignored) {
+            }
+        }
+    };
+    private boolean animating = false;
+    private MediaControllerCompat.Callback controllerCallback =
+            new MediaControllerCompat.Callback() {
+                @Override
+                public void onPlaybackStateChanged(PlaybackStateCompat state) {
+                    if (state.getActions() == PlaybackStateCompat.ACTION_PAUSE) {
+                        setImagePlay();
+                        playing = false;
+                    } else if (state.getActions() == PlaybackStateCompat.ACTION_PLAY) {
+                        myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
+                        setImagePause();
+                        playing = true;
+                    } else if (state.getActions() == PlaybackStateCompat.ACTION_STOP) {
+                        if (animating) {
+                            return;
+                        }
+                        setImagePlay();
+                        playing = false;
+                        if (mediaBrowserManager == null) {
+                            //should not happen
+                            return;
+                        }
+                        mediaBrowserManager.disconnect();
+                        mediaBrowserManager = null;
+                        blockButtons();
+                        fadeOutPlayerButtons();
+                        collapse();
+                        fadeInExpandButton();
+                        return;
+                    }
+                    progress = state.getBufferedPosition();
+                    startTime = System.currentTimeMillis();
+                    UpdatePlayerTime(state.getBufferedPosition());
+                }
+            };
 
     PodcastViewHolder(View podcastView, DownloadActivity context) {
         super(podcastView);
@@ -191,6 +225,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
 
     private void expand() {
         expanded = true;
+        animating = true;
         player.setVisibility(View.VISIBLE);
         ValueAnimator mAnimator = ValueAnimator.ofInt(0, 180);
 
@@ -200,12 +235,19 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
             layoutParams.height = value;
             player.setLayoutParams(layoutParams);
         });
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animating = false;
+            }
+        });
         mAnimator.setDuration(Constants.EXPAND_DURATION);
         mAnimator.start();
     }
 
     private void collapse() {
         expanded = false;
+        animating = true;
         ValueAnimator mAnimator = ValueAnimator.ofInt(player.getHeight(), 0);
 
         mAnimator.addUpdateListener(valueAnimator -> {
@@ -216,6 +258,12 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
         });
         mAnimator.setStartDelay(Constants.START_OFFSET_EXPAND);
         mAnimator.setDuration(Constants.EXPAND_DURATION);
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                animating = false;
+            }
+        });
         mAnimator.start();
     }
 
@@ -253,6 +301,9 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setExpandedCardview() {
+        if (animating) {
+            return;
+        }
         enableButtons();
         expand();
         fadeInPlayerButtons();
@@ -260,7 +311,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setPlayerTimeText(long progress) {
-        playerTime.setText(String.format(Locale.FRANCE,"%02d:%02d",
+        playerTime.setText(String.format(Locale.FRANCE, "%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(progress),
                 TimeUnit.MILLISECONDS.toSeconds(progress) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
@@ -281,47 +332,30 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
 
     void OnDownloadedCardViewClick(Podcast podcast) {
         if (!expanded) {
-            if (context.getCurrentPlayerHolder() != null) {
-                context.getCurrentPlayerHolder().setCollapsedCardView();
+            if (context.getCurrentPlayerHolder() != null && context.getCurrentPlayerHolder().isExpanded()) {
+                context.getCurrentPlayerHolder().stopPlayer();
             }
             context.setPodcast(podcast);
             context.setCurrentPlayerHolder(this);
-            int progress = context.getPreferences(Context.MODE_PRIVATE).getInt(context.getPlayingUri().toString(), 0);
-            UpdatePlayerTime(progress, seekBar);
+            progress = (new Utils(context)).getTime(podcast.getUri());
+            seekBar.setMax((new Utils(context)).getPodcastDuration(podcast.getUri()));
+            UpdatePlayerTime(progress);
             playing = false;
             setImagePlay();
-            if(mediaBrowserManager==null)
-            {
-                mediaBrowserManager = context.connect();
-            }
+            mediaBrowserManager = context.connect();
             setExpandedCardview();
         } else {
-            setCollapsedCardView();
+            stopPlayer();
         }
     }
 
-    private void setCollapsedCardView() {
-        blockButtons();
-        stopAndSavePlayer();
-        fadeOutPlayerButtons();
-        collapse();
-        fadeInExpandButton();
-    }
-
-    void stopAndSavePlayer() {
-        /*(new Utils(context)).saveTime(context.getMediaPlayer().getCurrentPosition(), context.getPlayingUri());
-        context.getMediaPlayer().stop();*/
+    private void stopPlayer() {
         playing = false;
         mediaBrowserManager.stop();
-        mediaBrowserManager.disconnect();
-        Log.e("OK","stop2");
-        mediaBrowserManager = null;
-        context.setCurrentPlayerHolder(null);
     }
 
-    void onPlayPauseClick() {
-        if(mediaBrowserManager==null)
-        {
+    private void onPlayPauseClick() {
+        if (mediaBrowserManager == null) {
             mediaBrowserManager = context.connect();
         }
         if (!playing) {
@@ -331,54 +365,20 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
             mediaBrowserManager.pause();
             myHandler.removeCallbacks(UpdateSongTime);
             setImagePlay();
-            /*(new Utils(context)).saveTime(context.getMediaPlayer().getCurrentPosition(),context.getPlayingUri());*/
         }
         playing = !playing;
     }
 
-
-    private void UpdatePlayerTime(long progress, SeekBar seekBar) {
-        //Log.e("YAY","UpdatePlayerTime "+progress);
+    private void UpdatePlayerTime(long progress) {
         seekBar.setProgress((int) progress);
-        context.getCurrentPlayerHolder().setPlayerTimeText(progress);
+        setPlayerTimeText(progress);
     }
 
-    private void setPlaying(boolean playing) {
-        this.playing = playing;
+    private boolean isExpanded() {
+        return expanded;
     }
 
-    private SeekBar getSeekBar() {
-        return seekBar;
+    MediaControllerCompat.Callback getControllerCallback() {
+        return controllerCallback;
     }
-
-    MediaControllerCompat.Callback controllerCallback =
-            new MediaControllerCompat.Callback() {
-                @Override
-                public void onPlaybackStateChanged(PlaybackStateCompat state) {
-                    if(state.getActions()==PlaybackStateCompat.ACTION_PAUSE){
-                        setImagePlay();
-                        playing=false;
-                    } else if(state.getActions()==PlaybackStateCompat.ACTION_PLAY){
-                        myHandler.postDelayed(UpdateSongTime, Constants.UPDATE_DELAY_MILLIS);
-                        setImagePause();
-                        playing=true;
-                    } else if(state.getActions()==PlaybackStateCompat.ACTION_STOP)
-                    {
-                        setImagePlay();
-                        playing=false;
-                        context.disconnect();
-                        Log.e("OK","stop1");
-                        mediaBrowserManager = null;
-                        blockButtons();
-                        fadeOutPlayerButtons();
-                        collapse();
-                        fadeInExpandButton();
-                        return;
-                    }
-                    seekBar.setMax( state.getExtras().getInt("duration"));
-                    progress = state.getBufferedPosition();
-                    startTime = System.currentTimeMillis();
-                    UpdatePlayerTime( state.getBufferedPosition(), seekBar);
-                }
-            };
 }

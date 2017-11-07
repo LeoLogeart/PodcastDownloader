@@ -6,6 +6,17 @@ import android.os.Parcelable;
 
 
 public class Podcast implements Parcelable {
+    public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
+        @Override
+        public Podcast createFromParcel(Parcel in) {
+            return new Podcast(in);
+        }
+
+        @Override
+        public Podcast[] newArray(int size) {
+            return new Podcast[size];
+        }
+    };
     private String url;
     private String day;
     private String uri;
@@ -32,19 +43,7 @@ public class Podcast implements Parcelable {
         image = in.readInt();
     }
 
-    public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
-        @Override
-        public Podcast createFromParcel(Parcel in) {
-            return new Podcast(in);
-        }
-
-        @Override
-        public Podcast[] newArray(int size) {
-            return new Podcast[size];
-        }
-    };
-
-    public String getDay() {
+    String getDay() {
         return day;
     }
 
@@ -52,36 +51,36 @@ public class Podcast implements Parcelable {
         return image;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
 
-    public Type getType() {
+    Type getType() {
         return type;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 
-    public void setDownloading() {
+    void setDownloading() {
         status = Status.DOWNLOADING;
     }
 
-    public void setDownloaded() {
+    void setDownloaded() {
         status = Status.DOWNLOADED;
     }
 
-    public Status getStatus() {
+    Status getStatus() {
         return status;
     }
 
-    public String getUri() {
+    String getUri() {
         return uri;
     }
 
-    public void setUri(String uri) {
+    void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -99,11 +98,11 @@ public class Podcast implements Parcelable {
         parcel.writeInt(image);
     }
 
-    public enum Type {
+    enum Type {
         INTEGRALE, PEPITE, BEST_OF, INVITE_MYSTERE
     }
 
-    public enum Status {
+    enum Status {
         DOWNLOADING, NONE, DOWNLOADED
     }
 }

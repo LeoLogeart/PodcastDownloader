@@ -35,9 +35,7 @@ class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
             holder.setExpandButtonGone();
         }
 
-        holder.getCardView().setOnClickListener(v -> {
-            onCardViewClick(holder, position);
-        });
+        holder.getCardView().setOnClickListener(v -> onCardViewClick(holder, position));
     }
 
     private void onCardViewClick(PodcastViewHolder holder, int position) {

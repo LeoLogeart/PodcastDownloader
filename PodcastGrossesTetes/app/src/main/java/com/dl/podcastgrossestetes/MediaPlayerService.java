@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.session.MediaSessionManager;
-import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -27,7 +26,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +69,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             if (rootHints != null) {
                 currentPodcast = rootHints.getParcelable("media");
                 initMediaPlayer();
-                buildNotification(PlaybackStatus.PAUSED);
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -111,23 +108,27 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         mediaPlayer.reset();
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        if (currentPodcast == null) {
+            removeNotification();
+        }
         try {
             mediaPlayer.setDataSource(currentPodcast.getUri());
         } catch (Exception e) {
-            e.printStackTrace();
             stopSelf();
         }
         try {
             mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            removeNotification();
         }
+        mediaPlayer.seekTo((new Utils(MediaPlayerService.this)).getTime(currentPodcast.getUri()));
     }
 
     private void stopMedia() {
         if (mediaPlayer == null) return;
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
+            mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
         }
@@ -135,6 +136,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void pauseMedia() {
         buildNotification(PlaybackStatus.PAUSED);
+        if (mediaPlayer == null)
+            return;
         mediaPlayer.pause();
     }
 
@@ -159,13 +162,13 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     public boolean onError(MediaPlayer mp, int what, int extra) {
         switch (what) {
             case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-                Log.d("GrossesTetes", "MEDIA ERROR NOT VALID FOR PROGRESSIVE PLAYBACK " + extra);
+                Log.d("PGT", "MEDIA ERROR NOT VALID FOR PROGRESSIVE PLAYBACK " + extra);
                 break;
             case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-                Log.d("GrossesTetes", "MEDIA ERROR SERVER DIED " + extra);
+                Log.d("PGT", "MEDIA ERROR SERVER DIED " + extra);
                 break;
             case MediaPlayer.MEDIA_ERROR_UNKNOWN:
-                Log.d("GrossesTetes", "MEDIA ERROR UNKNOWN " + extra);
+                Log.d("PGT", "MEDIA ERROR UNKNOWN " + extra);
                 break;
         }
         return false;
@@ -173,7 +176,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        //playMedia();
     }
 
     @Override
@@ -226,7 +228,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 e.printStackTrace();
                 stopSelf();
             }
-            buildNotification(PlaybackStatus.PLAYING);
+            //buildNotification(PlaybackStatus.PLAYING);
         }
 
         handleIncomingActions(intent);
@@ -269,6 +271,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //removeNotification();
         if (mediaPlayer != null) {
             stopMedia();
             mediaPlayer = null;
@@ -278,7 +281,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
         }
 
-        removeNotification();
         unregisterReceiver(becomingNoisyReceiver);
     }
 
@@ -290,7 +292,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void initMediaSession() throws RemoteException {
-        Log.e("YAY", "initMediaSession");
         if (mediaSessionManager != null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaSessionManager = (MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE);
@@ -320,12 +321,17 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             public void onPause() {
                 super.onPause();
                 pauseMedia();
+                (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
             }
 
             @Override
             public void onStop() {
                 super.onStop();
+                if (mediaPlayer == null)
+                    return;
+                (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
                 mediaPlayer.stop();
+                mediaPlayer.reset();
                 mediaPlayer.release();
                 mediaPlayer = null;
                 removeNotification();
@@ -369,6 +375,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
 
     private void buildNotification(PlaybackStatus playbackStatus) {
+        if (currentPodcast == null) {
+            return;
+        }
         if (mediaPlayer == null) {
             initMediaPlayer();
         }
@@ -423,19 +432,22 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             Bundle bundle = new Bundle();
             bundle.putInt("duration", mediaPlayer.getDuration());
             stateBuilder.setExtras(bundle);
+        }
+        if (mediaSession != null) {
             mediaSession.setPlaybackState(stateBuilder.build());
         }
     }
 
     private void showNotification() {
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
+        if(notificationBuilder!=null)
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
     }
 
     private void updateNotificationProgress() {
         if (playbackStatus == PlaybackStatus.PLAYING) {
             notificationBuilder.setWhen(System.currentTimeMillis() - mediaPlayer.getCurrentPosition()).setShowWhen(true).setUsesChronometer(true);
             notificationBuilder.setContentInfo(null);
-        } else {
+        } else if(notificationBuilder!=null){
             notificationBuilder.setWhen(0).setShowWhen(false).setUsesChronometer(false);
             int progress = mediaPlayer.getCurrentPosition();
             notificationBuilder.setContentInfo(String.format(Locale.FRANCE, "%02d:%02d",

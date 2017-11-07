@@ -53,7 +53,6 @@ public class DownloadActivity extends Activity implements Observer {
         }
     };
     private PodcastViewHolder currentPlayerHolder;
-    private MediaPlayerService player;
     private MediaBrowserManager mediaBrowsermanager;
     private Podcast playingPodcast;
 
@@ -184,12 +183,12 @@ public class DownloadActivity extends Activity implements Observer {
         adView.loadAd(adRequest);
     }
 
-    @Override
+   /* @Override
     public void onDestroy() {
         if (mediaBrowsermanager != null)
             mediaBrowsermanager.disconnect();
         super.onDestroy();
-    }
+    }*/
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -262,7 +261,7 @@ public class DownloadActivity extends Activity implements Observer {
 
 
     public Uri getPlayingUri() {
-        if(playingPodcast==null){
+        if (playingPodcast == null) {
             return Uri.parse("");
         }
         return Uri.parse(playingPodcast.getUri());
@@ -283,11 +282,6 @@ public class DownloadActivity extends Activity implements Observer {
 
     public void setPodcast(Podcast podcast) {
         playingPodcast = podcast;
-    }
-
-    public void disconnect() {
-        if (mediaBrowsermanager != null)
-            mediaBrowsermanager.disconnect();
     }
 
 
