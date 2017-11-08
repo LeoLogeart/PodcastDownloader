@@ -344,6 +344,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 updatePlaybackState(PlaybackStateCompat.ACTION_FAST_FORWARD);
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.min(mediaPlayer.getCurrentPosition() + Constants.NEXT_PREVIOUS_OFFSET, mediaPlayer.getDuration()));
+                if (previousState == PlaybackStateCompat.ACTION_STOP) {
+                    return;
+                }
                 updatePlaybackState(previousState);
                 updateNotificationProgress();
                 showNotification();
@@ -355,6 +358,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 updatePlaybackState(PlaybackStateCompat.ACTION_REWIND);
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.max(0, mediaPlayer.getCurrentPosition() - Constants.NEXT_PREVIOUS_OFFSET));
+                if (previousState == PlaybackStateCompat.ACTION_STOP) {
+                    return;
+                }
                 updatePlaybackState(previousState);
                 updateNotificationProgress();
                 showNotification();
@@ -364,8 +370,11 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             public void onSeekTo(long position) {
                 super.onSeekTo(position);
                 long previousState = playbackState;
-                updatePlaybackState(PlaybackStateCompat.ACTION_SEEK_TO);
                 mediaPlayer.seekTo((int) position);
+                if (previousState == PlaybackStateCompat.ACTION_STOP) {
+                    return;
+                }
+                updatePlaybackState(PlaybackStateCompat.ACTION_SEEK_TO);
                 updatePlaybackState(previousState);
                 updateNotificationProgress();
                 showNotification();
@@ -439,7 +448,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void showNotification() {
-        if(notificationBuilder!=null)
+        if (notificationBuilder != null)
             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
     }
 
@@ -447,7 +456,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         if (playbackStatus == PlaybackStatus.PLAYING) {
             notificationBuilder.setWhen(System.currentTimeMillis() - mediaPlayer.getCurrentPosition()).setShowWhen(true).setUsesChronometer(true);
             notificationBuilder.setContentInfo(null);
-        } else if(notificationBuilder!=null){
+        } else if (notificationBuilder != null) {
             notificationBuilder.setWhen(0).setShowWhen(false).setUsesChronometer(false);
             int progress = mediaPlayer.getCurrentPosition();
             notificationBuilder.setContentInfo(String.format(Locale.FRANCE, "%02d:%02d",

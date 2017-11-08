@@ -129,7 +129,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/seekBar"
-            android:clickable="false"
+            android:clickable="true"
             app:layout_constraintRight_toLeftOf="@+id/player_time"
             app:layout_constraintLeft_toRightOf="@id/img_forward"
             app:layout_constraintBottom_toBottomOf="parent"

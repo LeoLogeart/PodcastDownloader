@@ -48,7 +48,7 @@ class PodcastViewHolder extends RecyclerView.ViewHolder {
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser && context.getCurrentPlayerHolder() != null) {
+            if (fromUser && context.getCurrentPlayerHolder() != null && mediaBrowserManager != null) {
                 mediaBrowserManager.seekTo(progress);
                 UpdatePlayerTime(progress);
             }
