@@ -44,123 +44,124 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="PodcastParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/PodcastParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1646">
-              <caret line="260" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="288" selection-end-column="1" />
+            <state relative-caret-position="64">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LayoutUpdater.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/LayoutUpdater.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaPlayerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="MediaBrowserManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaBrowserManager.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/MediaBrowserManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="208">
+              <caret line="29" column="80" selection-start-line="29" selection-start-column="80" selection-end-line="29" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2049#2050#0" expanded="true" />
-                <element signature="e#2087#2088#0" expanded="true" />
-                <element signature="e#2167#2168#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MediaPlayerService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="346" column="68" selection-start-line="346" selection-start-column="57" selection-end-line="346" selection-end-column="68" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8445#9313#0" expanded="true" />
-                <element signature="e#9312#9313#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PodcastAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="37" column="53" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Service.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-26/android.jar!/android/app/Service.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
-              <folding>
-                <element signature="e#2351#2352#0" expanded="true" />
-                <element signature="e#2402#2403#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PodcastViewHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="333" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2893#4457#0" expanded="true" />
-                <element signature="e#4456#4457#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MediaControllerCompat.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-media-compat/26.0.2/682e082a7007c2055ed1b17a858bcc9e1964d09c/support-media-compat-26.0.2-sources.jar!/android/support/v4/media/session/MediaControllerCompat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="987" column="0" selection-start-line="987" selection-start-column="0" selection-end-line="987" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="print_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/print_item.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="131" column="35" selection-start-line="131" selection-start-column="35" selection-end-line="131" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#537#538#0" expanded="true" />
-                <element signature="e#567#568#0" expanded="true" />
+                <element signature="e#2255#2256#0" expanded="true" />
+                <element signature="e#2293#2294#0" expanded="true" />
+                <element signature="e#2319#2320#0" expanded="true" />
+                <element signature="e#2380#2381#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Podcast.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/model/Podcast.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+            <state relative-caret-position="352">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PodcastViewHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastViewHolder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="443">
+              <caret line="211" column="4" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2389#2390#0" expanded="true" />
+                <element signature="e#2430#2431#0" expanded="true" />
+                <element signature="e#2515#4158#0" expanded="true" />
+                <element signature="e#4157#4158#0" expanded="true" />
+                <element signature="e#4456#4457#0" expanded="true" />
+                <element signature="e#4501#4502#0" expanded="true" />
+                <element signature="e#7571#7572#0" expanded="true" />
+                <element signature="e#7613#7614#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="32">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PodcastView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PodcastAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="51" column="70" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -2168,15 +2169,29 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaBrowserManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/print_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils/PodcastParser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/UI/LayoutUpdater.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/UI/PodcastView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils/MediaBrowserManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/UI/PodcastAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/DownloadActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/model/Podcast.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/LayoutUpdater.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastViewHolder.java" />
       </list>
     </option>
   </component>
@@ -2287,6 +2302,76 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="podcastgrossestetes" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PodcastGrossesTetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="podcastgrossestetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PodcastGrossesTetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="podcastgrossestetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PodcastGrossesTetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="podcastgrossestetes" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="context" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2732,7 +2817,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36266094" sideWeight="0.5041459" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3004292" sideWeight="0.49585405" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3004292" sideWeight="0.49585405" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950923" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2741,7 +2826,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1641791" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2607296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2607296" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2775,20 +2860,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java</url>
-          <line>182</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java</url>
+          <line>187</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java</url>
-          <line>250</line>
-          <properties />
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java</url>
-          <line>436</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java</url>
+          <line>441</line>
           <properties />
           <option name="timeStamp" value="20" />
         </line-breakpoint>
@@ -2798,21 +2877,21 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/DownloadActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1328">
           <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9364#9365#0" expanded="true" />
-            <element signature="e#9406#9407#0" expanded="true" />
-            <element signature="e#9697#9698#0" expanded="true" />
-            <element signature="e#9737#9738#0" expanded="true" />
+            <element signature="e#9689#9690#0" expanded="true" />
+            <element signature="e#9731#9732#0" expanded="true" />
+            <element signature="e#10022#10023#0" expanded="true" />
+            <element signature="e#10062#10063#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/PodcastParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4000">
           <caret line="260" column="0" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
@@ -2822,39 +2901,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/LayoutUpdater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1648">
           <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#300#301#0" expanded="false" />
-            <element signature="e#330#331#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#511#512#0" expanded="false" />
+            <element signature="e#541#542#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaBrowserManager.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/MediaBrowserManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2049#2050#0" expanded="true" />
-            <element signature="e#2087#2088#0" expanded="true" />
-            <element signature="e#2167#2168#0" expanded="true" />
+            <element signature="e#2255#2256#0" expanded="true" />
+            <element signature="e#2293#2294#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2380#2381#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3360">
           <caret line="212" column="71" selection-start-line="212" selection-start-column="71" selection-end-line="212" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8445#9313#0" expanded="true" />
-            <element signature="e#9312#9313#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2878,7 +2956,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="672">
           <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
@@ -2886,14 +2964,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastViewHolder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4816">
           <caret line="337" column="0" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2893#4457#0" expanded="true" />
+            <element signature="e#2389#2390#0" expanded="true" />
+            <element signature="e#2430#2431#0" expanded="true" />
+            <element signature="e#2515#4158#0" expanded="true" />
+            <element signature="e#4157#4158#0" expanded="true" />
             <element signature="e#4456#4457#0" expanded="true" />
+            <element signature="e#4501#4502#0" expanded="true" />
+            <element signature="e#7571#7572#0" expanded="true" />
+            <element signature="e#7613#7614#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2922,76 +3006,6 @@
         <state relative-caret-position="6704">
           <caret line="504" column="0" selection-start-line="504" selection-start-column="0" selection-end-line="504" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/DownloadActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="231" column="23" selection-start-line="231" selection-start-column="23" selection-end-line="231" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5419#5420#0" expanded="true" />
-            <element signature="e#5457#5458#0" expanded="true" />
-            <element signature="e#5511#5512#0" expanded="true" />
-            <element signature="e#5546#5547#0" expanded="true" />
-            <element signature="e#9364#9365#0" expanded="true" />
-            <element signature="e#9406#9407#0" expanded="true" />
-            <element signature="e#9697#9698#0" expanded="true" />
-            <element signature="e#9737#9738#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/LayoutUpdater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="926">
-          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Podcast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="37" column="53" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1646">
-          <caret line="260" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="288" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#537#538#0" expanded="true" />
-            <element signature="e#567#568#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3025,39 +3039,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaBrowserManager.java">
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/dl/podcastgrossestetes/R.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="211">
+          <caret line="3011" column="32" selection-start-line="3011" selection-start-column="32" selection-end-line="3011" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/DownloadActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2049#2050#0" expanded="true" />
-            <element signature="e#2087#2088#0" expanded="true" />
-            <element signature="e#2167#2168#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/PodcastViewHolder.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/context/MediaPlayerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="333" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
+        <state relative-caret-position="211">
+          <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2893#4457#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/model/Podcast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/LayoutUpdater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="51" column="70" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/ui/PodcastViewHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="211" column="4" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2389#2390#0" expanded="true" />
+            <element signature="e#2430#2431#0" expanded="true" />
+            <element signature="e#2515#4158#0" expanded="true" />
+            <element signature="e#4157#4158#0" expanded="true" />
             <element signature="e#4456#4457#0" expanded="true" />
+            <element signature="e#4501#4502#0" expanded="true" />
+            <element signature="e#7571#7572#0" expanded="true" />
+            <element signature="e#7613#7614#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/MediaPlayerService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="346" column="68" selection-start-line="346" selection-start-column="57" selection-end-line="346" selection-end-column="68" />
+        <state relative-caret-position="32">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/MediaBrowserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="29" column="80" selection-start-line="29" selection-start-column="80" selection-end-line="29" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8445#9313#0" expanded="true" />
-            <element signature="e#9312#9313#0" expanded="true" />
+            <element signature="e#2255#2256#0" expanded="true" />
+            <element signature="e#2293#2294#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2380#2381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/PodcastParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dl/podcastgrossestetes/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

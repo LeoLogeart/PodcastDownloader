@@ -1,4 +1,4 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.utils;
 
 
 import android.app.DownloadManager;
@@ -9,23 +9,25 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 
+import com.dl.podcastgrossestetes.model.Podcast;
+
 import java.io.File;
 import java.util.HashSet;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 
-class Utils {
+public class Utils {
 
     private Context ctx;
     private File[] downloadedFiles;
     private HashSet<String> filesDownloading;
 
-    Utils(Context activity) {
+    public Utils(Context activity) {
         ctx = activity;
     }
 
 
-    boolean isInDlFolder(Podcast podcast) {
+    public boolean isInDlFolder(Podcast podcast) {
 
         if (downloadedFiles == null) {
             File downloadFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -41,7 +43,7 @@ class Utils {
         return false;
     }
 
-    boolean isCurrentlyDownloading(String title) {
+    public boolean isCurrentlyDownloading(String title) {
         if (filesDownloading == null) {
             filesDownloading = new HashSet<>();
             DownloadManager mgr = (DownloadManager) ctx.getSystemService(DOWNLOAD_SERVICE);
@@ -54,17 +56,17 @@ class Utils {
         return filesDownloading.contains(title + ".mp3");
     }
 
-    void saveTime(int currentPosition, String playingUri) {
+    public void saveTime(int currentPosition, String playingUri) {
         SharedPreferences.Editor editor = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).edit();
         editor.putInt(playingUri, currentPosition);
         editor.apply();
     }
 
-    int getTime(String podcastUri) {
+    public int getTime(String podcastUri) {
         return ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).getInt(podcastUri, 0);
     }
 
-    int getPodcastDuration(String podcastUri) {
+    public int getPodcastDuration(String podcastUri) {
         Uri uri = Uri.parse(podcastUri);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(ctx, uri);

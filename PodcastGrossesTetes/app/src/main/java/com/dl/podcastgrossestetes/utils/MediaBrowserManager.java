@@ -1,4 +1,4 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.utils;
 
 
 import android.content.ComponentName;
@@ -8,13 +8,17 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 
-class MediaBrowserManager {
+import com.dl.podcastgrossestetes.context.DownloadActivity;
+import com.dl.podcastgrossestetes.context.MediaPlayerService;
+import com.dl.podcastgrossestetes.model.Podcast;
+
+public class MediaBrowserManager {
 
     private final MediaBrowserCompat mediaBrowser;
     private MediaControllerCompat mediaController;
     private MediaControllerCompat.Callback holderCallback;
 
-    MediaBrowserManager(DownloadActivity context, Podcast podcast) {
+    public MediaBrowserManager(DownloadActivity context, Podcast podcast) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("media", podcast);
         MediaBrowserCompat.ConnectionCallback mConnectionCallbacks = new MediaBrowserCompat.ConnectionCallback() {
@@ -49,36 +53,36 @@ class MediaBrowserManager {
                 bundle);
     }
 
-    void disconnect() {
+    public void disconnect() {
         mediaController.unregisterCallback(holderCallback);
         mediaBrowser.disconnect();
     }
 
-    void connect() {
+    public void connect() {
         mediaBrowser.connect();
     }
 
-    void play() {
+    public void play() {
         mediaController.getTransportControls().play();
     }
 
-    void pause() {
+    public void pause() {
         mediaController.getTransportControls().pause();
     }
 
-    void stop() {
+    public void stop() {
         mediaController.getTransportControls().stop();
     }
 
-    void seekTo(int progress) {
+    public void seekTo(int progress) {
         mediaController.getTransportControls().seekTo(progress);
     }
 
-    void skipToNext() {
+    public void skipToNext() {
         mediaController.getTransportControls().skipToNext();
     }
 
-    void skipToPrevious() {
+    public void skipToPrevious() {
         mediaController.getTransportControls().skipToPrevious();
     }
 

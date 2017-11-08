@@ -1,4 +1,4 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.ui;
 
 
 import android.os.Handler;
@@ -6,6 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.dl.podcastgrossestetes.context.DownloadActivity;
+import com.dl.podcastgrossestetes.model.Podcast;
+import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.utils.Constants;
 
 import java.util.List;
 
@@ -31,8 +36,6 @@ class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
 
         if (podcasts.get(position).getStatus().equals(Podcast.Status.DOWNLOADED)) {
             holder.InitDownloadedHolder(podcasts.get(position));
-        } else {
-            holder.setExpandButtonGone();
         }
 
         holder.getCardView().setOnClickListener(v -> onCardViewClick(holder, position));

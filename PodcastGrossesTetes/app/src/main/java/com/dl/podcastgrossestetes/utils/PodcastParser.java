@@ -1,4 +1,6 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.utils;
+
+import com.dl.podcastgrossestetes.model.Podcast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -12,7 +14,7 @@ import static com.dl.podcastgrossestetes.R.drawable.best_of;
 import static com.dl.podcastgrossestetes.R.drawable.gold;
 import static com.dl.podcastgrossestetes.R.drawable.gtlr;
 
-class PodcastParser {
+public class PodcastParser {
 
     private String formattedDate;
 
@@ -22,7 +24,7 @@ class PodcastParser {
      *
      * @param responseString the whole html page
      */
-    void parsePage(String responseString, List<Podcast> listItem) {
+    public void parsePage(String responseString, List<Podcast> listItem) {
         String[] lines = responseString.split("\n");
         int i = 0;
         int start, end;
@@ -231,7 +233,7 @@ class PodcastParser {
      * @param type the type of the podcast
      * @return the image to display
      */
-    int getImg(Podcast.Type type) {
+    public int getImg(Podcast.Type type) {
         switch (type) {
             case BEST_OF:
                 return best_of;
@@ -245,7 +247,7 @@ class PodcastParser {
         return gtlr;
     }
 
-    Podcast.Type getType(String title) {
+    public Podcast.Type getType(String title) {
         Podcast.Type res = Podcast.Type.INTEGRALE;
         if (title.contains("intégrale")) {
             res = Podcast.Type.INTEGRALE;
@@ -265,7 +267,7 @@ class PodcastParser {
      * @param title the title of the podcast
      * @return the day of the week contained in the title
      */
-    String getDay(String title) {
+    public String getDay(String title) {
         String res = "";
         title = title.toLowerCase(Locale.FRENCH);
         if (title.contains("lundi")) {

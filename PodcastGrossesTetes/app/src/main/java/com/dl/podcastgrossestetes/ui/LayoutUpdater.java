@@ -1,25 +1,30 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.dl.podcastgrossestetes.context.DownloadActivity;
+import com.dl.podcastgrossestetes.model.Podcast;
+import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-class LayoutUpdater {
+public class LayoutUpdater {
 
     private DownloadActivity act;
 
-    LayoutUpdater(DownloadActivity activity) {
+    public LayoutUpdater(DownloadActivity activity) {
         act = activity;
     }
 
     /**
      * Update the layout with values selected by the user
      */
-    void updateLayout() {
+    public void updateLayout() {
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         boolean integ = sharedPref.getBoolean("integral", true);
         boolean best = sharedPref.getBoolean("best", true);
@@ -51,7 +56,7 @@ class LayoutUpdater {
      *
      * @param downloadingPodcast string id of the podcast to add to the "seen" list
      */
-    void addDownloadingIcon(Podcast downloadingPodcast) {
+    public void addDownloadingIcon(Podcast downloadingPodcast) {
         downloadingPodcast.setDownloading();
         act.getpodcastList().getAdapter().notifyDataSetChanged();
 
@@ -60,7 +65,7 @@ class LayoutUpdater {
     /**
      * Closes the connection.
      */
-    void connectionProblem() {
+    public void connectionProblem() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
         alertDialogBuilder.setTitle("Problème de connexion");
         alertDialogBuilder
@@ -74,7 +79,7 @@ class LayoutUpdater {
         alertDialog.show();
     }
 
-    void showDownloadErrorDialog(DownloadActivity downloadActivity) {
+    public void showDownloadErrorDialog(DownloadActivity downloadActivity) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 downloadActivity);
         alertDialogBuilder.setTitle("Problème de stockage");
@@ -108,7 +113,7 @@ class LayoutUpdater {
     /**
      * Create the dialog that will ask which display the user wants
      */
-    void createMenuDialog() {
+    public void createMenuDialog() {
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         AlertDialog.Builder builder = new AlertDialog.Builder(act);
         // Set the dialog title

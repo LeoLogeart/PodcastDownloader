@@ -1,4 +1,4 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.context;
 
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -22,6 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.dl.podcastgrossestetes.model.Podcast;
+import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
+import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.ui.LayoutUpdater;
+import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
+import com.dl.podcastgrossestetes.utils.PodcastParser;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -237,7 +243,7 @@ public class DownloadActivity extends Activity implements Observer {
                 .execute("http://www.rtl.fr/podcast/les-grosses-tetes.xml");
     }
 
-    void DownloadPodcast(Podcast podcast) {
+    public void DownloadPodcast(Podcast podcast) {
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(podcast.getUrl()));
         request.setDescription("podcast");

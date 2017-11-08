@@ -1,8 +1,10 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.model;
 
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.dl.podcastgrossestetes.utils.PodcastParser;
 
 
 public class Podcast implements Parcelable {
@@ -43,7 +45,7 @@ public class Podcast implements Parcelable {
         image = in.readInt();
     }
 
-    String getDay() {
+    public String getDay() {
         return day;
     }
 
@@ -51,36 +53,36 @@ public class Podcast implements Parcelable {
         return image;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
 
-    Type getType() {
+    public Type getType() {
         return type;
     }
 
-    String getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    void setDownloading() {
+    public void setDownloading() {
         status = Status.DOWNLOADING;
     }
 
-    void setDownloaded() {
+    public void setDownloaded() {
         status = Status.DOWNLOADED;
     }
 
-    Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    String getUri() {
+    public String getUri() {
         return uri;
     }
 
-    void setUri(String uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -98,11 +100,11 @@ public class Podcast implements Parcelable {
         parcel.writeInt(image);
     }
 
-    enum Type {
+    public enum Type {
         INTEGRALE, PEPITE, BEST_OF, INVITE_MYSTERE
     }
 
-    enum Status {
+    public enum Status {
         DOWNLOADING, NONE, DOWNLOADED
     }
 }

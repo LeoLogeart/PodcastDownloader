@@ -1,4 +1,4 @@
-package com.dl.podcastgrossestetes;
+package com.dl.podcastgrossestetes.context;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,6 +25,11 @@ import android.support.v7.app.NotificationCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.dl.podcastgrossestetes.model.Podcast;
+import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.utils.Constants;
+import com.dl.podcastgrossestetes.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
