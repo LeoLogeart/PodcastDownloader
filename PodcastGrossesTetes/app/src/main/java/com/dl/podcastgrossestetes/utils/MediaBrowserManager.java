@@ -56,7 +56,9 @@ public class MediaBrowserManager {
 
     public void disconnect() {
         mediaController.unregisterCallback(holderCallback);
-        mediaBrowser.disconnect();
+        if(mediaBrowser.isConnected()){
+            mediaBrowser.disconnect();
+        }
     }
 
     public void connect() {

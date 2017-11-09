@@ -22,10 +22,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-import com.dl.podcastgrossestetes.model.Podcast;
-import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
 import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.ui.LayoutUpdater;
+import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.PodcastParser;
 import com.google.android.gms.ads.AdRequest;
@@ -161,7 +161,6 @@ public class DownloadActivity extends Activity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        // Look up the AdView as a resource and load a request.
         setupAd();
         initFields();
         startDl();
@@ -189,12 +188,14 @@ public class DownloadActivity extends Activity implements Observer {
         adView.loadAd(adRequest);
     }
 
-   /* @Override
+    @Override
     public void onDestroy() {
-        if (mediaBrowsermanager != null)
-            mediaBrowsermanager.disconnect();
+        /*if (mediaBrowsermanager != null){
+            mediaBrowsermanager.stop();
+            mediaBrowsermanager.disconnect();}*/
+        unregisterReceiver(onDlComplete);
         super.onDestroy();
-    }*/
+    }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

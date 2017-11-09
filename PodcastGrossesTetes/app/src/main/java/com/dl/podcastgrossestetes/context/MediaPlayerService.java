@@ -26,8 +26,8 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.Utils;
 
@@ -116,17 +116,19 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (currentPodcast == null) {
-            removeNotification();
+            removeNotificationNoUpdate();
         }
         try {
             mediaPlayer.setDataSource(currentPodcast.getUri());
         } catch (Exception e) {
             stopSelf();
+            return;
         }
         try {
             mediaPlayer.prepare();
         } catch (Exception e) {
-            removeNotification();
+            removeNotificationNoUpdate();
+            return;
         }
         mediaPlayer.seekTo((new Utils(MediaPlayerService.this)).getTime(currentPodcast.getUri()));
     }
@@ -143,8 +145,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void pauseMedia() {
         buildNotification(PlaybackStatus.PAUSED);
-        if (mediaPlayer == null)
-            return;
         mediaPlayer.pause();
     }
 
@@ -183,6 +183,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     @Override
     public void onPrepared(MediaPlayer mp) {
+
     }
 
     @Override
@@ -235,7 +236,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 e.printStackTrace();
                 stopSelf();
             }
-            //buildNotification(PlaybackStatus.PLAYING);
         }
 
         handleIncomingActions(intent);
@@ -278,7 +278,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //removeNotification();
+        removeNotificationNoUpdate();
         if (mediaPlayer != null) {
             stopMedia();
             mediaPlayer = null;
@@ -327,6 +327,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onPause() {
                 super.onPause();
+                if (mediaPlayer == null)
+                    return;
                 (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
                 pauseMedia();
             }
@@ -348,6 +350,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onSkipToNext() {
                 super.onSkipToNext();
+                if (mediaPlayer == null)
+                    return;
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.min(mediaPlayer.getCurrentPosition() + Constants.NEXT_PREVIOUS_OFFSET, mediaPlayer.getDuration()));
                 updatePlaybackState(PlaybackStateCompat.ACTION_FAST_FORWARD);
@@ -363,6 +367,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onSkipToPrevious() {
                 super.onSkipToPrevious();
+                if (mediaPlayer == null)
+                    return;
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.max(0, mediaPlayer.getCurrentPosition() - Constants.NEXT_PREVIOUS_OFFSET));
                 updatePlaybackState(PlaybackStateCompat.ACTION_REWIND);
@@ -463,8 +469,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void showNotification() {
-        if (notificationBuilder != null)
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
+        if (notificationBuilder != null) {
+            startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build());
+        }
     }
 
     private void updateNotificationProgress() {
@@ -506,8 +513,12 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void removeNotification() {
         updatePlaybackState(PlaybackStateCompat.ACTION_STOP);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        stopForeground(true);
+    }
+
+    private void removeNotificationNoUpdate() {
+        this.playbackState = PlaybackStateCompat.ACTION_STOP;
+        stopForeground(true);
     }
 
     private void handleIncomingActions(Intent playbackAction) {
@@ -527,9 +538,24 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         }
     }
 
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        stopSelf();
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        stopSelf();
+        return super.onUnbind(intent);
+    }
+
     private enum PlaybackStatus {
         PLAYING,
         PAUSED
     }
-
 }
