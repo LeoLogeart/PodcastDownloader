@@ -4,6 +4,7 @@ import com.dl.podcastgrossestetes.model.Podcast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -31,6 +32,7 @@ public class PodcastParser {
         Podcast podcast;
         String currentLine;
         String title, url;
+        HashSet<String> podcastsInList = new HashSet<String>();
         while (i < lines.length) {
             currentLine = lines[i];
             if (currentLine.contains("enclosure url")) {
@@ -38,6 +40,11 @@ public class PodcastParser {
                 end = currentLine.indexOf("\"", start);
                 url = currentLine.substring(start, end);
                 title = getTitleFromUrl(url);
+                if(podcastsInList.contains(title)){
+                    i++;
+                    continue;
+                }
+                podcastsInList.add(title);
                 podcast = new Podcast(title, url);
                 listItem.add(podcast);
             }

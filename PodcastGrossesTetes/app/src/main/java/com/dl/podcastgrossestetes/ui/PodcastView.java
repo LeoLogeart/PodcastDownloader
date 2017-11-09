@@ -176,7 +176,7 @@ class PodcastView {
     }
 
     void fadeInExpandButton() {
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 180);
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 150);
 
         image_expand.setVisibility(View.VISIBLE);
         mAnimator.addUpdateListener(valueAnimator -> {
@@ -191,7 +191,7 @@ class PodcastView {
 
     void expand(AnimatorListenerAdapter animatorEndListenerAdapter) {
         player.setVisibility(View.VISIBLE);
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 180);
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 150);
 
         mAnimator.addUpdateListener(animatorUpdateListener);
         mAnimator.addListener(animatorEndListenerAdapter);

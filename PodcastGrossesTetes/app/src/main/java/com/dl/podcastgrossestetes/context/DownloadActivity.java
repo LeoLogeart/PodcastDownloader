@@ -336,7 +336,6 @@ public class DownloadActivity extends Activity implements Observer {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            // To dismiss the dialog
             progress.dismiss();
             if (result == null) {
                 layoutUpdater.connectionProblem();
@@ -346,13 +345,7 @@ public class DownloadActivity extends Activity implements Observer {
             podcastsList = new ArrayList<>();
 
             parser.parsePage(result, podcastsList);
-            // set the list of titles in listView
             layoutUpdater.updateLayout();
-            // for each title, set the download when clicked (with an alertbox
-            // to verify)
-            /*llm.OnItemTouchListener((l, v, position, id) -> {
-               podca
-            });*/
         }
     }
 

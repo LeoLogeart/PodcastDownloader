@@ -92,7 +92,7 @@
             android:visibility="gone"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="75dp">
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="45dp"
