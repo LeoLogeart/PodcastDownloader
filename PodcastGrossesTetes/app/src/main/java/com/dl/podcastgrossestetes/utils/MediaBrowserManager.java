@@ -29,6 +29,7 @@ public class MediaBrowserManager {
                     mediaController = new MediaControllerCompat(context, token);
                     holderCallback = context.getCurrentPlayerHolder().getControllerCallback();
                     mediaController.registerCallback(holderCallback);
+                    mediaController.getTransportControls().prepare();
 
                 } catch (Exception ignored) {
 
@@ -85,5 +86,6 @@ public class MediaBrowserManager {
     public void skipToPrevious() {
         mediaController.getTransportControls().skipToPrevious();
     }
+
 
 }

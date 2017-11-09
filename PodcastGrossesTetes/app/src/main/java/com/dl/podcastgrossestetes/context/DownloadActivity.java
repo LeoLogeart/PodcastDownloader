@@ -290,12 +290,18 @@ public class DownloadActivity extends Activity implements Observer {
         playingPodcast = podcast;
     }
 
+    public Podcast getPlayingPodcast() {
+        return playingPodcast;
+    }
+
 
     /**
      * AsyncTask to get the podcast page, parse it and display the list on the
      * screen
      */
     private class RequestTask extends AsyncTask<String, String, String> {
+
+        private Podcast playingPodcast;
 
         @Override
         protected String doInBackground(String... uri) {

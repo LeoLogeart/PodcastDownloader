@@ -73,7 +73,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             initMediaSession();
             if (rootHints != null) {
                 currentPodcast = rootHints.getParcelable("media");
-                initMediaPlayer();
+                if (mediaPlayer == null) {
+                    initMediaPlayer();
+                }
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -325,8 +327,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onPause() {
                 super.onPause();
-                pauseMedia();
                 (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
+                pauseMedia();
             }
 
             @Override
@@ -346,10 +348,11 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onSkipToNext() {
                 super.onSkipToNext();
-                updatePlaybackState(PlaybackStateCompat.ACTION_FAST_FORWARD);
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.min(mediaPlayer.getCurrentPosition() + Constants.NEXT_PREVIOUS_OFFSET, mediaPlayer.getDuration()));
+                updatePlaybackState(PlaybackStateCompat.ACTION_FAST_FORWARD);
                 if (previousState == PlaybackStateCompat.ACTION_STOP) {
+                    playbackState = PlaybackStateCompat.ACTION_STOP;
                     return;
                 }
                 updatePlaybackState(previousState);
@@ -360,10 +363,11 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onSkipToPrevious() {
                 super.onSkipToPrevious();
-                updatePlaybackState(PlaybackStateCompat.ACTION_REWIND);
                 long previousState = playbackState;
                 mediaPlayer.seekTo(Math.max(0, mediaPlayer.getCurrentPosition() - Constants.NEXT_PREVIOUS_OFFSET));
+                updatePlaybackState(PlaybackStateCompat.ACTION_REWIND);
                 if (previousState == PlaybackStateCompat.ACTION_STOP) {
+                    playbackState = PlaybackStateCompat.ACTION_STOP;
                     return;
                 }
                 updatePlaybackState(previousState);
@@ -383,6 +387,12 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 updatePlaybackState(previousState);
                 updateNotificationProgress();
                 showNotification();
+            }
+
+            @Override
+            public void onPrepare() {
+                super.onPrepare();
+                updatePlaybackState(playbackState);
             }
         });
     }
