@@ -27,6 +27,7 @@ import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.ui.LayoutUpdater;
 import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
+import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.PodcastParser;
 import com.dl.podcastgrossestetes.utils.Utils;
@@ -41,13 +42,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
-public class DownloadActivity extends Activity implements Observer {
+public class DownloadActivity extends Activity {
 
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 100;
-    private static final int READ_PHONE_STATE_CODE = 101;
     boolean serviceBound = false;
     private ProgressDialog progress;
     private ArrayList<Podcast> podcastsList;
@@ -63,6 +61,7 @@ public class DownloadActivity extends Activity implements Observer {
     private PodcastViewHolder currentPlayerHolder;
     private MediaBrowserManager mediaBrowsermanager;
     private Podcast playingPodcast;
+    private Podcast waitingPodcast;
 
     private void isDlSuccessful(Long dwnId) {
         DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -80,41 +79,39 @@ public class DownloadActivity extends Activity implements Observer {
     @Override
     public void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
-            return;
-        }
-        grantPermissions();
-
     }
 
-    private void grantPermissions() {
-        // Here, thisActivity is the current activity
+    public void grantStoragePermission(Podcast podcast) {
         if (ContextCompat.checkSelfPermission(DownloadActivity.this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(DownloadActivity.this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    WRITE_EXTERNAL_STORAGE_CODE);
+            waitingPodcast = podcast;
+        } else
+        {
+            downloadPodcast(podcast);
+        }
+    }
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(DownloadActivity.this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(DownloadActivity.this,
-                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        WRITE_EXTERNAL_STORAGE_CODE);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case WRITE_EXTERNAL_STORAGE_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(waitingPodcast!=null){
+                        downloadPodcast(waitingPodcast);
+                        waitingPodcast = null;
+                    }
+                } else {
+                    layoutUpdater.createStoragePermissionDeniedDialog();
+                }
+                return;
             }
-        } else {
-            grantReadPhoneStatePermission();
+
         }
     }
 
@@ -126,21 +123,11 @@ public class DownloadActivity extends Activity implements Observer {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(DownloadActivity.this,
                     android.Manifest.permission.READ_PHONE_STATE)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+                layoutUpdater.createReadPhoneStateDialog();
 
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(DownloadActivity.this,
-                        new String[]{android.Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_CODE);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+                        new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.READ_PHONE_STATE_CODE);
             }
         }
     }
@@ -166,6 +153,9 @@ public class DownloadActivity extends Activity implements Observer {
         setupAd();
         initFields();
         startDl();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            grantReadPhoneStatePermission();
+        }
     }
 
     private void initFields() {
@@ -243,7 +233,7 @@ public class DownloadActivity extends Activity implements Observer {
                 .execute("http://www.rtl.fr/podcast/les-grosses-tetes.xml");
     }
 
-    public void DownloadPodcast(Podcast podcast) {
+    public void downloadPodcast(Podcast podcast) {
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(podcast.getUrl()));
         request.setDescription("podcast");
@@ -279,11 +269,6 @@ public class DownloadActivity extends Activity implements Observer {
 
     public void setCurrentPlayerHolder(PodcastViewHolder currentPlayerHolder) {
         this.currentPlayerHolder = currentPlayerHolder;
-    }
-
-    @Override
-    public void update(Observable observable, Object o) {
-        //TODO remove
     }
 
     public void setPodcast(Podcast podcast) {
@@ -348,7 +333,7 @@ public class DownloadActivity extends Activity implements Observer {
             progress.dismiss();
             if (result == null) {
                 podcastsList = (new Utils(DownloadActivity.this)).retrievePodcastList();
-                if(podcastsList.isEmpty()){
+                if (podcastsList.isEmpty()) {
                     layoutUpdater.connectionProblem();
                 }
                 return;

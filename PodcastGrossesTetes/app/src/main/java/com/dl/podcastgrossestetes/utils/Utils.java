@@ -33,6 +33,7 @@ public class Utils {
         if (downloadedFiles == null) {
             File downloadFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
             downloadedFiles = downloadFolder.listFiles();
+            if (downloadedFiles == null) return false;
         }
 
         for (File f : downloadedFiles) {

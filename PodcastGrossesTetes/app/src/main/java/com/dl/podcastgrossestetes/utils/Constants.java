@@ -10,4 +10,5 @@ public class Constants {
     public static final int NOTIFICATION_ID = 534;
     public static final int NEXT_PREVIOUS_OFFSET = 10000;
     public static final String PODCASTS = "PODCAST_LIST";
+    public static final int READ_PHONE_STATE_CODE = 101;
 }

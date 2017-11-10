@@ -3,10 +3,12 @@ package com.dl.podcastgrossestetes.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.app.ActivityCompat;
 
+import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.context.DownloadActivity;
 import com.dl.podcastgrossestetes.model.Podcast;
-import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.Utils;
 
 import java.util.ArrayList;
@@ -102,7 +104,7 @@ public class LayoutUpdater {
                                 + podcast.getDescription())
                 .setCancelable(false)
                 .setPositiveButton("Oui",
-                        (dialog, id) -> act.DownloadPodcast(podcast))
+                        (dialog, id) -> act.grantStoragePermission(podcast))
                 .setNegativeButton("Non",
                         (dialog, id) -> dialog.cancel());
 
@@ -151,6 +153,37 @@ public class LayoutUpdater {
         builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
         });
         AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void createReadPhoneStateDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
+        alertDialogBuilder.setTitle("Autoriser la gestion d'appels.");
+        alertDialogBuilder
+                .setMessage(
+                        "La gestion d'appels téléphoniques permet à l'application d'arrêter la lecture du podcast lors d'un appel.")
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        (dialog, id) -> {
+                            dialog.cancel();
+                            ActivityCompat.requestPermissions(act,
+                                    new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.READ_PHONE_STATE_CODE);
+                        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void createStoragePermissionDeniedDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
+        alertDialogBuilder.setTitle("Impossible de télécharger!");
+        alertDialogBuilder
+                .setMessage(
+                        "L'application ne peut pas télécharger le podcast sans l'accès à la mémoire.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 }
