@@ -7,6 +7,7 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.dl.podcastgrossestetes.context.DownloadActivity;
 import com.dl.podcastgrossestetes.context.MediaPlayerService;
@@ -90,4 +91,7 @@ public class MediaBrowserManager {
     }
 
 
+    public void dispatchMediaButtonEvent(KeyEvent event) {
+        mediaController.dispatchMediaButtonEvent(event);
+    }
 }

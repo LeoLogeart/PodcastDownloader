@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -295,6 +296,18 @@ public class DownloadActivity extends Activity implements Observer {
         return playingPodcast;
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return super.onKeyDown(keyCode, event);
+        }
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+                mediaBrowsermanager.dispatchMediaButtonEvent(event);
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     /**
      * AsyncTask to get the podcast page, parse it and display the list on the

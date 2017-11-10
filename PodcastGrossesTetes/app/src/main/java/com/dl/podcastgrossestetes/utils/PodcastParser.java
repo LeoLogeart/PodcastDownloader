@@ -32,7 +32,7 @@ public class PodcastParser {
         Podcast podcast;
         String currentLine;
         String title, url;
-        HashSet<String> podcastsInList = new HashSet<String>();
+        HashSet<String> podcastsInList = new HashSet<>();
         while (i < lines.length) {
             currentLine = lines[i];
             if (currentLine.contains("enclosure url")) {

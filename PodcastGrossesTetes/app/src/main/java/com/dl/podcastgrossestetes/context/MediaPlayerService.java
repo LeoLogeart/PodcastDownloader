@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
+import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -25,6 +26,7 @@ import android.support.v7.app.NotificationCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.model.Podcast;
@@ -299,7 +301,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void initMediaSession() throws RemoteException {
-        if (mediaSessionManager != null) return;
+        if (mediaSessionManager != null || mediaSession!=null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaSessionManager = (MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE);
         }
@@ -315,7 +317,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                         PlaybackStateCompat.ACTION_PLAY |
                                 PlaybackStateCompat.ACTION_PLAY_PAUSE);
         mediaSession.setPlaybackState(stateBuilder.build());
-
         setSessionToken(mediaSession.getSessionToken());
         mediaSession.setCallback(new MediaSessionCompat.Callback() {
             @Override
@@ -400,7 +401,24 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 super.onPrepare();
                 updatePlaybackState(playbackState);
             }
+
+            @Override
+            public boolean onMediaButtonEvent(final Intent mediaButtonIntent) {
+                if (mediaButtonIntent != null) {
+                    KeyEvent event = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+                    if (event.getAction()!=KeyEvent.ACTION_DOWN){
+                        return super.onMediaButtonEvent(mediaButtonIntent);
+                    }
+                }
+                if(mediaPlayer.isPlaying()){
+                    onPause();
+                } else {
+                    onPlay();
+                }
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
         });
+        mediaSession.setActive(true);
     }
 
 
@@ -558,4 +576,6 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         PLAYING,
         PAUSED
     }
+
+
 }
