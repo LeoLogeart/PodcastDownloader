@@ -29,6 +29,7 @@ import com.dl.podcastgrossestetes.ui.LayoutUpdater;
 import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.PodcastParser;
+import com.dl.podcastgrossestetes.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -312,8 +313,6 @@ public class DownloadActivity extends Activity implements Observer {
      */
     private class RequestTask extends AsyncTask<String, String, String> {
 
-        private Podcast playingPodcast;
-
         @Override
         protected String doInBackground(String... uri) {
             HttpURLConnection urlConnection = null;
@@ -348,13 +347,17 @@ public class DownloadActivity extends Activity implements Observer {
             super.onPostExecute(result);
             progress.dismiss();
             if (result == null) {
-                layoutUpdater.connectionProblem();
+                podcastsList = (new Utils(DownloadActivity.this)).retrievePodcastList();
+                if(podcastsList.isEmpty()){
+                    layoutUpdater.connectionProblem();
+                }
                 return;
+            } else {
+                podcastsList = new ArrayList<>();
             }
 
-            podcastsList = new ArrayList<>();
-
             parser.parsePage(result, podcastsList);
+            (new Utils(DownloadActivity.this)).savePodcastList(podcastsList);
             layoutUpdater.updateLayout();
         }
     }

@@ -9,4 +9,5 @@ public class Constants {
     public static final int UPDATE_DELAY_MILLIS = 100;
     public static final int NOTIFICATION_ID = 534;
     public static final int NEXT_PREVIOUS_OFFSET = 10000;
+    public static final String PODCASTS = "PODCAST_LIST";
 }

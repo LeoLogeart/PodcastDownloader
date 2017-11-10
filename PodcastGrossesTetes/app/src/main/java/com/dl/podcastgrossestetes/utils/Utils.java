@@ -12,6 +12,7 @@ import android.os.Environment;
 import com.dl.podcastgrossestetes.model.Podcast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
@@ -72,5 +73,29 @@ public class Utils {
         mmr.setDataSource(ctx, uri);
         String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
         return Integer.parseInt(durationStr);
+    }
+
+    public void savePodcastList(ArrayList<Podcast> podcastsList) {
+        SharedPreferences.Editor editor = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).edit();
+        StringBuilder listBuilder =  new StringBuilder();
+        for(Podcast podcast : podcastsList)
+        {
+            listBuilder.append(podcast.getDescription()+"$$"+podcast.getUrl()+";");
+        }
+        editor.putString(Constants.PODCASTS, listBuilder.toString());
+        editor.apply();
+    }
+
+    public ArrayList<Podcast> retrievePodcastList() {
+        ArrayList<Podcast> podcastsList = new ArrayList<>();
+        String list = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).getString(Constants.PODCASTS,"");
+        String[] podcastStrings = list.split(";");
+        for( String podcast : podcastStrings){
+            String[] podcastParts = podcast.split("\\$\\$");
+            if(podcastParts.length==2){
+                podcastsList.add(new Podcast(podcastParts[0],podcastParts[1]));
+            }
+        }
+        return podcastsList;
     }
 }

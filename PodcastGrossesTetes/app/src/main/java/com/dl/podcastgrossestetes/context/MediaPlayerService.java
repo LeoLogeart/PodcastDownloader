@@ -487,7 +487,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void showNotification() {
         if (notificationBuilder != null) {
-            //startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build());
+            //startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build()); TODO make a custom notif with cancel button
             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
         }
     }
