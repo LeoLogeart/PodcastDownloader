@@ -191,9 +191,6 @@ public class DownloadActivity extends Activity implements Observer {
 
     @Override
     public void onDestroy() {
-        /*if (mediaBrowsermanager != null){
-            mediaBrowsermanager.stop();
-            mediaBrowsermanager.disconnect();}*/
         unregisterReceiver(onDlComplete);
         super.onDestroy();
     }

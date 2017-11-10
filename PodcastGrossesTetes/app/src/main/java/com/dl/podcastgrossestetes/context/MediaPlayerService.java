@@ -18,7 +18,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
-import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -241,7 +240,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         }
 
         handleIncomingActions(intent);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     private void callStateListener() {
@@ -301,7 +300,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void initMediaSession() throws RemoteException {
-        if (mediaSessionManager != null || mediaSession!=null) return;
+        if (mediaSessionManager != null || mediaSession != null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaSessionManager = (MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE);
         }
@@ -406,11 +405,11 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             public boolean onMediaButtonEvent(final Intent mediaButtonIntent) {
                 if (mediaButtonIntent != null) {
                     KeyEvent event = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-                    if (event.getAction()!=KeyEvent.ACTION_DOWN){
+                    if (event.getAction() != KeyEvent.ACTION_DOWN) {
                         return super.onMediaButtonEvent(mediaButtonIntent);
                     }
                 }
-                if(mediaPlayer.isPlaying()){
+                if (mediaPlayer.isPlaying()) {
                     onPause();
                 } else {
                     onPlay();
@@ -488,7 +487,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void showNotification() {
         if (notificationBuilder != null) {
-            startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build());
+            //startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build());
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
         }
     }
 
@@ -531,12 +531,16 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private void removeNotification() {
         updatePlaybackState(PlaybackStateCompat.ACTION_STOP);
-        stopForeground(true);
+        //stopForeground(true);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_ID);
     }
 
     private void removeNotificationNoUpdate() {
         this.playbackState = PlaybackStateCompat.ACTION_STOP;
-        stopForeground(true);
+        //stopForeground(true);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_ID);
     }
 
     private void handleIncomingActions(Intent playbackAction) {
@@ -558,10 +562,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        super.onTaskRemoved(rootIntent);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(Constants.NOTIFICATION_ID);
         stopSelf();
+        super.onTaskRemoved(rootIntent);
     }
 
     @Override
