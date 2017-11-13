@@ -63,7 +63,9 @@ public class MediaBrowserManager {
     }
 
     public void connect() {
-        mediaBrowser.connect();
+        if(!mediaBrowser.isConnected()) {
+            mediaBrowser.connect();
+        }
     }
 
     public void play() {

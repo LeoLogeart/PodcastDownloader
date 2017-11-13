@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.ui.LayoutUpdater;
+import com.dl.podcastgrossestetes.ui.PodcastAdapter;
 import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
@@ -34,6 +35,8 @@ import com.dl.podcastgrossestetes.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -62,6 +65,7 @@ public class DownloadActivity extends Activity {
     private MediaBrowserManager mediaBrowsermanager;
     private Podcast playingPodcast;
     private Podcast waitingPodcast;
+    private FirebaseAnalytics firebase;
 
     private void isDlSuccessful(Long dwnId) {
         DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -156,6 +160,9 @@ public class DownloadActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             grantReadPhoneStatePermission();
         }
+        firebase = FirebaseAnalytics.getInstance(this);
+        PodcastAdapter adapt = new PodcastAdapter(new ArrayList<Podcast>(), this);
+        getpodcastList().setAdapter(adapt);
     }
 
     private void initFields() {
@@ -169,15 +176,12 @@ public class DownloadActivity extends Activity {
     }
 
     private void setupAd() {
-        AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId("ca-app-pub-9891261141906247/3743396414");
-        LinearLayout adContainer = this.findViewById(R.id.adsContainer);
+        MobileAds.initialize(this,"ca-app-pub-9891261141906247/3743396414");
+        AdView adContainer = this.findViewById(R.id.adsContainer);
 
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        adContainer.addView(adView);
-        adView.loadAd(adRequest);
+        adContainer.loadAd(adRequest);
     }
 
     @Override
@@ -234,6 +238,11 @@ public class DownloadActivity extends Activity {
     }
 
     public void downloadPodcast(Podcast podcast) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, podcast.getUri());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getDescription());
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "podcast");
+        firebase.logEvent("podcast_download", bundle);
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(podcast.getUrl()));
         request.setDescription("podcast");
@@ -290,6 +299,10 @@ public class DownloadActivity extends Activity {
                 return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public FirebaseAnalytics getFirebase() {
+        return firebase;
     }
 
     /**
