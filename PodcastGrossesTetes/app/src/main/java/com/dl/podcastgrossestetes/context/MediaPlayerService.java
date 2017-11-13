@@ -429,16 +429,16 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             initMediaPlayer();
         }
         this.playbackStatus = playbackStatus;
-        int notificationAction = R.drawable.ic_pause_black_24dp;
+        int notificationAction = R.drawable.ic_pause_white_24dp;
         PendingIntent play_pauseAction = null;
 
         if (playbackStatus == PlaybackStatus.PLAYING) {
             updatePlaybackState(PlaybackStateCompat.ACTION_PLAY);
-            notificationAction = R.drawable.ic_pause_black_24dp;
+            notificationAction = R.drawable.ic_pause_white_24dp;
             play_pauseAction = playbackAction(1);
         } else if (playbackStatus == PlaybackStatus.PAUSED) {
             updatePlaybackState(PlaybackStateCompat.ACTION_PAUSE);
-            notificationAction = R.drawable.ic_play_black_24dp;
+            notificationAction = R.drawable.ic_play_white_24dp;
             play_pauseAction = playbackAction(0);
         }
         Intent intent = new Intent(MediaPlayerService.this, DownloadActivity.class);
@@ -460,12 +460,12 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 .setSmallIcon(android.R.drawable.stat_sys_headset)
                 .setContentText(currentPodcast.getDescription())
                 .setContentTitle(currentPodcast.getDay())
-                .addAction(R.drawable.ic_restore_black_24dp, "previous", playbackAction(3))
+                .addAction(R.drawable.ic_replay_10_white_24dp, "previous", playbackAction(3))
                 .addAction(notificationAction, "pause", play_pauseAction)
                 .setUsesChronometer(true)
                 .setContentIntent(pendingIntent)
                 .setDeleteIntent(pendingDeleteIntent)
-                .addAction(R.drawable.ic_forward_black_24dp, "next", playbackAction(2));
+                .addAction(R.drawable.ic_forward_10_white_24dp, "next", playbackAction(2));
         updateNotificationProgress();
 
         showNotification();
