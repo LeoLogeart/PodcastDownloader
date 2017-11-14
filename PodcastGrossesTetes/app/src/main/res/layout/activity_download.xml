@@ -15,10 +15,14 @@
         android:layout_height="fill_parent"
         android:textColor="#000000" />
 
-    <LinearLayout
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adsContainer"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" />
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-9891261141906247/3743396414">
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>
