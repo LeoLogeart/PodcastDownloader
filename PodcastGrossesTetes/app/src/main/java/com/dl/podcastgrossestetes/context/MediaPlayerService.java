@@ -162,6 +162,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        removeNotification();
         stopMedia();
         stopSelf();
     }
