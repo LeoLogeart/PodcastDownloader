@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.context.DownloadActivity;
@@ -50,6 +53,9 @@ public class LayoutUpdater {
         }
         PodcastAdapter adapt = new PodcastAdapter(shownPodcastList, act);
         act.getpodcastList().setAdapter(adapt);
+        int resId = R.anim.animation_from_bottom;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(act, resId);
+        ((RecyclerView)act.findViewById(R.id.list_podcast)).setLayoutAnimation(animation);
     }
 
 
