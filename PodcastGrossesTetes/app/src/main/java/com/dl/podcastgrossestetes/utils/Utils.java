@@ -81,7 +81,7 @@ public class Utils {
         StringBuilder listBuilder =  new StringBuilder();
         for(Podcast podcast : podcastsList)
         {
-            listBuilder.append(podcast.getDescription()+"$$"+podcast.getUrl()+";");
+            listBuilder.append(podcast.getDescription()).append("$$").append(podcast.getUrl()).append(";");
         }
         editor.putString(Constants.PODCASTS, listBuilder.toString());
         editor.apply();

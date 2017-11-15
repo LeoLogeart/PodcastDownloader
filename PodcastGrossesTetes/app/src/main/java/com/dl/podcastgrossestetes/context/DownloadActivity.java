@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +22,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.model.Podcast;
@@ -33,7 +33,6 @@ import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.PodcastParser;
 import com.dl.podcastgrossestetes.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -81,6 +80,11 @@ public class DownloadActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
     }
@@ -93,27 +97,25 @@ public class DownloadActivity extends Activity {
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     WRITE_EXTERNAL_STORAGE_CODE);
             waitingPodcast = podcast;
-        } else
-        {
+        } else {
             downloadPodcast(podcast);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case WRITE_EXTERNAL_STORAGE_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(waitingPodcast!=null){
+                    if (waitingPodcast != null) {
                         downloadPodcast(waitingPodcast);
                         waitingPodcast = null;
                     }
                 } else {
                     layoutUpdater.createStoragePermissionDeniedDialog();
                 }
-                return;
             }
 
         }
@@ -161,7 +163,7 @@ public class DownloadActivity extends Activity {
             grantReadPhoneStatePermission();
         }
         firebase = FirebaseAnalytics.getInstance(this);
-        PodcastAdapter adapt = new PodcastAdapter(new ArrayList<Podcast>(), this);
+        PodcastAdapter adapt = new PodcastAdapter(new ArrayList<>(), this);
         getpodcastList().setAdapter(adapt);
     }
 
@@ -176,7 +178,7 @@ public class DownloadActivity extends Activity {
     }
 
     private void setupAd() {
-        MobileAds.initialize(this,"ca-app-pub-9891261141906247/3743396414");
+        MobileAds.initialize(this, "ca-app-pub-9891261141906247/3743396414");
         AdView adContainer = this.findViewById(R.id.adsContainer);
 
         AdRequest adRequest = new AdRequest.Builder().build();

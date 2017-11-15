@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -176,7 +177,8 @@ class PodcastView {
     }
 
     void fadeInExpandButton() {
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 150);
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int)px);
 
         image_expand.setVisibility(View.VISIBLE);
         mAnimator.addUpdateListener(valueAnimator -> {
@@ -191,7 +193,8 @@ class PodcastView {
 
     void expand(AnimatorListenerAdapter animatorEndListenerAdapter) {
         player.setVisibility(View.VISIBLE);
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, 150);
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 75, context.getResources().getDisplayMetrics());
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int)px);
 
         mAnimator.addUpdateListener(animatorUpdateListener);
         mAnimator.addListener(animatorEndListenerAdapter);
