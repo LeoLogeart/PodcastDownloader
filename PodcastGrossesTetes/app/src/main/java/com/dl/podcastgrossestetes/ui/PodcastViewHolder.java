@@ -11,9 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.context.DownloadActivity;
+import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.Utils;

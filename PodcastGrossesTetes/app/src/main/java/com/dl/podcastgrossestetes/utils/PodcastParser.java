@@ -2,10 +2,10 @@ package com.dl.podcastgrossestetes.utils;
 
 import com.dl.podcastgrossestetes.model.Podcast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,18 +15,14 @@ import static com.dl.podcastgrossestetes.R.drawable.best_of;
 import static com.dl.podcastgrossestetes.R.drawable.gold;
 import static com.dl.podcastgrossestetes.R.drawable.gtlr;
 
-public class PodcastParser {
+public class PodcastParser implements PodcastParserInterface {
 
     private String formattedDate;
 
 
-    /**
-     * Parses the html page to get podcast titles and urls
-     *
-     * @param responseString the whole html page
-     */
-    public void parsePage(String responseString, List<Podcast> listItem) {
-        String[] lines = responseString.split("\n");
+    public ArrayList<Podcast> parsePage(String RssString) {
+        ArrayList<Podcast> listItem = new ArrayList<>();
+        String[] lines = RssString.split("\n");
         int i = 0;
         int start, end;
         Podcast podcast;
@@ -40,16 +36,18 @@ public class PodcastParser {
                 end = currentLine.indexOf("\"", start);
                 url = currentLine.substring(start, end);
                 title = getTitleFromUrl(url);
-                if(podcastsInList.contains(title)){
+                if (podcastsInList.contains(title)) {
                     i++;
                     continue;
                 }
                 podcastsInList.add(title);
-                podcast = new Podcast(title, url);
+                final String type = getType(title);
+                podcast = new Podcast(getDay(title), title, getImg(type), url, type);
                 listItem.add(podcast);
             }
             i++;
         }
+        return listItem;
     }
 
 
@@ -240,30 +238,30 @@ public class PodcastParser {
      * @param type the type of the podcast
      * @return the image to display
      */
-    public int getImg(Podcast.Type type) {
+    private int getImg(String type) {
         switch (type) {
-            case BEST_OF:
+            case "Best of":
                 return best_of;
-            case INTEGRALE:
+            case "Intégrale":
                 return gtlr;
-            case INVITE_MYSTERE:
+            case "Invité mystère":
                 return anonymous;
-            case PEPITE:
+            case "Pépites":
                 return gold;
         }
         return gtlr;
     }
 
-    public Podcast.Type getType(String title) {
-        Podcast.Type res = Podcast.Type.INTEGRALE;
+    private String getType(String title) {
+        String res = "Intégrale";
         if (title.contains("intégrale")) {
-            res = Podcast.Type.INTEGRALE;
+            res = "Intégrale";
         } else if (title.contains("pépite")) {
-            res = Podcast.Type.PEPITE;
+            res = "Pépites";
         } else if (title.contains("of")) {
-            res = Podcast.Type.BEST_OF;
+            res = "Best of";
         } else if (title.contains("yst")) {
-            res = Podcast.Type.INVITE_MYSTERE;
+            res = "Invité mystère";
         }
         return res;
     }
@@ -274,7 +272,7 @@ public class PodcastParser {
      * @param title the title of the podcast
      * @return the day of the week contained in the title
      */
-    public String getDay(String title) {
+    private String getDay(String title) {
         String res = "";
         title = title.toLowerCase(Locale.FRENCH);
         if (title.contains("lundi")) {
