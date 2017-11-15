@@ -2,7 +2,7 @@ Podcast Grosses Têtes
 =================
 ## Politique de confidentialité
 
-### Collecte des données personnelles
+### Collecte des données
 Les informations que nous collectons sont anonymes et servent à améliorer les services proposés à tous nos utilisateurs.
 Nous collectons les données suivante:
 * **Utilisation de la publicité** : Les données anonymes d'affichage et de clics sont collectées par Google Inc par le biais de AdMob.
