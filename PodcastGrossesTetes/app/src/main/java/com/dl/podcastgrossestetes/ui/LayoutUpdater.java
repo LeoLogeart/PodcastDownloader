@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
@@ -30,32 +31,40 @@ public class LayoutUpdater {
      * Update the layout with values selected by the user
      */
     public void updateLayout() {
-        SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
-        boolean integ = sharedPref.getBoolean("integral", true);
-        boolean best = sharedPref.getBoolean("best", true);
-        boolean mom = sharedPref.getBoolean("moments", true);
-        boolean guest = sharedPref.getBoolean("guest", true);
-        Utils utils = new Utils(act);
         List<Podcast> shownPodcastList = new ArrayList<>();
         ArrayList<Podcast> podcastList = act.getPodcastListView();
+        Utils utils = new Utils(act);
         for (Podcast pod : podcastList) {
-            if ((mom && pod.getType().equals(Podcast.Type.PEPITE)) ||
-                    (best && pod.getType().equals(Podcast.Type.BEST_OF)) ||
-                    (integ && pod.getType().equals(Podcast.Type.INTEGRALE)) ||
-                    (guest && pod.getType().equals(Podcast.Type.INVITE_MYSTERE))) {
-                if (utils.isInDlFolder(pod)) {
-                    pod.setDownloaded();
-                } else if (utils.isCurrentlyDownloading(pod.getDescription())) {
-                    pod.setDownloading();
-                }
-                shownPodcastList.add(pod);
-            }
+            addSelectedPodcast(shownPodcastList, pod, utils);
         }
         PodcastAdapter adapt = new PodcastAdapter(shownPodcastList, act);
         act.getpodcastList().setAdapter(adapt);
         int resId = R.anim.animation_from_bottom;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(act, resId);
-        ((RecyclerView)act.findViewById(R.id.list_podcast)).setLayoutAnimation(animation);
+        ((RecyclerView) act.findViewById(R.id.list_podcast)).setLayoutAnimation(animation);
+    }
+
+    private void addSelectedPodcast(List<Podcast> shownPodcastList, Podcast pod, Utils utils) {
+        if (Podcast.getPodcastTypes() == null) {
+            Log.e("PGT", "You didn't set the podcast types : Podcast.setTypes(...)");
+            return;
+        }
+        for (String type : Podcast.getPodcastTypes()) {
+            if (PodcastTypeAccepted(pod, type)) {
+                if (utils.isInDlFolder(pod)) {
+                    pod.setDownloaded();
+                } else if (utils.isCurrentlyDownloading(pod.getSubtitle())) {
+                    pod.setDownloading();
+                }
+                shownPodcastList.add(pod);
+                return;
+            }
+        }
+    }
+
+    private boolean PodcastTypeAccepted(Podcast pod, String type) {
+        SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
+        return pod.getType().equals(type) && sharedPref.getBoolean(type, true);
     }
 
 
@@ -75,12 +84,11 @@ public class LayoutUpdater {
      */
     public void connectionProblem() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
-        alertDialogBuilder.setTitle("Problème de connexion");
+        alertDialogBuilder.setTitle(R.string.connection_issue_title);
         alertDialogBuilder
-                .setMessage(
-                        "Impossible de contacter le serveur, veuillez réessayer plus tard.")
+                .setMessage(R.string.connection_issue_description)
                 .setCancelable(false)
-                .setPositiveButton("Ok", (dialog, id) -> act.finish());
+                .setPositiveButton(R.string.ok, (dialog, id) -> act.finish());
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -90,12 +98,11 @@ public class LayoutUpdater {
     public void showDownloadErrorDialog(DownloadActivity downloadActivity) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 downloadActivity);
-        alertDialogBuilder.setTitle("Problème de stockage");
+        alertDialogBuilder.setTitle(R.string.storage_issue_title);
         alertDialogBuilder
-                .setMessage(
-                        "Impossible d'écrire sur la mémoire externe.")
+                .setMessage(R.string.storage_issue_description)
                 .setCancelable(false)
-                .setPositiveButton("Ok", (dialog, id) -> downloadActivity.finish());
+                .setPositiveButton(R.string.ok, (dialog, id) -> downloadActivity.finish());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
@@ -103,15 +110,15 @@ public class LayoutUpdater {
 
     void createDownloadConfirmationDialog(final Podcast podcast) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
-        alertDialogBuilder.setTitle("Télécharger");
+        alertDialogBuilder.setTitle(R.string.download_title);
         alertDialogBuilder
                 .setMessage(
-                        "Voulez vous télécharger "
-                                + podcast.getDescription())
+                        act.getString(R.string.download_description)
+                                + podcast.getSubtitle())
                 .setCancelable(false)
-                .setPositiveButton("Oui",
+                .setPositiveButton(R.string.yes,
                         (dialog, id) -> act.grantStoragePermission(podcast))
-                .setNegativeButton("Non",
+                .setNegativeButton(R.string.no,
                         (dialog, id) -> dialog.cancel());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -124,34 +131,17 @@ public class LayoutUpdater {
     public void createMenuDialog() {
         SharedPreferences sharedPref = act.getPreferences(Context.MODE_PRIVATE);
         AlertDialog.Builder builder = new AlertDialog.Builder(act);
-        // Set the dialog title
-        boolean[] checked = {sharedPref.getBoolean("integral", true),
-                sharedPref.getBoolean("best", true),
-                sharedPref.getBoolean("moments", true),
-                sharedPref.getBoolean("guest", true)
-        };
-        SharedPreferences.Editor editor = sharedPref.edit();
-        builder.setTitle("Afficher");
-        builder.setMultiChoiceItems(
-                new String[]{"Intégrales", "Bests of", "Pépites",
-                        "Invités mystère"}, checked,
-                (dialog, which, isChecked) -> {
-                    switch (which) {
-                        case 0:
-                            editor.putBoolean("integral", isChecked);
-                            break;
-                        case 1:
-                            editor.putBoolean("best", isChecked);
-                            break;
-                        case 2:
-                            editor.putBoolean("moments", isChecked);
-                            break;
-                        case 3:
-                            editor.putBoolean("guest", isChecked);
-                            break;
-                    }
+        boolean[] checked = new boolean[Podcast.getPodcastTypes().length];
+        int i = 0;
+        for (String type : Podcast.getPodcastTypes()) {
+            checked[i] = sharedPref.getBoolean(type, true);
+            i++;
+        }
 
-                });
+        SharedPreferences.Editor editor = sharedPref.edit();
+        builder.setTitle(R.string.print);
+        builder.setMultiChoiceItems(Podcast.getPodcastTypes(), checked,
+                (dialog, which, isChecked) -> editor.putBoolean(Podcast.getPodcastTypes()[which], isChecked));
         builder.setPositiveButton(R.string.ok, (dialog, id) -> {
             editor.apply();
             updateLayout();
@@ -164,12 +154,11 @@ public class LayoutUpdater {
 
     public void createReadPhoneStateDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
-        alertDialogBuilder.setTitle("Autoriser la gestion d'appels.");
+        alertDialogBuilder.setTitle(R.string.allow_phone_title);
         alertDialogBuilder
-                .setMessage(
-                        "La gestion d'appels téléphoniques permet à l'application d'arrêter la lecture du podcast lors d'un appel.")
+                .setMessage(R.string.allow_phone_description)
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(R.string.ok,
                         (dialog, id) -> {
                             dialog.cancel();
                             ActivityCompat.requestPermissions(act,
@@ -182,12 +171,11 @@ public class LayoutUpdater {
 
     public void createStoragePermissionDeniedDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(act);
-        alertDialogBuilder.setTitle("Impossible de télécharger!");
+        alertDialogBuilder.setTitle(R.string.impossible_download_memory_title);
         alertDialogBuilder
-                .setMessage(
-                        "L'application ne peut pas télécharger le podcast sans l'accès à la mémoire.")
+                .setMessage(R.string.impossible_download_memory_description)
                 .setCancelable(false)
-                .setPositiveButton("OK", (dialog, id) -> dialog.cancel());
+                .setPositiveButton(R.string.ok, (dialog, id) -> dialog.cancel());
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

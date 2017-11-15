@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.dl.podcastgrossestetes.ui.PodcastViewHolder;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.MediaBrowserManager;
 import com.dl.podcastgrossestetes.utils.PodcastParser;
+import com.dl.podcastgrossestetes.utils.PodcastParserInterface;
 import com.dl.podcastgrossestetes.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -51,7 +53,7 @@ public class DownloadActivity extends Activity {
     boolean serviceBound = false;
     private ProgressDialog progress;
     private ArrayList<Podcast> podcastsList;
-    private PodcastParser parser;
+    private PodcastParserInterface parser;
     private LayoutUpdater layoutUpdater;
     private RecyclerView podcastListView;
     BroadcastReceiver onDlComplete = new BroadcastReceiver() {
@@ -158,6 +160,11 @@ public class DownloadActivity extends Activity {
         setContentView(R.layout.activity_download);
         setupAd();
         initFields();
+        ///TODO Remove
+        String[] types = {"Intégrale", "Best of", "Invité mystère", "Pépites"};
+        Podcast.setPodcastTypes(types);
+        parser = new PodcastParser();
+        /////
         startDl();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             grantReadPhoneStatePermission();
@@ -168,7 +175,6 @@ public class DownloadActivity extends Activity {
     }
 
     private void initFields() {
-        parser = new PodcastParser();
         layoutUpdater = new LayoutUpdater(this);
 
         podcastListView = findViewById(R.id.list_podcast);
@@ -242,20 +248,20 @@ public class DownloadActivity extends Activity {
     public void downloadPodcast(Podcast podcast) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, podcast.getUri());
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getDescription());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getSubtitle());
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "podcast");
         firebase.logEvent("podcast_download", bundle);
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(podcast.getUrl()));
         request.setDescription("podcast");
-        request.setTitle(podcast.getDescription() + ".mp3");
+        request.setTitle(podcast.getSubtitle() + ".mp3");
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         try {
             request.setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
-                    podcast.getDescription() + ".mp3");
+                    podcast.getSubtitle() + ".mp3");
         } catch (IllegalStateException e) {
             layoutUpdater.showDownloadErrorDialog(this);
             return;
@@ -351,12 +357,16 @@ public class DownloadActivity extends Activity {
                 if (podcastsList.isEmpty()) {
                     layoutUpdater.connectionProblem();
                 }
+                layoutUpdater.updateLayout();
                 return;
             } else {
                 podcastsList = new ArrayList<>();
             }
-
-            parser.parsePage(result, podcastsList);
+            if(parser == null){
+                Log.e("PGT","You didn't set the parser in the Activity.");
+                return;
+            }
+            podcastsList = parser.parsePage(result);
             (new Utils(DownloadActivity.this)).savePodcastList(podcastsList);
             layoutUpdater.updateLayout();
         }

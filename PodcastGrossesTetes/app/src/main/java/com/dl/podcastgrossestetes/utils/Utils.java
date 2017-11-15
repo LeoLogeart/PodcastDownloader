@@ -37,7 +37,7 @@ public class Utils {
         }
 
         for (File f : downloadedFiles) {
-            if (f.getName().contains(podcast.getDescription()) && !isCurrentlyDownloading(podcast.getDescription())) {
+            if (f.getName().contains(podcast.getSubtitle()) && !isCurrentlyDownloading(podcast.getSubtitle())) {
                 podcast.setUri(f.getAbsolutePath());
                 return true;
             }
@@ -59,13 +59,13 @@ public class Utils {
     }
 
     public void saveTime(int currentPosition, String playingUri) {
-        SharedPreferences.Editor editor = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = ctx.getSharedPreferences(Constants.SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE).edit();
         editor.putInt(playingUri, currentPosition);
         editor.apply();
     }
 
     public int getTime(String podcastUri) {
-        return ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).getInt(podcastUri, 0);
+        return ctx.getSharedPreferences(Constants.SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE).getInt(podcastUri, 0);
     }
 
     public int getPodcastDuration(String podcastUri) {
@@ -77,11 +77,16 @@ public class Utils {
     }
 
     public void savePodcastList(ArrayList<Podcast> podcastsList) {
-        SharedPreferences.Editor editor = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).edit();
-        StringBuilder listBuilder =  new StringBuilder();
-        for(Podcast podcast : podcastsList)
-        {
-            listBuilder.append(podcast.getDescription()).append("$$").append(podcast.getUrl()).append(";");
+        SharedPreferences.Editor editor = ctx.getSharedPreferences(Constants.SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE).edit();
+        StringBuilder listBuilder = new StringBuilder();
+        for (Podcast podcast : podcastsList) {
+            listBuilder.append(podcast.getTitle());
+            listBuilder.append("$$").append(podcast.getSubtitle());
+            listBuilder.append("$$").append(podcast.getImage());
+            listBuilder.append("$$").append(podcast.getUrl());
+            listBuilder.append("$$").append(podcast.getType());
+            listBuilder.append("$$").append(podcast.getDuration());
+            listBuilder.append(";");
         }
         editor.putString(Constants.PODCASTS, listBuilder.toString());
         editor.apply();
@@ -89,12 +94,12 @@ public class Utils {
 
     public ArrayList<Podcast> retrievePodcastList() {
         ArrayList<Podcast> podcastsList = new ArrayList<>();
-        String list = ctx.getSharedPreferences("GrossesTetes", Context.MODE_PRIVATE).getString(Constants.PODCASTS,"");
+        String list = ctx.getSharedPreferences(Constants.SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE).getString(Constants.PODCASTS, "");
         String[] podcastStrings = list.split(";");
-        for( String podcast : podcastStrings){
+        for (String podcast : podcastStrings) {
             String[] podcastParts = podcast.split("\\$\\$");
-            if(podcastParts.length==2){
-                podcastsList.add(new Podcast(podcastParts[0],podcastParts[1]));
+            if (podcastParts.length == 6) {
+                podcastsList.add(new Podcast(podcastParts[0], podcastParts[1], Integer.parseInt(podcastParts[2]), podcastParts[3], podcastParts[4], Integer.parseInt(podcastParts[5])));
             }
         }
         return podcastsList;

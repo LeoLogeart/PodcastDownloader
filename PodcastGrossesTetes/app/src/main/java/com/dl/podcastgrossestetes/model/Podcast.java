@@ -4,9 +4,6 @@ package com.dl.podcastgrossestetes.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.dl.podcastgrossestetes.utils.PodcastParser;
-
-
 public class Podcast implements Parcelable {
     public static final Creator<Podcast> CREATOR = new Creator<Podcast>() {
         @Override
@@ -19,51 +16,127 @@ public class Podcast implements Parcelable {
             return new Podcast[size];
         }
     };
+    private static String[] types;
     private String url;
-    private String day;
+    private String title;
     private String uri;
-    private String description;
+    private String subtitle;
     private int image;
-    private Type type;
+    private int duration = 0;
+    private String type;
     private Status status;
 
-    public Podcast(String title, String podcastUrl) {
-        PodcastParser parser = new PodcastParser();
-        day = parser.getDay(title);
-        description = title;
-        url = podcastUrl;
-        type = parser.getType(title);
-        image = parser.getImg(type);
-        status = Status.NONE;
+    public Podcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
+        initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, podcastDuration);
     }
 
     protected Podcast(Parcel in) {
         url = in.readString();
-        day = in.readString();
+        title = in.readString();
         uri = in.readString();
-        description = in.readString();
+        subtitle = in.readString();
         image = in.readInt();
     }
 
-    public String getDay() {
-        return day;
+
+    public Podcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType) {
+        initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, 0);
     }
 
+    public static String[] getPodcastTypes() {
+        return types;
+    }
+
+    public static void setPodcastTypes(String[] podcastTypes) {
+        types = podcastTypes;
+    }
+
+    private void initPodcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
+        this.title = podcastTitle;
+        subtitle = podcastSubtitle;
+        url = podcastUrl;
+        type = podcastType;
+        image = podcastImage;
+        status = Status.NONE;
+        duration = podcastDuration;
+    }
+
+    /**
+     * Gets the podcast title that will be printed on screen.
+     *
+     * @return title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Gets the podcast image that will be printed on screen.
+     *
+     * @return image
+     */
     public int getImage() {
         return image;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * Gets the podcast subtitles that will be printed on screen.
+     *
+     * @return subtitle
+     */
+    public String getSubtitle() {
+        return subtitle;
     }
 
 
-    public Type getType() {
+    /**
+     * Gets the podcast type. Depending on the user's preferences regarding types,
+     * podcasts with certain type will not appear on screen.
+     *
+     * @return type
+     */
+    public String getType() {
         return type;
     }
 
+    /**
+     * Gets the podcast URL that will be used to download the podcast.
+     *
+     * @return url
+     */
     public String getUrl() {
         return url;
+    }
+
+    /**
+     * Gets the podcast's duration. it will be printed on screen if showDuration returns true.
+     *
+     * @return duration
+     */
+    public int getDuration() {
+        return duration;
+    }
+
+    /**
+     * Returns the status regarding the download.
+     *
+     * @return status
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Gets the podcast URI on the device. It will be used to play the podcast.
+     *
+     * @return uri
+     */
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public void setDownloading() {
@@ -74,18 +147,6 @@ public class Podcast implements Parcelable {
         status = Status.DOWNLOADED;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -94,14 +155,10 @@ public class Podcast implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(url);
-        parcel.writeString(day);
+        parcel.writeString(title);
         parcel.writeString(uri);
-        parcel.writeString(description);
+        parcel.writeString(subtitle);
         parcel.writeInt(image);
-    }
-
-    public enum Type {
-        INTEGRALE, PEPITE, BEST_OF, INVITE_MYSTERE
     }
 
     public enum Status {

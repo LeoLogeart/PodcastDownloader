@@ -18,8 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.R;
+import com.dl.podcastgrossestetes.model.Podcast;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.dl.podcastgrossestetes.utils.Utils;
 
@@ -69,8 +69,8 @@ class PodcastView {
 
     void initView(Podcast podcast) {
         image.setImageDrawable(ContextCompat.getDrawable(context, podcast.getImage()));
-        title.setText(podcast.getDay());
-        description.setText(podcast.getDescription());
+        title.setText(podcast.getTitle());
+        description.setText(podcast.getSubtitle());
         player.setVisibility(View.GONE);
 
         image_play_pause.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.play_img_selector));
@@ -178,7 +178,7 @@ class PodcastView {
 
     void fadeInExpandButton() {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int)px);
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int) px);
 
         image_expand.setVisibility(View.VISIBLE);
         mAnimator.addUpdateListener(valueAnimator -> {
@@ -194,7 +194,7 @@ class PodcastView {
     void expand(AnimatorListenerAdapter animatorEndListenerAdapter) {
         player.setVisibility(View.VISIBLE);
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 75, context.getResources().getDisplayMetrics());
-        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int)px);
+        ValueAnimator mAnimator = ValueAnimator.ofInt(0, (int) px);
 
         mAnimator.addUpdateListener(animatorUpdateListener);
         mAnimator.addListener(animatorEndListenerAdapter);

@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.context.DownloadActivity;
 import com.dl.podcastgrossestetes.model.Podcast;
-import com.dl.podcastgrossestetes.R;
 import com.dl.podcastgrossestetes.utils.Constants;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -51,7 +51,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
             }
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.ITEM_ID, podcast.getUri());
-            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getDescription());
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getSubtitle());
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "podcast");
             context.getFirebase().logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             animating = true;
