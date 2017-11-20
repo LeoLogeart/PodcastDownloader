@@ -67,6 +67,8 @@ public class DownloadActivity extends Activity {
     private Podcast playingPodcast;
     private Podcast waitingPodcast;
     private FirebaseAnalytics firebase;
+    private String adId;
+    private String rssUrl;
 
     private void isDlSuccessful(Long dwnId) {
         DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -81,6 +83,15 @@ public class DownloadActivity extends Activity {
         }
     }
 
+    protected void setParser(PodcastParserInterface parser){
+        this.parser = parser;
+    }
+    protected void setAdId(String id){
+        this.adId = id;
+    }
+    protected void setRssUrl(String url) {
+        rssUrl=url;
+    }
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
@@ -162,8 +173,10 @@ public class DownloadActivity extends Activity {
         initFields();
         ///TODO Remove
         String[] types = {"Intégrale", "Best of", "Invité mystère", "Pépites"};
+        setAdId("ca-app-pub-9891261141906247/3743396414");
         Podcast.setPodcastTypes(types);
-        parser = new PodcastParser();
+        setParser(new PodcastParser());
+        setRssUrl("http://www.rtl.fr/podcast/les-grosses-tetes.xml");
         /////
         startDl();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
@@ -184,7 +197,7 @@ public class DownloadActivity extends Activity {
     }
 
     private void setupAd() {
-        MobileAds.initialize(this, "ca-app-pub-9891261141906247/3743396414");
+        MobileAds.initialize(this, adId);
         AdView adContainer = this.findViewById(R.id.adsContainer);
 
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -238,11 +251,11 @@ public class DownloadActivity extends Activity {
      */
     private void startDl() {
         progress = new ProgressDialog(this);
-        progress.setTitle("Récupération des podcasts");
-        progress.setMessage("Patientez pendant la vérification des podcasts disponibles...");
+        progress.setTitle(getString(R.string.rss_download_title));
+        progress.setMessage(getString(R.string.rss_download_description));
         progress.show();
         new RequestTask()
-                .execute("http://www.rtl.fr/podcast/les-grosses-tetes.xml");
+                .execute(rssUrl);
     }
 
     public void downloadPodcast(Podcast podcast) {
