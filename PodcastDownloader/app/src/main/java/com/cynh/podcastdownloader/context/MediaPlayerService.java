@@ -66,6 +66,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             pauseMedia();
         }
     };
+    private boolean focusLost = false;
 
     @Nullable
     @Override
@@ -114,6 +115,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         mediaPlayer.setOnSeekCompleteListener(this);
         mediaPlayer.setOnInfoListener(this);
         mediaPlayer.reset();
+        focusLost=false;
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (currentPodcast == null) {
@@ -195,11 +197,16 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 if (mediaPlayer == null) initMediaPlayer();
                 else if(playbackStatus.equals(PlaybackStatus.PLAYING)){
                     mediaPlayer.setVolume(1.0f, 1.0f);
-                    mediaPlayer.start();
+                } else if (focusLost) {
+                    resumeMedia();
+                    focusLost=false;
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS:
-                pauseMedia();
+                if(playbackStatus.equals(PlaybackStatus.PLAYING)) {
+                    focusLost = true;
+                    pauseMedia();
+                }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                 mediaPlayer.pause();
