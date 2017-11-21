@@ -16,7 +16,11 @@
 #   public *;
 #}
 
--keep public class com.dl.podcastgrossestetes.context.* {
+-keep public class com.cynh.podcastdownloader.model.* {
    public protected *;
 }
--keep interface com.dl.podcastgrossestetes.**{*;}
+
+-keepclassmembers class com.cynh.podcastdownloader.context.* {
+  protected *;
+}
+-keep interface com.cynh.podcastdownloader.utils.**{*;}

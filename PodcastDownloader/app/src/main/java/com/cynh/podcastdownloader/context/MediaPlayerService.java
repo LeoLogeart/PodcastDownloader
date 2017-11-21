@@ -193,8 +193,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         switch (focusState) {
             case AudioManager.AUDIOFOCUS_GAIN:
                 if (mediaPlayer == null) initMediaPlayer();
-                else mediaPlayer.start();
-                mediaPlayer.setVolume(1.0f, 1.0f);
+                else if(playbackStatus.equals(PlaybackStatus.PLAYING)){
+                    mediaPlayer.setVolume(1.0f, 1.0f);
+                    mediaPlayer.start();
+                }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS:
                 pauseMedia();
@@ -203,7 +205,9 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 mediaPlayer.pause();
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                mediaPlayer.setVolume(0.1f, 0.1f);
+                if(playbackStatus.equals(PlaybackStatus.PLAYING)){
+                    mediaPlayer.setVolume(0.1f, 0.1f);
+                }
                 break;
         }
     }
