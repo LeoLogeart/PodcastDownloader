@@ -36,12 +36,11 @@
                 card_view:cardElevation="4sp"
                 android:padding="10dp" />
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:focusable="false"
-                android:orientation="vertical"
                 android:paddingEnd="0dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="0dp"
@@ -54,7 +53,23 @@
                     android:focusable="false"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#000000"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="3dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="7dp"
+                    android:focusable="false"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#666666"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/description"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/description"
@@ -62,8 +77,11 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#666666" />
-            </LinearLayout>
+                    android:textColor="#666666"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+            </android.support.constraint.ConstraintLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
