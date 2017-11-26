@@ -34,10 +34,11 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
 
     @Override
     public void onBindViewHolder(PodcastViewHolder holder, int position) {
-        holder.initHolder(podcasts.get(position));
+        Podcast currentPodcast = podcasts.get(position);
+        holder.initHolder(currentPodcast);
 
-        if (podcasts.get(position).getStatus().equals(Podcast.Status.DOWNLOADED)) {
-            holder.InitDownloadedHolder(podcasts.get(position));
+        if (currentPodcast.getStatus().equals(Podcast.Status.DOWNLOADED)) {
+            holder.InitDownloadedHolder(currentPodcast);
         }
 
         holder.getCardView().setOnClickListener(v -> onCardViewClick(holder, position));
@@ -49,12 +50,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
             if (animating) {
                 return;
             }
-            Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, podcast.getUri());
-            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getSubtitle());
-            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "podcast");
-            context.getFirebase().logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-            animating = true;
+            logFirebase(podcast);
             holder.OnDownloadedCardViewClick(podcast);
             final Handler handler = new Handler();
             handler.postDelayed(() -> animating = false, Constants.ANIMATION_DURATION);
@@ -62,6 +58,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
         } else {
             (new LayoutUpdater(context)).createDownloadConfirmationDialog(podcast);
         }
+    }
+
+    private void logFirebase(Podcast podcast) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, podcast.getUri());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, podcast.getSubtitle());
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "podcast");
+        FirebaseAnalytics firebase = context.getFirebase();
+        if(firebase!=null)
+            firebase.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        animating = true;
     }
 
     @Override
