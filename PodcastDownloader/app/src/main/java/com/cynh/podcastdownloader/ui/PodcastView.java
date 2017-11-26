@@ -77,6 +77,7 @@ class PodcastView {
         title.setText(podcast.getTitle());
         description.setText(podcast.getSubtitle());
         player.setVisibility(View.GONE);
+        image_expand.setVisibility(View.GONE);
         if (podcast.getDuration() != 0) {
             long podcastLength = podcast.getDuration();
             duration.setText(String.format(Locale.FRANCE, "%02d:%02d",
