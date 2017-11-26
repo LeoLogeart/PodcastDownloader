@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Info</string>
+    <string name="desc">Image</string>
+    <string name="change">Changer l\'affichage</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+
+</resources>

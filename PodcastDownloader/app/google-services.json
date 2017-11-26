@@ -1,0 +1,197 @@
+{
+  "project_info": {
+    "project_number": "534690911119",
+    "firebase_url": "https://admob-app-id-9269406018.firebaseio.com",
+    "project_id": "admob-app-id-9269406018",
+    "storage_bucket": "admob-app-id-9269406018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:8f864a5f25682eed",
+        "android_client_info": {
+          "package_name": "com.dl.cynh.lemasque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:d47b1fec8444d88b",
+        "android_client_info": {
+          "package_name": "com.dl.cynh.boomerang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:a2e5f35d9f57cfee",
+        "android_client_info": {
+          "package_name": "com.dl.cynh.lateteaucarre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:25571340902ed097",
+        "android_client_info": {
+          "package_name": "com.dl.podcastgrossestetes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:f2e0ef81aca0c237",
+        "android_client_info": {
+          "package_name": "com.dl.cynh.jannuletout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534690911119:android:e81e4327dc0e3af6",
+        "android_client_info": {
+          "package_name": "com.cynh.podcastdownloader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534690911119-do2q8umeck879q85cu425oihk4b651ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyb50NguaXMKe3tCXuKy1rBI3WKpKbQQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
