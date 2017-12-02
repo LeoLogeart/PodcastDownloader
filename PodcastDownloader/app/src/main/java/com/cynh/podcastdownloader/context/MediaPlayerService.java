@@ -264,7 +264,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                     case TelephonyManager.CALL_STATE_OFFHOOK:
                     case TelephonyManager.CALL_STATE_RINGING:
                         if (mediaPlayer != null) {
-                            pauseMedia();
+                            if(playbackStatus.equals(PlaybackStatus.PLAYING)) {
+                                focusLost = true;
+                                pauseMedia();
+                            }
                             ongoingCall = true;
                         }
                         break;
@@ -272,7 +275,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                         if (mediaPlayer != null) {
                             if (ongoingCall) {
                                 ongoingCall = false;
-                                resumeMedia();
+                                if (focusLost) {
+                                    resumeMedia();
+                                    focusLost=false;
+                                }
                             }
                         }
                         break;
