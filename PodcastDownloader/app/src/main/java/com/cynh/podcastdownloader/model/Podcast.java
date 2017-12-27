@@ -53,7 +53,12 @@ public class Podcast implements Parcelable {
 
     private void initPodcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
         this.title = podcastTitle;
-        subtitle = podcastSubtitle;
+        subtitle = podcastSubtitle.replaceAll("&amp;", "et")
+                .replaceAll("[^\\p{L} '?,.\\p{Nd}]+", "");
+        if(subtitle.length()>100)
+        {
+            subtitle = subtitle.substring(0,100)+"...";
+        }
         url = podcastUrl;
         type = podcastType;
         image = podcastImage;

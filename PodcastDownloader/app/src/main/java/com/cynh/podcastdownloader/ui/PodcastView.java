@@ -255,7 +255,8 @@ class PodcastView {
         mAnimator.start();
     }
 
-    void setProgressBarMax(Podcast podcast) {
+    int setProgressBarMax(Podcast podcast) {
         seekBar.setMax((new Utils(context)).getPodcastDuration(podcast.getUri()));
+        return seekBar.getMax();
     }
 }

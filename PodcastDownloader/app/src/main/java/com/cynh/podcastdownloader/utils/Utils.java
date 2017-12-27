@@ -1,6 +1,7 @@
 package com.cynh.podcastdownloader.utils;
 
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +10,8 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 
+import com.cynh.podcastdownloader.R;
+import com.cynh.podcastdownloader.context.DownloadActivity;
 import com.cynh.podcastdownloader.model.Podcast;
 
 import java.io.File;
@@ -35,9 +38,10 @@ public class Utils {
             downloadedFiles = downloadFolder.listFiles();
             if (downloadedFiles == null) return false;
         }
-
+        String podcastName;
         for (File f : downloadedFiles) {
-            if (f.getName().contains(podcast.getSubtitle()) && !isCurrentlyDownloading(podcast.getSubtitle())) {
+            podcastName = podcast.getSubtitle().replaceAll("\\?","");
+            if (f.getName().contains(podcastName) && !isCurrentlyDownloading(podcastName)) {
                 podcast.setUri(f.getAbsolutePath());
                 return true;
             }
@@ -69,11 +73,36 @@ public class Utils {
     }
 
     public int getPodcastDuration(String podcastUri) {
-        Uri uri = Uri.parse(podcastUri);
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(ctx, uri);
-        String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        return Integer.parseInt(durationStr);
+        int res = 0;
+        try {
+            Uri uri = Uri.parse(podcastUri);
+            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            mmr.setDataSource(ctx, uri);
+            String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            res = Integer.parseInt(durationStr);
+        } catch (Exception e) {
+            askToRemovePodcast(podcastUri);
+        }
+        return res;
+    }
+
+    private void askToRemovePodcast(String podcastUri) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
+            alertDialogBuilder.setTitle(R.string.corrupted_file_title);
+            alertDialogBuilder
+                    .setMessage(R.string.corrupted_file_description)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.ok, (dialog, id) -> deleteFile(podcastUri))
+                    .setNegativeButton(R.string.cancel, (dialog, id) -> dialog.cancel());
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+    }
+
+    private void deleteFile(String podcastUri) {
+        File podcast = new File(podcastUri);
+        podcast.delete();
+        ((DownloadActivity)ctx).updateLayout();
     }
 
     public void savePodcastList(ArrayList<Podcast> podcastsList) {

@@ -164,8 +164,11 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder {
             if (context.getCurrentPlayerHolder() != null && context.getCurrentPlayerHolder().isExpanded()) {
                 context.getCurrentPlayerHolder().stopPlayer();
             }
+            if(!initHolderPlayer(podcast)){
+                context.setPodcast(null);
+                return;
+            }
             context.setPodcast(podcast);
-            initHolderPlayer(podcast);
             podcastView.setImagePlay();
             setExpandedCardview();
         } else {
@@ -173,13 +176,17 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void initHolderPlayer(Podcast podcast) {
+    private boolean initHolderPlayer(Podcast podcast) {
+        int max = podcastView.setProgressBarMax(podcast);
+        if(max==0){
+            return false;
+        }
         context.setCurrentPlayerHolder(this);
         progress = (new Utils(context)).getTime(podcast.getUri());
-        podcastView.setProgressBarMax(podcast);
         podcastView.setProgress(progress);
         playing = false;
         mediaBrowserManager = context.connect();
+        return true;
     }
 
     private void stopPlayer() {

@@ -267,7 +267,7 @@ public class DownloadActivity extends Activity {
         try {
             request.setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
-                    podcast.getSubtitle() + ".mp3");
+                    podcast.getSubtitle().replaceAll("\\?", "") + ".mp3");
         } catch (IllegalStateException e) {
             layoutUpdater.showDownloadErrorDialog(this);
             return;
@@ -320,6 +320,10 @@ public class DownloadActivity extends Activity {
 
     protected void setFirebase(FirebaseAnalytics fb) {
         firebase = fb;
+    }
+
+    public void updateLayout() {
+        layoutUpdater.updateLayout();
     }
 
     /**

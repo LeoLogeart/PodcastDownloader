@@ -21,5 +21,7 @@
     <string name="storage_issue_description">Impossible d\'écrire sur la mémoire externe.</string>
     <string name="rss_download_title">Récupération des podcasts</string>
     <string name="rss_download_description">Patientez pendant la vérification des podcasts disponibles...</string>
+    <string name="corrupted_file_description">Le podcast est corrompu, voulez vous le supprimer?</string>
+    <string name="corrupted_file_title">Podcast illisible</string>
 
 </resources>
