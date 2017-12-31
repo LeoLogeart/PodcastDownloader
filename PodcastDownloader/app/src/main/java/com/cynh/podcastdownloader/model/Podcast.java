@@ -60,16 +60,15 @@ public class Podcast implements Parcelable {
     }
 
     private void initPodcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
-        initPodcast(podcastTitle, podcastSubtitle, Integer.toString(podcastImage),podcastUrl, podcastType, podcastDuration);
+        initPodcast(podcastTitle, podcastSubtitle, Integer.toString(podcastImage), podcastUrl, podcastType, podcastDuration);
     }
 
     private void initPodcast(String podcastTitle, String podcastSubtitle, String podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
         this.title = podcastTitle;
         subtitle = podcastSubtitle.replaceAll("&amp;", "et")
                 .replaceAll("[^\\p{L} '?,.\\p{Nd}]+", "");
-        if(subtitle.length()>100)
-        {
-            subtitle = subtitle.substring(0,100)+"...";
+        if (subtitle.length() > 100) {
+            subtitle = subtitle.substring(0, 100) + "...";
         }
         url = podcastUrl;
         type = podcastType;
@@ -77,6 +76,7 @@ public class Podcast implements Parcelable {
         status = Status.NONE;
         duration = podcastDuration;
     }
+
     /**
      * Gets the podcast title that will be printed on screen.
      *

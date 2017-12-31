@@ -165,7 +165,7 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder {
                 context.getCurrentPlayerHolder().stopPlayer();
             }
             context.setPodcast(podcast);
-            if(!initHolderPlayer(podcast)){
+            if (!initHolderPlayer(podcast)) {
                 context.setPodcast(null);
                 return;
             }
@@ -178,7 +178,7 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder {
 
     private boolean initHolderPlayer(Podcast podcast) {
         int max = podcastView.setProgressBarMax(podcast);
-        if(max==0){
+        if (max == 0) {
             return false;
         }
         context.setCurrentPlayerHolder(this);

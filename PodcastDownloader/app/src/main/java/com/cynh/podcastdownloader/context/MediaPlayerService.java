@@ -1,6 +1,5 @@
 package com.cynh.podcastdownloader.context;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -28,7 +27,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.RemoteViews;
 
 import com.cynh.podcastdownloader.R;
 import com.cynh.podcastdownloader.model.Podcast;
@@ -37,7 +35,6 @@ import com.cynh.podcastdownloader.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -67,6 +64,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     private long playbackState;
     private PlaybackStateCompat.Builder stateBuilder;
     private boolean focusLost = false;
+    //Keep this field for strong reference use with picasso
     private Target imageTarget;
     private BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -228,18 +226,24 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     private boolean requestAudioFocus() {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        int result = 0;
+        if (audioManager != null) {
+            result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        }
         return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
     }
 
-    private boolean removeAudioFocus() {
-        return audioManager == null || AudioManager.AUDIOFOCUS_REQUEST_GRANTED == audioManager.abandonAudioFocus(this);
+    private void removeAudioFocus() {
+        if (audioManager != null)
+            audioManager.abandonAudioFocus(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            currentPodcast = intent.getExtras().getParcelable("media");
+            Bundle extras = intent.getExtras();
+            if(extras != null)
+                currentPodcast = extras.getParcelable("media");
         } catch (NullPointerException e) {
             stopSelf();
         }
@@ -544,7 +548,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     private void showNotification() {
         if (notificationBuilder != null) {
             //startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build()); TODO make a custom notif with cancel button
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
+            NotificationManager systemService = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (systemService != null) {
+                systemService.notify(Constants.NOTIFICATION_ID, notificationBuilder.build());
+            }
         }
     }
 
@@ -588,15 +595,13 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     private void removeNotification() {
         updatePlaybackState(PlaybackStateCompat.ACTION_STOP);
         //stopForeground(true);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        cancelNotification();
     }
 
     private void removeNotificationNoUpdate() {
         this.playbackState = PlaybackStateCompat.ACTION_STOP;
         //stopForeground(true);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        cancelNotification();
     }
 
     private void handleIncomingActions(Intent playbackAction) {
@@ -618,16 +623,21 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        cancelNotification();
         stopSelf();
         super.onTaskRemoved(rootIntent);
     }
 
+    private void cancelNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.cancel(Constants.NOTIFICATION_ID);
+        }
+    }
+
     @Override
     public boolean onUnbind(Intent intent) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_ID);
+        cancelNotification();
         stopSelf();
         return super.onUnbind(intent);
     }

@@ -40,7 +40,7 @@ public class Utils {
         }
         String podcastName;
         for (File f : downloadedFiles) {
-            podcastName = podcast.getSubtitle().replaceAll("\\?","");
+            podcastName = podcast.getSubtitle().replaceAll("\\?", "");
             if (f.getName().contains(podcastName) && !isCurrentlyDownloading(podcastName)) {
                 podcast.setUri(f.getAbsolutePath());
                 return true;
@@ -53,11 +53,15 @@ public class Utils {
         if (filesDownloading == null) {
             filesDownloading = new HashSet<>();
             DownloadManager mgr = (DownloadManager) ctx.getSystemService(DOWNLOAD_SERVICE);
-            Cursor c = mgr.query(new DownloadManager.Query().setFilterByStatus(DownloadManager.STATUS_RUNNING | DownloadManager.STATUS_PENDING | DownloadManager.STATUS_PAUSED));
-            while (c.moveToNext()) {
-                filesDownloading.add(c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE)));
+            Cursor c;
+            if (mgr != null) {
+                c = mgr.query(new DownloadManager.Query().setFilterByStatus(DownloadManager.STATUS_RUNNING | DownloadManager.STATUS_PENDING | DownloadManager.STATUS_PAUSED));
+
+                while (c.moveToNext()) {
+                    filesDownloading.add(c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE)));
+                }
+                c.close();
             }
-            c.close();
         }
         return filesDownloading.contains(title + ".mp3");
     }
@@ -87,22 +91,22 @@ public class Utils {
     }
 
     private void askToRemovePodcast(String podcastUri) {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
-            alertDialogBuilder.setTitle(R.string.corrupted_file_title);
-            alertDialogBuilder
-                    .setMessage(R.string.corrupted_file_description)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.ok, (dialog, id) -> deleteFile(podcastUri))
-                    .setNegativeButton(R.string.cancel, (dialog, id) -> dialog.cancel());
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
+        alertDialogBuilder.setTitle(R.string.corrupted_file_title);
+        alertDialogBuilder
+                .setMessage(R.string.corrupted_file_description)
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok, (dialog, id) -> deleteFile(podcastUri))
+                .setNegativeButton(R.string.cancel, (dialog, id) -> dialog.cancel());
 
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void deleteFile(String podcastUri) {
         File podcast = new File(podcastUri);
-        podcast.delete();
-        ((DownloadActivity)ctx).updateLayout();
+        if (podcast.delete())
+            ((DownloadActivity) ctx).updateLayout();
     }
 
     public void savePodcastList(ArrayList<Podcast> podcastsList) {

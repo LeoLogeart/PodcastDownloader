@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -101,10 +100,10 @@ class PodcastView {
     }
 
     private void setImage(Podcast podcast) {
-        if(podcast.getImage()=="0" || podcast.getImage()==null){
+        if (podcast.getImage().equals("0") || podcast.getImage() == null) {
             return;
         }
-        if(podcast.getImage().startsWith("http")){
+        if (podcast.getImage().startsWith("http")) {
             Picasso.with(context).load(podcast.getImage()).resize(200, 200).into(image);
         } else {
             image.setImageDrawable(ContextCompat.getDrawable(context, Integer.parseInt(podcast.getImage())));
