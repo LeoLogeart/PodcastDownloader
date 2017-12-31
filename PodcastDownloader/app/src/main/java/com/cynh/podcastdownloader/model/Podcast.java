@@ -21,7 +21,7 @@ public class Podcast implements Parcelable {
     private String title;
     private String uri;
     private String subtitle;
-    private int image;
+    private String image;
     private int duration = 0;
     private String type;
     private Status status;
@@ -30,16 +30,24 @@ public class Podcast implements Parcelable {
         initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, podcastDuration);
     }
 
+    public Podcast(String podcastTitle, String podcastSubtitle, String podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
+        initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, podcastDuration);
+    }
+
     protected Podcast(Parcel in) {
         url = in.readString();
         title = in.readString();
         uri = in.readString();
         subtitle = in.readString();
-        image = in.readInt();
+        image = in.readString();
     }
 
 
     public Podcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType) {
+        initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, 0);
+    }
+
+    public Podcast(String podcastTitle, String podcastSubtitle, String podcastImage, String podcastUrl, String podcastType) {
         initPodcast(podcastTitle, podcastSubtitle, podcastImage, podcastUrl, podcastType, 0);
     }
 
@@ -52,6 +60,10 @@ public class Podcast implements Parcelable {
     }
 
     private void initPodcast(String podcastTitle, String podcastSubtitle, int podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
+        initPodcast(podcastTitle, podcastSubtitle, Integer.toString(podcastImage),podcastUrl, podcastType, podcastDuration);
+    }
+
+    private void initPodcast(String podcastTitle, String podcastSubtitle, String podcastImage, String podcastUrl, String podcastType, int podcastDuration) {
         this.title = podcastTitle;
         subtitle = podcastSubtitle.replaceAll("&amp;", "et")
                 .replaceAll("[^\\p{L} '?,.\\p{Nd}]+", "");
@@ -65,7 +77,6 @@ public class Podcast implements Parcelable {
         status = Status.NONE;
         duration = podcastDuration;
     }
-
     /**
      * Gets the podcast title that will be printed on screen.
      *
@@ -80,7 +91,7 @@ public class Podcast implements Parcelable {
      *
      * @return image
      */
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -163,7 +174,7 @@ public class Podcast implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(uri);
         parcel.writeString(subtitle);
-        parcel.writeInt(image);
+        parcel.writeString(image);
     }
 
     public enum Status {

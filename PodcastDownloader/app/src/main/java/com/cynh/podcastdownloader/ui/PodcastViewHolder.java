@@ -164,11 +164,11 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder {
             if (context.getCurrentPlayerHolder() != null && context.getCurrentPlayerHolder().isExpanded()) {
                 context.getCurrentPlayerHolder().stopPlayer();
             }
+            context.setPodcast(podcast);
             if(!initHolderPlayer(podcast)){
                 context.setPodcast(null);
                 return;
             }
-            context.setPodcast(podcast);
             podcastView.setImagePlay();
             setExpandedCardview();
         } else {

@@ -40,8 +40,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastViewHolder> {
         if (currentPodcast.getStatus().equals(Podcast.Status.DOWNLOADED)) {
             holder.InitDownloadedHolder(currentPodcast);
         }
-
-        holder.getCardView().setOnClickListener(v -> onCardViewClick(holder, position));
+        holder.getCardView().setOnClickListener(view -> onCardViewClick(holder, position));
     }
 
     private void onCardViewClick(PodcastViewHolder holder, int position) {

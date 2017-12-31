@@ -25,6 +25,7 @@ import com.cynh.podcastdownloader.R;
 import com.cynh.podcastdownloader.model.Podcast;
 import com.cynh.podcastdownloader.utils.Constants;
 import com.cynh.podcastdownloader.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -73,7 +74,8 @@ class PodcastView {
 
 
     void initView(Podcast podcast) {
-        image.setImageDrawable(ContextCompat.getDrawable(context, podcast.getImage()));
+        setImage(podcast);
+
         title.setText(podcast.getTitle());
         description.setText(podcast.getSubtitle());
         player.setVisibility(View.GONE);
@@ -95,6 +97,17 @@ class PodcastView {
             progressBar.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void setImage(Podcast podcast) {
+        if(podcast.getImage()=="0" || podcast.getImage()==null){
+            return;
+        }
+        if(podcast.getImage().startsWith("http")){
+            Picasso.with(context).load(podcast.getImage()).resize(200, 200).into(image);
+        } else {
+            image.setImageDrawable(ContextCompat.getDrawable(context, Integer.parseInt(podcast.getImage())));
         }
     }
 

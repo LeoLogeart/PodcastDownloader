@@ -19,8 +19,8 @@
 -keep public class com.cynh.podcastdownloader.model.* {
    public protected *;
 }
-
 -keepclassmembers class com.cynh.podcastdownloader.context.* {
-  protected *;
+   protected *;
 }
+-dontwarn com.squareup.okhttp.**
 -keep interface com.cynh.podcastdownloader.utils.**{*;}

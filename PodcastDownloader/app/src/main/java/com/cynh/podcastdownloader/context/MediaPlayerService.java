@@ -1,5 +1,6 @@
 package com.cynh.podcastdownloader.context;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.session.MediaSessionManager;
@@ -26,12 +28,16 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.RemoteViews;
 
 import com.cynh.podcastdownloader.R;
 import com.cynh.podcastdownloader.model.Podcast;
 import com.cynh.podcastdownloader.utils.Constants;
 import com.cynh.podcastdownloader.utils.Utils;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -60,13 +66,14 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     private PlaybackStatus playbackStatus;
     private long playbackState;
     private PlaybackStateCompat.Builder stateBuilder;
+    private boolean focusLost = false;
+    private Target imageTarget;
     private BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             pauseMedia();
         }
     };
-    private boolean focusLost = false;
 
     @Nullable
     @Override
@@ -115,7 +122,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         mediaPlayer.setOnSeekCompleteListener(this);
         mediaPlayer.setOnInfoListener(this);
         mediaPlayer.reset();
-        focusLost=false;
+        focusLost = false;
 
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         if (currentPodcast == null) {
@@ -195,15 +202,15 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         switch (focusState) {
             case AudioManager.AUDIOFOCUS_GAIN:
                 if (mediaPlayer == null) initMediaPlayer();
-                else if(playbackStatus.equals(PlaybackStatus.PLAYING)){
+                else if (playbackStatus.equals(PlaybackStatus.PLAYING)) {
                     mediaPlayer.setVolume(1.0f, 1.0f);
                 } else if (focusLost) {
                     resumeMedia();
-                    focusLost=false;
+                    focusLost = false;
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS:
-                if(playbackStatus.equals(PlaybackStatus.PLAYING)) {
+                if (playbackStatus.equals(PlaybackStatus.PLAYING)) {
                     focusLost = true;
                     pauseMedia();
                 }
@@ -212,7 +219,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 mediaPlayer.pause();
                 break;
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                if(playbackStatus.equals(PlaybackStatus.PLAYING)){
+                if (playbackStatus.equals(PlaybackStatus.PLAYING)) {
                     mediaPlayer.setVolume(0.1f, 0.1f);
                 }
                 break;
@@ -264,7 +271,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                     case TelephonyManager.CALL_STATE_OFFHOOK:
                     case TelephonyManager.CALL_STATE_RINGING:
                         if (mediaPlayer != null) {
-                            if(playbackStatus.equals(PlaybackStatus.PLAYING)) {
+                            if (playbackStatus.equals(PlaybackStatus.PLAYING)) {
                                 focusLost = true;
                                 pauseMedia();
                             }
@@ -277,7 +284,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                                 ongoingCall = false;
                                 if (focusLost) {
                                     resumeMedia();
-                                    focusLost=false;
+                                    focusLost = false;
                                 }
                             }
                         }
@@ -354,8 +361,10 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             @Override
             public void onStop() {
                 super.onStop();
-                if (mediaPlayer == null)
+                if (mediaPlayer == null || currentPodcast == null) {
+                    updatePlaybackState(PlaybackStateCompat.ACTION_STOP);
                     return;
+                }
                 (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
                 mediaPlayer.stop();
                 mediaPlayer.reset();
@@ -466,15 +475,12 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
         deleteIntent.setAction(ACTION_STOP);
         PendingIntent pendingDeleteIntent = PendingIntent.getService(MediaPlayerService.this, 1, deleteIntent, 0);
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),
-                currentPodcast.getImage());
 
         notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setShowWhen(false)
                 .setStyle(new NotificationCompat.MediaStyle()
                         .setMediaSession(mediaSession.getSessionToken())
                         .setShowActionsInCompactView(0, 1, 2))
-                .setLargeIcon(largeIcon)
                 .setSmallIcon(android.R.drawable.stat_sys_headset)
                 .setContentText(currentPodcast.getSubtitle())
                 .setContentTitle(currentPodcast.getTitle())
@@ -484,9 +490,41 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 .setContentIntent(pendingIntent)
                 .setDeleteIntent(pendingDeleteIntent)
                 .addAction(R.drawable.ic_forward_10_white_24dp, "next", playbackAction(2));
+        setNotificationImage(notificationBuilder);
         updateNotificationProgress();
 
         showNotification();
+    }
+
+    private void setNotificationImage(NotificationCompat.Builder notificationBuilder) {
+        try {
+            if (currentPodcast.getImage().startsWith("http")) {
+                Bitmap placeholder = BitmapFactory.decodeResource(getResources(), android.R.id.icon);
+                notificationBuilder.setLargeIcon(placeholder);
+                imageTarget = new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        notificationBuilder.setLargeIcon(bitmap);
+                        showNotification();
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    }
+                };
+
+                Picasso.with(this).load(currentPodcast.getImage()).into(imageTarget);
+            } else {
+                notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                        Integer.parseInt(currentPodcast.getImage())));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updatePlaybackState(long playbackstate) {

@@ -46,7 +46,7 @@ public class LayoutUpdater {
 
     private void addSelectedPodcast(List<Podcast> shownPodcastList, Podcast pod, Utils utils) {
         if (Podcast.getPodcastTypes() == null) {
-            Log.e("PGT", "You didn't set the podcast types : Podcast.setTypes(...)");
+            Log.e("PodcastDownloader", "You didn't set the podcast types : Podcast.setPodcastTypes(...)");
             return;
         }
         for (String type : Podcast.getPodcastTypes()) {

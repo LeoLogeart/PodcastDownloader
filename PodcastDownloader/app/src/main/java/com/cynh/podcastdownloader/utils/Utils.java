@@ -128,7 +128,7 @@ public class Utils {
         for (String podcast : podcastStrings) {
             String[] podcastParts = podcast.split("\\$\\$");
             if (podcastParts.length == 6) {
-                podcastsList.add(new Podcast(podcastParts[0], podcastParts[1], Integer.parseInt(podcastParts[2]), podcastParts[3], podcastParts[4], Integer.parseInt(podcastParts[5])));
+                podcastsList.add(new Podcast(podcastParts[0], podcastParts[1], podcastParts[2], podcastParts[3], podcastParts[4], Integer.parseInt(podcastParts[5])));
             }
         }
         return podcastsList;
