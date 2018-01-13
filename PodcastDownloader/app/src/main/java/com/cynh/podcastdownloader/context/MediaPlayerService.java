@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.media.session.MediaSessionManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +52,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     public static final String ACTION_NEXT = "com.dl.podcastgrossestetes.ACTION_NEXT";
     public static final String ACTION_STOP = "com.dl.podcastgrossestetes.ACTION_STOP";
     private static MediaPlayer mediaPlayer;
+    private static int clickNumber;
     private AudioManager audioManager;
     private Podcast currentPodcast;
     private boolean ongoingCall = false;
@@ -72,6 +74,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             pauseMedia();
         }
     };
+    private Handler HeadsetHandler;
 
     @Nullable
     @Override
@@ -152,12 +155,11 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     }
 
     private void pauseMedia() {
-        buildNotification(PlaybackStatus.PAUSED);
         mediaPlayer.pause();
+        buildNotification(PlaybackStatus.PAUSED);
     }
 
     private void resumeMedia() {
-        buildNotification(PlaybackStatus.PLAYING);
         if (!requestAudioFocus()) {
             stopSelf();
         }
@@ -165,6 +167,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             initMediaPlayer();
         }
         mediaPlayer.start();
+        buildNotification(PlaybackStatus.PLAYING);
     }
 
     @Override
@@ -242,7 +245,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
             Bundle extras = intent.getExtras();
-            if(extras != null)
+            if (extras != null)
                 currentPodcast = extras.getParcelable("media");
         } catch (NullPointerException e) {
             stopSelf();
@@ -358,8 +361,8 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                 super.onPause();
                 if (mediaPlayer == null)
                     return;
-                (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
                 pauseMedia();
+                (new Utils(MediaPlayerService.this)).saveTime(mediaPlayer.getCurrentPosition(), currentPodcast.getUri());
             }
 
             @Override
@@ -440,12 +443,37 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
                         return super.onMediaButtonEvent(mediaButtonIntent);
                     }
                 }
+                clickNumber++;
+                if (HeadsetHandler == null) {
+                    HeadsetHandler = new Handler();
+                }
+                Runnable r = () -> {
+                    if (clickNumber == 1) {
+                        handleClick();
+                    }
+                    if (clickNumber == 2) {
+                        onSkipToPrevious();
+                    }
+                    if (clickNumber == 3) {
+                        onSkipToNext();
+                    }
+                    clickNumber = 0;
+                };
+                if (clickNumber == 1) {
+                    HeadsetHandler.postDelayed(r, 300);
+                } else if (clickNumber == 2) {
+                    HeadsetHandler.removeCallbacksAndMessages(null);
+                    HeadsetHandler.postDelayed(r, 300);
+                }
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
+
+            private void handleClick() {
                 if (mediaPlayer.isPlaying()) {
                     onPause();
                 } else {
                     onPlay();
                 }
-                return super.onMediaButtonEvent(mediaButtonIntent);
             }
         });
         mediaSession.setActive(true);
