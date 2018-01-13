@@ -45,3 +45,6 @@ dependencies {
 
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.LeoLogeart'
