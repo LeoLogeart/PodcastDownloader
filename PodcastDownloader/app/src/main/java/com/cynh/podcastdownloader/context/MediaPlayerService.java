@@ -178,13 +178,13 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
     public boolean onError(MediaPlayer mp, int what, int extra) {
         switch (what) {
             case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-                Log.d("PGT", "MEDIA ERROR NOT VALID FOR PROGRESSIVE PLAYBACK " + extra);
+                Log.d("PodcastDownloader", "MEDIA ERROR NOT VALID FOR PROGRESSIVE PLAYBACK " + extra);
                 break;
             case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-                Log.d("PGT", "MEDIA ERROR SERVER DIED " + extra);
+                Log.d("PodcastDownloader", "MEDIA ERROR SERVER DIED " + extra);
                 break;
             case MediaPlayer.MEDIA_ERROR_UNKNOWN:
-                Log.d("PGT", "MEDIA ERROR UNKNOWN " + extra);
+                Log.d("PodcastDownloader", "MEDIA ERROR UNKNOWN " + extra);
                 break;
         }
         return false;
@@ -334,7 +334,7 @@ public class MediaPlayerService extends MediaBrowserServiceCompat implements Med
             mediaSessionManager = (MediaSessionManager) getSystemService(Context.MEDIA_SESSION_SERVICE);
         }
 
-        mediaSession = new MediaSessionCompat(getApplicationContext(), "PGT");
+        mediaSession = new MediaSessionCompat(getApplicationContext(), "PodcastDownloader");
         transportControls = mediaSession.getController().getTransportControls();
         mediaSession.setFlags(
                 MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |

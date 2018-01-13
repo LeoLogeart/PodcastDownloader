@@ -376,7 +376,7 @@ public class DownloadActivity extends Activity {
                 podcastsList = new ArrayList<>();
             }
             if (parser == null) {
-                Log.e("PGT", "You didn't set the parser in the Activity.");
+                Log.e("PodcastDownloader", "You didn't set the parser in the Activity.");
                 return;
             }
             podcastsList = parser.parsePage(result);

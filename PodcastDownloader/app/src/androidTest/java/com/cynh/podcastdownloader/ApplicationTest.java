@@ -1,4 +1,4 @@
-package com.cynh.podcastgrossestests;
+package com.cynh.podcastdownloader;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -39,13 +39,13 @@ public class MediaBrowserManager {
 
             @Override
             public void onConnectionSuspended() {
-                Log.d("PGT", "Connection Suspended");
+                Log.d("PodcastDownloader", "Connection Suspended");
                 // The Service has crashed. Disable transport controls until it automatically reconnects
             }
 
             @Override
             public void onConnectionFailed() {
-                Log.d("PGT", "Connection Failed");
+                Log.d("PodcastDownloader", "Connection Failed");
                 // The Service has refused our connection
             }
         };
